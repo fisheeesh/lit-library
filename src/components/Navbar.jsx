@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     return (
-        <nav className="flex items-center justify-between px-3.5 py-5 border md:px-24 border-b-gray-200">
+        <div className="flex items-center justify-between px-3.5 py-3.5 border md:px-20 border-b-gray-200">
             {/* Left: Search bar and button */}
             <div className="relative flex items-center space-x-2">
                 <input
@@ -20,9 +20,10 @@ export default function Navbar() {
 
             {/* Center: Logo */}
             <Link to='/' className="flex items-center gap-2 text-2xl font-bold">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hidden transition duration-700 ease-in-out cursor-pointer size-6 md:block hover:text-primary">
+                {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="hidden transition duration-700 ease-in-out cursor-pointer size-6 md:block hover:text-primary">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
-                </svg>
+                </svg> */}
+                <img src="../src/assets/favicon.png" alt="" />
 
                 <span className='text-primary'>LitLibrary</span>
             </Link>
@@ -42,6 +43,6 @@ export default function Navbar() {
                     className="w-10 h-10 rounded-full"
                 />
             </div>
-        </nav>
+        </div>
     )
 }

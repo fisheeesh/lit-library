@@ -1,7 +1,5 @@
-/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 
-const colors = require('tailwindcss/colors')
 export default {
   content: [
     "./index.html",
@@ -10,7 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: colors.indigo[600]
+        primary: "#4555d2",
+        secondary: "#cc2973"
       }
     },
   },
