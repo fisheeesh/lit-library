@@ -1,39 +1,65 @@
 {
-    "books": [
-      {
-        "id": 1,
-        "title": "The Great Gatsby",
-        "author": "F. Scott Fitzgerald",
-        "description": "A novel set in the Roaring Twenties that tells the story of Jay Gatsby's unrequited love for Daisy Buchanan.",
-        "categories": ["Classic", "Fiction"]
-      },
-      {
-        "id": 2,
-        "title": "To Kill a Mockingbird",
-        "author": "Harper Lee",
-        "description": "A novel about the serious issues of rape and racial inequality, seen through the eyes of young Scout Finch.",
-        "categories": ["Classic", "Historical Fiction"]
-      },
-      {
-        "id": 3,
-        "title": "1984",
-        "author": "George Orwell",
-        "description": "A dystopian novel set in a totalitarian society ruled by Big Brother.",
-        "categories": ["Dystopian", "Science Fiction"]
-      },
-      {
-        "id": 4,
-        "title": "Pride and Prejudice",
-        "author": "Jane Austen",
-        "description": "A romantic novel that also critiques the British landed gentry at the end of the 18th century.",
-        "categories": ["Classic", "Romance"]
-      },
-      {
-        "id": 5,
-        "title": "The Catcher in the Rye",
-        "author": "J.D. Salinger",
-        "description": "A novel about the experiences of a young man named Holden Caulfield, who is disillusioned with the adult world.",
-        "categories": ["Classic", "Fiction"]
-      }
-    ]
-  }
+  "books": [
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "description": "A novel set in the Roaring Twenties that tells the story of Jay Gatsby's unrequited love for Daisy Buchanan.",
+      "categories": [
+        "Classic",
+        "Fiction"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "description": "A novel about the serious issues of rape and racial inequality, seen through the eyes of young Scout Finch.",
+      "categories": [
+        "Classic",
+        "Historical Fiction"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "1984",
+      "author": "George Orwell",
+      "description": "A dystopian novel set in a totalitarian society ruled by Big Brother.",
+      "categories": [
+        "Dystopian",
+        "Science Fiction"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Pride and Prejudice",
+      "author": "Jane Austen",
+      "description": "A romantic novel that also critiques the British landed gentry at the end of the 18th century.",
+      "categories": [
+        "Classic",
+        "Romance"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "The Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "description": "A novel about the experiences of a young man named Holden Caulfield, who is disillusioned with the adult world.",
+      "categories": [
+        "Classic",
+        "Fiction"
+      ]
+    },
+    {
+      "title": "New Book",
+      "author": "Swam Yi Phyo",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "categories": [
+        "lorem",
+        "new",
+        "test"
+      ],
+      "id": 6
+    }
+  ]
+}
