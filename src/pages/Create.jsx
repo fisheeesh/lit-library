@@ -53,7 +53,13 @@ export default function Create() {
   }, [newBook, navigate])
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-lg pt-5 mx-auto">
+    <form onSubmit={handleSubmit} className="w-full max-w-lg px-5 py-5 mx-auto mt-3 border rounded-md border-1">
+      <div className="flex items-center gap-2 mt-1 mb-7">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+        </svg>
+        <h3 className="text-3xl font-bold text-primary">Create a book.</h3>
+      </div>
       <div className="flex flex-wrap mb-6 -mx-3">
         <div className="w-full px-3 md:w-1/2">
           <label className="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" htmlFor="book-title">

@@ -1,9 +1,16 @@
+import { useLocation } from "react-router-dom"
 import useFetch from "../hooks/useFetch"
 import SingleBook from "./SingleBook"
 
 export default function BookList() {
 
-    const { data: books, error, loading } = useFetch('http://localhost:3001/books')
+    const location = useLocation()
+
+    const params = new URLSearchParams(location.search)
+
+    const search = params.get('search')
+
+    const { data: books, error, loading } = useFetch(`http://localhost:3001/books${search ? `?q=${search}` : ''}`)
 
     if (error) {
         return <h3 className="my-5 text-center text-red-600">{error}</h3>
@@ -19,6 +26,7 @@ export default function BookList() {
                     ))
                 }
             </div>
+            {books && books.length === 0 && <h3 className="my-16 text-3xl text-center text-primary">No book(s) found</h3>}
         </>
     )
 }
