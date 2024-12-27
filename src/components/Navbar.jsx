@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useTheme from '../hooks/useTheme';
+import lightIcon from '../assets/light_mode.svg'
+import darkIcon from '../assets/dark_mode.svg'
 
 export default function Navbar() {
     const [search, setSearch] = useState('')
@@ -12,8 +15,10 @@ export default function Navbar() {
         navigate(`/?search=${search}`)
     }
 
+    const { isDark, changeTheme } = useTheme()
+
     return (
-        <div className="flex items-center justify-between px-3.5 py-3.5 border md:px-20 border-b-gray-200">
+        <nav className={`flex items-center justify-between px-3.5 py-3.5 border md:px-20 ${isDark ? 'border-primary' : 'border-b-gray-200'}`}>
             {/* Left: Search bar and button */}
             <div className="relative flex items-center space-x-2">
                 <input value={search} onChange={e => setSearch(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSearch(e)}
@@ -53,7 +58,11 @@ export default function Navbar() {
                     alt="Profile"
                     className="w-10 h-10 rounded-full"
                 />
+                <div className='p-1.5 border border-1 rounded-full flex items-center cursor-pointer'>
+                    {isDark && <img src={lightIcon} className='w-6' alt="lightIcon.png" onClick={() => changeTheme('light')} />}
+                    {!isDark && <img src={darkIcon} className='w-6' alt='darkIcon.png' onClick={() => changeTheme('dark')} />}
+                </div>
             </div>
-        </div>
+        </nav>
     )
 }

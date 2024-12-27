@@ -26,7 +26,7 @@ export default function BookList() {
                     ))
                 }
             </div>
-            {books && books.length === 0 && <h3 className="my-16 text-3xl text-center text-primary">No book(s) found</h3>}
+            {books && books.length === 0 && <h3 className="my-16 text-3xl font-bold text-center text-primary">No book(s) found</h3>}
         </>
     )
 }

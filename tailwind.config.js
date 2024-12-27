@@ -9,7 +9,9 @@ export default {
     extend: {
       colors: {
         primary: "#4555d2",
-        secondary: "#cc2973"
+        secondary: "#cc2973",
+        dbg: '#050618',
+        dcard: '#070E27'
       }
     },
   },
