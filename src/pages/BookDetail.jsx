@@ -1,13 +1,40 @@
 import { useParams } from "react-router-dom"
-import useFetch from "../hooks/useFetch"
 import bookImage from '../assets/book.png'
 import useTheme from "../hooks/useTheme"
+import { useEffect, useState } from "react"
+import { doc, getDoc } from "firebase/firestore"
+import { booksCollectionRef } from "../firebase/config"
 
 export default function BookDetail() {
-    const params = useParams()
-    const { data: book, error, loading } = useFetch(`http://localhost:3001/books/${params.id}`)
-
+    /**
+     * @TODO: with json-server
+     * $ import useFetch from "../hooks/useFetch"
+     * ?const { data: book, error, loading } = useFetch(`http://localhost:3001/books/${params.id}`)
+     */
+    const { id } = useParams()
+    const [book, setBook] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false)
     const { isDark } = useTheme()
+
+    // @TODO : with firebase firestore
+    useEffect(() => {
+        setLoading(true)
+        let ref = doc(booksCollectionRef, id)
+        getDoc(ref)
+            .then(doc => {
+                if (doc.exists()) {
+                    // console.log(doc.data())
+                    setBook(doc.data())
+                    setLoading(false)
+                    setError(null)
+                }
+                else{
+                    setLoading(false)
+                    setError("Something went wrong.!")
+                }
+            })
+    }, [id])
 
     if (error) {
         return <h3 className="my-5 text-center text-red-600">{error}</h3>

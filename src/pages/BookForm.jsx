@@ -1,23 +1,61 @@
 import { useEffect, useState } from "react"
-import useFetch from "../hooks/useFetch"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
+import { addDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore"
+import { booksCollectionRef } from "../firebase/config"
 
 export default function Create() {
+  /**
+   * @TODO: with json-server
+   * $ import { useEffect } from "react"
+   * $ import useFetch from "../hooks/useFetch"
+   * ? const { data: newBook, setPostData, loading } = useFetch('http://localhost:3001/books', "POST")
+   * ? setPostData(newBook)
+   * ? useEffect(() => {
+   * ?   if (newBook) {
+   * ?     navigate('/')
+   * ?   }
+   * ? }, [newBook])    
+   * ? })
+   */
 
+  const { isDark } = useTheme()
+  const [isEdit, setIsEdit] = useState(false)
+  const { id } = useParams()
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [description, setDescription] = useState('')
   const [newCategory, setNewCategory] = useState('')
   const [categories, setCategories] = useState([])
-
-  const { data: newBook, setPostData, loading } = useFetch('http://localhost:3001/books', "POST")
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  useEffect(() => {
+    if (id) {
+      setIsEdit(true)
+      let ref = doc(booksCollectionRef, id)
+      getDoc(ref)
+        .then(doc => {
+          let { title, author, description, categories } = doc.data()
+          setTitle(title)
+          setAuthor(author)
+          setDescription(description)
+          setCategories(categories)
+        })
+    }
+    else {
+      setIsEdit(false)
+      setTitle('')
+      setAuthor('')
+      setDescription('')
+      setCategories([])
+    }
+  }, [id])
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
     if (title.trim() === '' || author.trim() === '' || description.trim() === '') {
       return
     }
@@ -26,11 +64,19 @@ export default function Create() {
       title: title.trim(),
       author: author.trim(),
       description: description.trim(),
-      categories: categories
+      categories: categories,
+      date: serverTimestamp()
     }
-
-    setPostData(newBook)
-    // console.log(newBook)
+    // @TODO : with firebase firestore
+    if (isEdit) {
+      let ref = doc(booksCollectionRef, id)
+      await updateDoc(ref, newBook)
+    }
+    else {
+      await addDoc(booksCollectionRef, newBook)
+    }
+    setLoading(false)
+    navigate('/')
   }
 
   const addCategory = () => {
@@ -47,14 +93,6 @@ export default function Create() {
     setCategories(prevCate => prevCate.filter(c => c !== category))
   }
 
-  useEffect(() => {
-    if (newBook) {
-      navigate('/')
-    }
-  }, [newBook, navigate])
-
-  const { isDark } = useTheme()
-
   return (
     <div className="h-screen">
       <form onSubmit={handleSubmit} className="w-full max-w-lg px-5 py-5 mx-auto mt-3 rounded-md">
@@ -62,7 +100,7 @@ export default function Create() {
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-6 ${isDark ? 'text-white' : 'text-primary'}`}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
           </svg>
-          <h3 className="text-3xl font-bold text-primary">Create a book.</h3>
+          <h3 className="text-3xl font-bold text-primary">{isEdit ? 'Update a book.' : 'Create a book.'}</h3>
         </div>
         <div className="flex flex-wrap mb-6 -mx-3">
           <div className="w-full px-3 md:w-1/2">
@@ -99,7 +137,7 @@ export default function Create() {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-wrap mt-1 mb-3 space-x-2">
+            <div className="flex flex-wrap mt-1 mb-3 space-x-2 space-y-2">
               {
                 categories.map((cate, index) => (<span key={index} className={`px-3 py-2.5 border rounded-md border-primary ${isDark ? 'text-white' : ''}`}>{cate}<span className="cursor-pointer ms-3" onClick={() => deleteCategory(cate)}>&#10006;</span></span>))
               }
@@ -107,9 +145,20 @@ export default function Create() {
           </div>
         </div>
         <div>
-          <button disabled={loading} type="submit" className="w-full p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
-            {loading ? 'Creating...' : 'Create'}
-          </button>
+          {
+            isEdit && (
+              <button disabled={loading} type="submit" className="w-full p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
+                {loading ? 'Updating...' : 'Update'}
+              </button>
+            )
+          }
+          {
+            !isEdit && (
+              <button disabled={loading} type="submit" className="w-full p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
+                {loading ? 'Creating...' : 'Create'}
+              </button>
+            )
+          }
         </div>
       </form>
     </div>

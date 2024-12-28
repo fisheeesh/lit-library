@@ -3,7 +3,7 @@ import {
 } from "react-router-dom";
 import Layout from "../pages/layout/Layout";
 import Home from '../pages/Home'
-import Create from '../pages/Create'
+import BookForm from '../pages/BookForm'
 import BookDetail from '../pages/BookDetail'
 import NotFound from '../pages/NotFound'
 
@@ -18,11 +18,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/create',
-                element: <Create />
+                element: <BookForm />
             },
             {
                 path: '/books/:id',
                 element: <BookDetail />
+            },
+            {
+                path: '/edit/:id',
+                element: <BookForm />
             }
         ]
     },
