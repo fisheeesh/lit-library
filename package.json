@@ -11,6 +11,7 @@
     "api": "json-server --watch src/database/db.json --port 3001"
   },
   "dependencies": {
+    "firebase": "^11.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",

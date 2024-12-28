@@ -99,7 +99,7 @@ export default function Create() {
                 </svg>
               </button>
             </div>
-            <div className="mt-1 mb-3 space-x-2 flex-flex-wrap">
+            <div className="flex flex-wrap mt-1 mb-3 space-x-2">
               {
                 categories.map((cate, index) => (<span key={index} className={`px-3 py-2.5 border rounded-md border-primary ${isDark ? 'text-white' : ''}`}>{cate}<span className="cursor-pointer ms-3" onClick={() => deleteCategory(cate)}>&#10006;</span></span>))
               }

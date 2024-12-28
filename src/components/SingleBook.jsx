@@ -8,8 +8,8 @@ export default function SingleBook({ book }) {
 
     return (
         <Link to={`/books/${book.id}`} className={`p-4 space-y-3 border rounded-md ${isDark ? 'border-primary' : 'border-gray-200'}`}>
-            <img src="../src/assets/book.png" alt="" />
-            <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
+            <img src="../src/assets/book.png" alt="" className="rounded-md"/>
+            <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title.length > 22 ? book.title.slice(0, 20) + '...' : book.title}</h2>
             <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
             <div className="flex flex-wrap gap-2">
                 {

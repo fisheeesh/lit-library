@@ -70,6 +70,33 @@
         "earth"
       ],
       "id": 7
+    },
+    {
+      "title": "Next Js မှာ ပါတဲ့ SSG, ISR နဲ့ SSR တွေကို ဘယ်အချိန်မှာ ဘာတွေသုံးရမလဲ ?",
+      "author": "Hlaing Min Than",
+      "description": "အရင်ဆုံး ဒီ Next ရဲ့ Rendering Strategy တွေကို မပြောခင်မှာ ကျတော်တို့ ဘာကြောင့် ဒါတွေကို သိမို့လိုလဲဆိုတာလေးပြောမို့လိုပါမယ်။\nအရင်တုန်းက ပုံမှန် Single Page App တွေရေးမယ်ဆိုရင် ပုံမှန် React တို့ Vue တို့လိုကောင်တွေသုံးပြီး ရေးကြပါတယ်။\nCSR ( Client Side Rendering)\nဒီနေရာမှာ တခုသိရမှာက React လိုကောင်နဲ့ ရေးတဲ့ ပုံမှန် SPA App တွေရဲ့ Rendering Process က Browser ပေါ်မှာဖြစ်ကြပါတယ်။ ဆိုတော့ server ဘက်က အဓိက ပြန်ပေးလိုက်တာ Js Bundle File တွေအများကြီး ကို ပေးမယ်။ browser ပေါ်ရောက်မှ render လုပ်မယ်။ နောက်ပိုင်း request တွေကျရင် local browser ထဲမှာပဲရှိပြီး သား Js တွေကိုသုံးပြီး ဆက်လုပ်မယ်။ ဒါမျိုးပေါ့။\nဒီနည်းလမ်းနဲ့ သွားတဲ့ အဓိက အားနည်းချက်က ၂ချက် ဖြစ်ပါမယ်။\n- Client Browser က Initial Request မှာ Js file တွေ အများကြီး down ရလို့ ပိုကြာတတ်တယ်။\n- Browser ပေါ်ရောက်မှ Render လုပ်တော့ တကယ်တန်း Website ထဲမှာ server ဘက်က ပြန်ပါလာတဲ့ HTML content တွေက react ရဲ့ container mount လုပ်မဲ့ div လိုကောင်ပဲပါလာတော့ SEO တွက်အရမ်းအားနည်းသွားတယ်။\nဒီနည်းလမ်းကို NextJs က ဘယ်လို ဖြေရှင်းပေးလဲဆိုတော့\nSSG (Static Site Generation)\nဒီကောင်က component တွေကို Project build လုပ်တဲ့ အခါမှာ ကတည်းက တခါတည်း ကြိုပြီး html document တွေကြိုထုတ်ပေးထားလိုက်တာမျိုးနည်းနဲ့ဖြေရှင်းပေးလိုက်ပါတယ်။ ဆိုတော့ ရေးတာတော့ React componet ဒါပေမဲ့ ကြိုပြီးတော့ static file ထွက်လာအောင် build လုပ်တဲ့ချိတ်ထုတ်ပေးလိုက်တော့ user က သုံးတဲ့ အခါ အဲ့ static html file ကိုပဲပြန်သုံးရတာဖြစ်တော့ အခုန ပြောခဲ့တဲ့ ပုံမှန် SPA app တွေရဲ့ ပြသနာ ၂ခုပြေလည်သွားပါတယ်။ ဒါမဲ့ ဒီနည်းက အဆင်အပြေဆုံးတော့ မဟုတ်သေးဘူးရယ်။ ဘာလို့ဆိုတော့ static file အနေနဲ့ ထုတ်လိုက်တဲ့ အတွက်ကြောင့် web page ထဲက content တွေ ပြန်ပြင်တဲ့အခါတိုင်းမှာ ပြန် build လုပ်ပေးနေမို့လိုအပ်ပါတယ်။ ဆိုတော့ ဥပမာ - dynamic ဖြစ်နေမို့လိုမဲ့ Blogs page လိုကောင်မျိုးဆို ဒီနည်းနဲ့ အဆင်မပြေတော့ပြန်ပါဘူး။ Blog တခုတင်ချင်တိုင်း တခါပြန် build နေရမှာမို့ပါ။ ဒါကို ဖြေရှင်းပေးမဲ့ ကောင်ကတော့\nISR (Incremental Static Regeneration)\nISR ကတော့ အခုန Blogs page လို example မှာ အသုံးဝင်ပါတယ်။ အမြဲတန်းလဲ up to date realtime dynamic ဖြစ်နေမို့မလိုဘူး။ အချိန်အတိုင်းအတာ တခုရောက်တိုင်း refresh ဖြစ်နေရင် အဆင်ပြေတယ်ဆိုတဲ့ blogs page လိုကောင်မျိုးမှာ ISR သုံးပြီး အချိန်တခု သတ်မှတ်ပြီး refresh ဖြစ်အောင်လုပ်ခိုင်းသွားလို့ရပါတယ်။ ရသွားတဲ့ အားသာချက်က SSG လို project တခုလုံး build လုပ်စရာမလိုပဲ သက်ဆိုင်ရာ page မှာ အချိန်တခုရောက်တိုင်း regenerate လုပ်အောင်ရေးထားလို့ရသွားပါတယ်။ ဒါမဲ့ တခါတလေ ကျရင် အမြဲ realtime up to date ဖြစ်နေရမဲ့ page တွေဆိုဘယ်လို လုပ်မလဲပေါ့ ? ဥပမာ -\nSSR ( Server Side Rendering)\nSSR ကတော့ rendering process ကို client မှာ မလုပ်ခိုင်းတော့ ပဲ တခါတည်း server မှာကတည်းက လုပ်ပေးပြီးပေးလိုက်တာဖြစ်ပါတယ်။ ရသွားတဲ့ အားသာချက်က React Server Component နည်းပညာကို သုံးထားတာဖြစ်လို့ ပုံမှန် React component တွေလို data fetching အပိုင်းမှာ useEffect တွေဘာတွေနဲ့ api call တွေလုပ်စရာမလိုပဲ react component ထဲမှာ database ထဲက query တန်းဆွဲပြီး လိုအပ်တဲ့ UI ကိုရေးထားပေးလို့ရသွားပါတယ်။ ဒီနည်းလမ်းက ဘယ်နေရာမှာ အသုံးဝင်လဲဆိုတော့ ဝင်ကြည့်တဲ့အချိန်တိုင်း အမြဲ up to date ဖြစ်နေရတဲ့ page လိုမျိုးတွေဆို အသုံးဝင်ပါတယ်။\nဒီနည်းလမ်း နဲ့ အခုချိန်မှာ Next ကိုသုံးပြီး ဘယ်ချိန် ဘာကို သုံးရမလဲ ဆိုတာမသိဘူးဆိုရင် မေးခွန်းလေးတွေနဲ့ မေးပြီး အဖြေရှာလို့ရပါတယ်။\nWhen to use What ?\n\"ဒီ page မှာ ပြထားတဲ့ content တွေက ဝင်ကြည့်တဲ့ အချိန်တိုင်း တူနေမှာလား ?\"\nတူနေမယ်ဆို SSG ကို သုံးပါ။ မတူဘူးဆိုရင် နောက်မေးခွန်းထပ်မေးကြည့်ပါ။\n\"ဒီ page မှာ ပြထားတဲ့ content တွေက ဝင်ကြည့်တဲ့ အချိန်တိုင်း အမြဲ update to date ဖြစ်နေမို့လိုမှာလား ?\"\nလိုမယ်ဆိုရင် SSR ၊ အမြဲမလိုဘူးဆိုရင် ISR ကို သုံးနိုင်ပါတယ်။\nဒါဆိုရင်တော့ ကိုယ်တိုင် စဉ်းစားဆုံးဖြတ်ပြီး အကောင်းဆုံး performance နဲ့ app တွေရေးနိုင်သွားပါလိမ့်မယ်ခင်ဗျာ။",
+      "categories": [
+        "SSR",
+        "CSR",
+        "ISR",
+        "SEO",
+        "SSG",
+        "React.js",
+        "Next.js"
+      ],
+      "id": 8
+    },
+    {
+      "title": "Web Performance မြင့်မားအောင်ဘယ်လိုတိုးမြှင်ကြမလဲ? 🤔",
+      "author": "Hlaing Min Than",
+      "description": "Web Performance မြင့်မားအောင်ဘယ်လိုတိုးမြှင်ကြမလဲ? 🤔\n=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°=°\nမြန်မြန်ဆန်ဆန် loading ဖြစ်သွားတဲ့ Website တွေက အသုံးပြုသူများအတွက် ပိုမိုကောင်းမွန်တဲ့ အတွေ့အကြုံကို ဖန်တီးပေးနိုင်တယ်ဆိုတာ မိတ်ဆွေတို့သိပြီးသားဖြစ်မှာပါ။ performance optimization ပြုလုပ်ခြင်းက ကိုယ့် Website ရဲ့ user engagement, conversion rate နှင့် overall user satisfaction တို့ကို သိသိသာသာ မြှင့်တင်နိုင်မှာဖြစ်ပါတယ်။ modern web development အပိုင်းတွေမှာဆိုရင် load time က user experience နှင့် search engine rankings အတွက် အရေးကြီးတဲ့ factor တစ်ခုဖြစ်လာပါတယ်။\nPerformance Optimization အတွက် Developer မိတ်ဆွေတို့ထည့်သွင်းစဉ်းစားသင့်တဲ့ Key Strategiesတွေကတော့\nCode Optimization ပိုင်းမှာဆိုရင်\nMinification နှင့် compression ကို အသုံးပြုပါ\nUnnecessary JavaScript နှင့် CSS ကို လျှော့ချပါ\nCode splitting နည်းစနစ်ကို အသုံးပြုပါ\nAsset Management\nImages ကို efficiently optimize လုပ်ပါ\nLazy loading technique ကို အသုံးပြုပါ\nBrowser caching ကို implement လုပ်ပါ\nRendering Performance\nCritical rendering path ကို minimize လုပ်ပါ\nEfficient DOM manipulation ပြုလုပ်ပါ\nReflow နှင့် repaint ကို minimize လုပ်ပါ\nPerformance Testing Tools တွေအသုံးပြုပြီးတော့လည်း Performance ကိုစစ်ကြည့်နိုင်ပါတယ်။\nGoogle PageSpeed Insights\nLighthouse\nWebPageTest\nChrome DevTools Performance Tab\nDeveloper မိတ်ဆွေတို့လုပ်သင့်တဲ့ အလေ့အကျင့်ကောင်းတွေကတော့\nServer-side rendering (SSR) ကို consider လုပ်ပါ\nContent Delivery Network (CDN) ကို အသုံးပြုပါ\nHTTP/2 protocol ကို implement လုပ်ပါ\nကဲ.. performance ကောင်းတဲ့ website တွေတည်ဆောက်နိုင်ကြပါစေ Developer ကြီးတို့ရေ\n#creative_coder_myanmar",
+      "categories": [
+        "Knowledge Sharing",
+        "performance",
+        "web",
+        "tips & tricks"
+      ],
+      "id": 9
     }
   ]
 }
