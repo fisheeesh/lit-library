@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react"
 import SingleBook from "./SingleBook"
-import { getDocs, orderBy, query } from "firebase/firestore"
+import { onSnapshot, orderBy, query } from "firebase/firestore"
 import { booksCollectionRef } from "../firebase/config"
 import useTheme from "../hooks/useTheme"
 
@@ -23,31 +23,50 @@ export default function BookList() {
     const [loading, setLoading] = useState(false)
     const { isDark } = useTheme()
 
-    const removeBook = (id) => {
-        setBooks(prevBook => prevBook.filter(book => book.id !== id))
-    }
+    // const removeBook = (id) => {
+    //     setBooks(prevBook => prevBook.filter(book => book.id !== id))
+    // }
 
     useEffect(() => {
         setLoading(true)
         let q = query(booksCollectionRef, orderBy('date', 'desc'))
-        getDocs(q)
-            .then(docs => {
-                // console.log(docs)
-                if (docs.empty) {
-                    setLoading(false)
-                    setError("No book(s) found")
-                    return
-                }
-                let results = []
-                docs.forEach(doc => {
-                    // console.log(doc.data())
-                    let document = { ...doc.data(), id: doc.id }
-                    results.push(document)
-                })
-                setBooks(results)
+
+        // @TODO: normal listener
+        // getDocs(q)
+        //     .then(docs => {
+        //         // console.log(docs)
+        //         if (docs.empty) {
+        //             setLoading(false)
+        //             setError("No book(s) found")
+        //             return
+        //         }
+        //         let results = []
+        //         docs.forEach(doc => {
+        //             // console.log(doc.data())
+        //             let document = { ...doc.data(), id: doc.id }
+        //             results.push(document)
+        //         })
+        //         setBooks(results)
+        //         setLoading(false)
+        //         setError(null)
+        //     })
+
+        //@TODO: real-time listener
+        onSnapshot(q, (snapShot) => {
+            if (snapShot.empty) {
                 setLoading(false)
-                setError(null)
+                setError("No book(s) found")
+                return
+            }
+            let result = []
+            snapShot.forEach(doc => {
+                let document = { ...doc.data(), id: doc.id }
+                result.push(document)
             })
+            setBooks(result)
+            setLoading(false)
+            setError(null)
+        })
     }, [])
 
     if (error) {
@@ -60,7 +79,7 @@ export default function BookList() {
             <div className="grid grid-cols-2 gap-2 mt-3 md:grid-cols-4">
                 {
                     !loading && books.map(book => (
-                        <SingleBook key={book.id} book={book} removeBook={removeBook} />
+                        <SingleBook key={book.id} book={book} />
                     ))
                 }
             </div>

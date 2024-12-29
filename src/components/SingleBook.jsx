@@ -4,16 +4,15 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { booksCollectionRef } from "../firebase/config";
 
 /* eslint-disable react/prop-types */
-export default function SingleBook({ book, removeBook }) {
+export default function SingleBook({ book }) {
 
     const { isDark } = useTheme()
 
-    const deleteBook = (e, id) => {
+    const deleteBook = async (e, id) => {
         e.preventDefault()
         let ref = doc(booksCollectionRef, id)
-        // await deleteDoc(ref)
-        deleteDoc(ref)
-        removeBook(id)
+        await deleteDoc(ref)
+        // removeBook(id)
     }
 
     return (
