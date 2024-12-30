@@ -1,9 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import bookImage from '../assets/book.png'
 import useTheme from "../hooks/useTheme"
-import { useEffect, useState } from "react"
-import { doc, onSnapshot } from "firebase/firestore"
-import { booksCollectionRef } from "../firebase/config"
+import { useEffect } from "react"
+import useFirestore from "../hooks/useFirestore"
 
 export default function BookDetail() {
     /**
@@ -12,54 +11,22 @@ export default function BookDetail() {
      * ?const { data: book, error, loading } = useFetch(`http://localhost:3001/books/${params.id}`)
      */
     const { id } = useParams()
-    const [book, setBook] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
+
     const { isDark } = useTheme()
     const navigate = useNavigate()
 
-    // @TODO : with firebase firestore
-    useEffect(() => {
-        setLoading(true)
-        let ref = doc(booksCollectionRef, id)
+    const { getDocumentById } = useFirestore()
 
-        // @TODO: normal listener
-        // getDoc(ref)
-        //     .then(doc => {
-        //         if (doc.exists()) {
-        //             // console.log(doc.data())
-        //             setBook(doc.data())
-        //             setLoading(false)
-        //             setError(null)
-        //         }
-        //         else{
-        //             setLoading(false)
-        //             setError("Something went wrong.!")
-        //         }
-        //     })
-
-        // @TODO: real-time listener
-        onSnapshot(ref, (doc) => {
-            if (doc.exists()) {
-                setBook(doc.data())
-                setLoading(false)
-                setError(null)
-            }
-            else {
-                setLoading(false)
-                setError("Something went wrong.!")
-            }
-        })
-    }, [id])
+    const { data: book, setData, error, loading } = getDocumentById('books', id)
 
     useEffect(() => {
         if (error) {
-            setBook(null)
+            setData(null)
             setTimeout(() => {
                 navigate('/')
             }, 2000)
         }
-    }, [error, navigate])
+    }, [error, navigate, setData])
 
     return (
         <div className="h-screen">

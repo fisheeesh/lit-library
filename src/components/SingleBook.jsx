@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
-import { deleteDoc, doc } from "firebase/firestore";
-import { booksCollectionRef } from "../firebase/config";
+import useAuth from "../hooks/useAuth";
+import useFirestore from "../hooks/useFirestore";
 
 /* eslint-disable react/prop-types */
 export default function SingleBook({ book }) {
 
     const { isDark } = useTheme()
+    const { user } = useAuth()
+    const { deleteDocument } = useFirestore()
 
     const deleteBook = async (e, id) => {
         e.preventDefault()
-        let ref = doc(booksCollectionRef, id)
-        await deleteDoc(ref)
-        // removeBook(id)
+        await deleteDocument('books', id)
     }
 
     return (
@@ -20,7 +20,7 @@ export default function SingleBook({ book }) {
             <img src="../src/assets/book.png" alt="" className="rounded-md" />
             <div className="flex items-center justify-between">
                 <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title.length > 15 ? book.title.slice(0, 15) + '...' : book.title}</h2>
-                <div className="flex items-center justify-center gap-1">
+                {!!user && <div className="flex items-center justify-center gap-1">
                     <span className="text-red-600 material-symbols-outlined text-md" onClick={(e) => deleteBook(e, book.id)}>
                         delete
                     </span>
@@ -29,7 +29,7 @@ export default function SingleBook({ book }) {
                             edit
                         </span>
                     </Link>
-                </div>
+                </div>}
             </div>
             <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
             <div className="flex flex-wrap gap-2">

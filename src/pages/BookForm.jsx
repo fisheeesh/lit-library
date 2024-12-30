@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
-import { addDoc, doc, getDoc, serverTimestamp, updateDoc } from "firebase/firestore"
+import { doc, getDoc, serverTimestamp } from "firebase/firestore"
 import { booksCollectionRef } from "../firebase/config"
+import useFirestore from "../hooks/useFirestore"
 
 export default function Create() {
   /**
@@ -30,6 +31,8 @@ export default function Create() {
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
+
+  const { addDocument, updateDocument } = useFirestore()
 
   useEffect(() => {
     if (id) {
@@ -69,11 +72,10 @@ export default function Create() {
     }
     // @TODO : with firebase firestore
     if (isEdit) {
-      let ref = doc(booksCollectionRef, id)
-      await updateDoc(ref, newBook)
+      await updateDocument('books', id, newBook)
     }
     else {
-      await addDoc(booksCollectionRef, newBook)
+      await addDocument('books', newBook)
     }
     setLoading(false)
     navigate('/')

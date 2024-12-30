@@ -1,9 +1,6 @@
-
-import { useEffect, useState } from "react"
 import SingleBook from "./SingleBook"
-import { onSnapshot, orderBy, query } from "firebase/firestore"
-import { booksCollectionRef } from "../firebase/config"
 import useTheme from "../hooks/useTheme"
+import useFirestore from "../hooks/useFirestore"
 
 export default function BookList() {
 
@@ -17,57 +14,11 @@ export default function BookList() {
      * ? const { data: books, error, loading } = useFetch(`http://localhost:3001/books${search ? `?q=${search}` : ''}`)
      */
 
-    // @TODO : with firebase firestore
-    const [books, setBooks] = useState([])
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
     const { isDark } = useTheme()
 
-    // const removeBook = (id) => {
-    //     setBooks(prevBook => prevBook.filter(book => book.id !== id))
-    // }
+    const { getAllDocuments } = useFirestore()
+    const { data: books, error, loading } = getAllDocuments('books')
 
-    useEffect(() => {
-        setLoading(true)
-        let q = query(booksCollectionRef, orderBy('date', 'desc'))
-
-        // @TODO: normal listener
-        // getDocs(q)
-        //     .then(docs => {
-        //         // console.log(docs)
-        //         if (docs.empty) {
-        //             setLoading(false)
-        //             setError("No book(s) found")
-        //             return
-        //         }
-        //         let results = []
-        //         docs.forEach(doc => {
-        //             // console.log(doc.data())
-        //             let document = { ...doc.data(), id: doc.id }
-        //             results.push(document)
-        //         })
-        //         setBooks(results)
-        //         setLoading(false)
-        //         setError(null)
-        //     })
-
-        //@TODO: real-time listener
-        onSnapshot(q, (snapShot) => {
-            if (snapShot.empty) {
-                setLoading(false)
-                setError("No book(s) found")
-                return
-            }
-            let result = []
-            snapShot.forEach(doc => {
-                let document = { ...doc.data(), id: doc.id }
-                result.push(document)
-            })
-            setBooks(result)
-            setLoading(false)
-            setError(null)
-        })
-    }, [])
 
     if (error) {
         return <h3 className="my-5 text-center text-red-600">{error}</h3>
