@@ -121,7 +121,7 @@ export default function Create() {
             <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-des">
               Description
             </label>
-            <textarea onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setDescription(e.target.value)} value={description} rows={5} className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none resize-none focus:outline-none focus:bg-white focus:border-gray-500" id="book-des" type="text" placeholder="Description"></textarea>
+            <textarea onChange={e => setDescription(e.target.value)} value={description} rows={5} className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none resize-none focus:outline-none focus:bg-white focus:border-gray-500" id="book-des" type="text" placeholder="Description"></textarea>
           </div>
         </div>
         <div className="flex flex-wrap mb-3 -mx-3">

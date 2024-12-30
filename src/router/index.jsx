@@ -6,6 +6,8 @@ import Home from '../pages/Home'
 import BookForm from '../pages/BookForm'
 import BookDetail from '../pages/BookDetail'
 import NotFound from '../pages/NotFound'
+import Register from '../pages/auth/Register'
+import LogIn from '../pages/auth/LogIn'
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
             {
                 path: '/edit/:id',
                 element: <BookForm />
+            },
+            {
+                path: '/register',
+                element: <Register />
+            },
+            {
+                path: '/login',
+                element: <LogIn />
             }
         ]
     },

@@ -41,7 +41,7 @@ export default function Navbar() {
                 </svg> */}
                 <img src="../src/assets/favicon.png" alt="" />
 
-                <span className='text-primary'>LitLibrary</span>
+                <span className='hidden text-primary md:block'>LitLibrary</span>
             </Link>
 
             {/* Right: Create button and profile logo */}
