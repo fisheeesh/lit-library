@@ -12,7 +12,7 @@ import Register from '../pages/auth/Register'
 import LogIn from '../pages/auth/LogIn'
 import useAuth from "../hooks/useAuth";
 
-export default function Index() {
+export default function Router() {
     const { authReady, user } = useAuth()
 
     const isAuthenticated = Boolean(user)
@@ -23,7 +23,7 @@ export default function Index() {
             element: <Layout />,
             children: [
                 {
-                    path: '/',
+                    path: '',
                     element: <Home />
                 },
                 {
@@ -31,12 +31,12 @@ export default function Index() {
                     element: isAuthenticated ? <BookForm /> : <Navigate to='/login' />
                 },
                 {
-                    path: '/books/:id',
-                    element: <BookDetail />
-                },
-                {
                     path: '/edit/:id',
                     element: isAuthenticated ? <BookForm /> : <Navigate to='/login' />
+                },
+                {
+                    path: '/books/:id',
+                    element: <BookDetail />
                 },
                 {
                     path: '/register',

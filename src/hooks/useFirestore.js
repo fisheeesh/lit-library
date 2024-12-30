@@ -63,19 +63,19 @@ const useFirestore = () => {
         return { data, setData, error, loading }
     }
 
-    const addDocument = async (collectionName, data) => {
+    const addDocument = (collectionName, data) => {
         let ref = collection(db, collectionName)
         return addDoc(ref, data)
     }
 
-    const updateDocument = async (collectionName, id, data) => {
+    const updateDocument = (collectionName, id, data) => {
         let ref = doc(db, collectionName, id)
         return updateDoc(ref, data)
     }
 
-    const deleteDocument = (collectionName, id) => {
+    const deleteDocument = async (collectionName, id) => {
         let ref = doc(db, collectionName, id)
-        return deleteDoc(ref)
+        await deleteDoc(ref)
     }
 
     return { getAllDocuments, getDocumentById, addDocument, updateDocument, deleteDocument }
