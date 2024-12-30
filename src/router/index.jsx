@@ -1,5 +1,7 @@
 import {
-    createBrowserRouter
+    createBrowserRouter,
+    Navigate,
+    RouterProvider
 } from "react-router-dom";
 import Layout from "../pages/layout/Layout";
 import Home from '../pages/Home'
@@ -8,42 +10,50 @@ import BookDetail from '../pages/BookDetail'
 import NotFound from '../pages/NotFound'
 import Register from '../pages/auth/Register'
 import LogIn from '../pages/auth/LogIn'
+import useAuth from "../hooks/useAuth";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout />,
-        children: [
-            {
-                path: '/',
-                element: <Home />
-            },
-            {
-                path: '/create',
-                element: <BookForm />
-            },
-            {
-                path: '/books/:id',
-                element: <BookDetail />
-            },
-            {
-                path: '/edit/:id',
-                element: <BookForm />
-            },
-            {
-                path: '/register',
-                element: <Register />
-            },
-            {
-                path: '/login',
-                element: <LogIn />
-            }
-        ]
-    },
-    {
-        path: '*',
-        element: <NotFound />
-    }
-]);
+export default function Index() {
+    const { authReady, user } = useAuth()
 
-export default router
+    const isAuthenticated = Boolean(user)
+
+    const router = createBrowserRouter([
+        {
+            path: "/",
+            element: <Layout />,
+            children: [
+                {
+                    path: '/',
+                    element: <Home />
+                },
+                {
+                    path: '/create',
+                    element: isAuthenticated ? <BookForm /> : <Navigate to='/login' />
+                },
+                {
+                    path: '/books/:id',
+                    element: <BookDetail />
+                },
+                {
+                    path: '/edit/:id',
+                    element: isAuthenticated ? <BookForm /> : <Navigate to='/login' />
+                },
+                {
+                    path: '/register',
+                    element: !isAuthenticated ? <Register /> : <Navigate to='/' />
+                },
+                {
+                    path: '/login',
+                    element: !isAuthenticated ? <LogIn /> : <Navigate to='/' />
+                }
+            ]
+        },
+        {
+            path: '*',
+            element: <NotFound />
+        }
+    ]);
+    return (
+        authReady && <RouterProvider router={router} />
+    )
+}

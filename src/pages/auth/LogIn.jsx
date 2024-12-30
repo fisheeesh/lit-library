@@ -1,8 +1,10 @@
 import { useState } from "react"
 import useSignIn from "../../hooks/useSignIn"
+import { useNavigate } from "react-router-dom"
 
 export default function LogIn() {
     const { logInAccount, error, loading } = useSignIn()
+    const navigate = useNavigate()
 
     const [pVisible, setPVisible] = useState(false)
     const [email, setEmail] = useState('')
@@ -13,6 +15,9 @@ export default function LogIn() {
 
         let res = await logInAccount(email, password)
         console.log('Logged In as: ', res.user)
+
+        // $ redirect to home page after login
+        navigate('/')
     }
 
     return (
@@ -36,7 +41,7 @@ export default function LogIn() {
                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
                         Password
                     </label>
-                    <input value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
+                    <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
                     <span onClick={() => setPVisible(prevState => !prevState)} className="absolute text-gray-400 cursor-pointer material-symbols-outlined right-5 top-9">
                         {pVisible ? 'visibility' : 'visibility_off'}
                     </span>

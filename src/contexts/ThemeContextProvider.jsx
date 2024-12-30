@@ -1,11 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useReducer } from "react"
-import {
-    RouterProvider,
-} from "react-router-dom";
-import router from '../router/index'
 
-export const AppContext = createContext()
+export const ThemeContext = createContext()
 
 const ThemeReducer = (state, action) => {
     switch (action.type) {
@@ -16,7 +12,8 @@ const ThemeReducer = (state, action) => {
     }
 }
 
-export default function ThemedApp() {
+// eslint-disable-next-line react/prop-types
+export default function ThemedContextProvider({ children }) {
 
     const [state, dispatch] = useReducer(ThemeReducer, {
         theme: 'light'
@@ -32,8 +29,8 @@ export default function ThemedApp() {
     const isDark = state.theme === 'dark'
 
     return (
-        <AppContext.Provider value={{ ...state, changeTheme, isDark }}>
-            <RouterProvider router={router} />
-        </AppContext.Provider>
+        <ThemeContext.Provider value={{ ...state, changeTheme, isDark }}>
+            {children}
+        </ThemeContext.Provider>
     )
 }

@@ -16,7 +16,7 @@ export default function SingleBook({ book }) {
     }
 
     return (
-        <Link to={`/books/${book.id}`} className={`p-4 space-y-3 border rounded-md ${isDark ? 'border-primary' : 'border-gray-200'}`}>
+        <Link to={`/books/${book.id}`} className={`p-4 space-y-3 border rounded-md transition ease-in-out duration-700 ${isDark ? 'border-primary' : 'border-gray-200'}`}>
             <img src="../src/assets/book.png" alt="" className="rounded-md" />
             <div className="flex items-center justify-between">
                 <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title.length > 15 ? book.title.slice(0, 15) + '...' : book.title}</h2>

@@ -1,7 +1,13 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import ThemedApp from './contexts/ThemedApp'
+import ThemeContextProvider from './contexts/ThemeContextProvider'
+import AuthContextProvider from './contexts/AuthContextProvider'
+import Router from './router'
 
 createRoot(document.getElementById('root')).render(
-  <ThemedApp />
+  <AuthContextProvider>
+    <ThemeContextProvider>
+      <Router />
+    </ThemeContextProvider>
+  </AuthContextProvider>
 )

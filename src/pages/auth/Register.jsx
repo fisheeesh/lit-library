@@ -1,8 +1,10 @@
 import { useState } from "react"
 import useSignUp from "../../hooks/useSignUp"
+import { useNavigate } from "react-router-dom"
 
 export default function Register() {
     const { createAccount, error, loading } = useSignUp()
+    const navigate = useNavigate()
 
     const [pVisible, setPVisible] = useState(false)
     const [userName, setUserName] = useState('')
@@ -14,6 +16,9 @@ export default function Register() {
 
         let res = await createAccount(userName, email, password)
         console.log('Created Account: ', res.user)
+
+        // $ redirect to home page after signup
+        navigate('/')
     }
 
     return (
@@ -43,7 +48,7 @@ export default function Register() {
                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
                         Password
                     </label>
-                    <input value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
+                    <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
                     <span onClick={() => setPVisible(prevState => !prevState)} className="absolute text-gray-400 cursor-pointer material-symbols-outlined right-5 top-9">
                         {pVisible ? 'visibility' : 'visibility_off'}
                     </span>
