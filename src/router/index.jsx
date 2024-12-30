@@ -7,6 +7,7 @@ import Layout from "../pages/layout/Layout";
 import Home from '../pages/Home'
 import BookForm from '../pages/BookForm'
 import BookDetail from '../pages/BookDetail'
+import Profile from '../pages/Profile'
 import NotFound from '../pages/NotFound'
 import Register from '../pages/auth/Register'
 import LogIn from '../pages/auth/LogIn'
@@ -37,6 +38,10 @@ export default function Router() {
                 {
                     path: '/books/:id',
                     element: <BookDetail />
+                },
+                {
+                    path: '/profile',
+                    element: isAuthenticated ? <Profile /> : <Navigate to='/login' />
                 },
                 {
                     path: '/register',

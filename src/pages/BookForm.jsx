@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
-import { doc, getDoc, serverTimestamp } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
 import { booksCollectionRef } from "../firebase/config"
 import useFirestore from "../hooks/useFirestore"
+import useAuth from "../hooks/useAuth"
 
 export default function Create() {
   /**
@@ -21,6 +22,8 @@ export default function Create() {
    */
 
   const { isDark } = useTheme()
+  const { user } = useAuth()
+
   const [isEdit, setIsEdit] = useState(false)
   const { id } = useParams()
   const [title, setTitle] = useState('')
@@ -64,11 +67,11 @@ export default function Create() {
     }
 
     let newBook = {
+      uid: user.uid,
       title: title.trim(),
       author: author.trim(),
       description: description.trim(),
       categories: categories,
-      date: serverTimestamp()
     }
     // @TODO : with firebase firestore
     if (isEdit) {

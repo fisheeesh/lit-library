@@ -19,13 +19,9 @@ export default function BookList() {
     const { getAllDocuments } = useFirestore()
     const { data: books, error, loading } = getAllDocuments('books')
 
-
-    if (error) {
-        return <h3 className="my-5 text-center text-red-600">{error}</h3>
-    }
-
     return (
         <>
+            {error && <h3 className="my-24 text-2xl font-bold text-center text-primary">{error}</h3>}
             {loading && <h3 className={`my-20 text-xl text-center ${isDark ? 'text-white' : ''}`}>Loading...</h3>}
             <div className="grid grid-cols-2 gap-2 mt-3 md:grid-cols-4">
                 {
@@ -34,7 +30,6 @@ export default function BookList() {
                     ))
                 }
             </div>
-            {!loading && books.length === 0 && <h3 className="my-16 text-3xl font-bold text-center text-primary">No book(s) found</h3>}
         </>
     )
 }

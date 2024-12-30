@@ -1,19 +1,27 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, updateDoc } from "firebase/firestore"
-import { useEffect, useState } from "react"
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore"
+import { useEffect, useRef, useState } from "react"
 import { db } from "../firebase/config"
 
 const useFirestore = () => {
 
-    const getAllDocuments = (collectionName) => {
+    const getAllDocuments = (collectionName, _q) => {
         const [data, setData] = useState([])
         const [error, setError] = useState(null)
         const [loading, setLoading] = useState(false)
 
+        const qRef = useRef(_q).current
+
         useEffect(() => {
             setLoading(true)
             let ref = collection(db, collectionName)
-            let q = query(ref, orderBy('date', 'desc'))
+            let queries = []
+            
+            if (qRef) {
+                queries.push(where(...qRef))
+            }
+            queries.push(orderBy('date', 'desc'))
+            let q = query(ref, ...queries)
 
             const unsubscribe = onSnapshot(q, (snapShot) => {
                 if (snapShot.empty) {
@@ -32,7 +40,7 @@ const useFirestore = () => {
             })
 
             return () => unsubscribe()
-        }, [collectionName])
+        }, [collectionName, qRef])
 
         return { data, error, loading }
     }
@@ -64,11 +72,13 @@ const useFirestore = () => {
     }
 
     const addDocument = (collectionName, data) => {
+        data.date = serverTimestamp()
         let ref = collection(db, collectionName)
         return addDoc(ref, data)
     }
 
     const updateDocument = (collectionName, id, data) => {
+        data.date = serverTimestamp()
         let ref = doc(db, collectionName, id)
         return updateDoc(ref, data)
     }

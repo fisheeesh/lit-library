@@ -28,7 +28,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className={`flex items-center justify-between px-3.5 py-3.5 border md:px-20 ${isDark ? 'border-primary' : 'border-b-gray-200'}`}>
+        <nav className={`flex items-center justify-between px-3.5 py-3.5 md:px-20 ${isDark ? 'border border-b-primary border-t-0 border-l-0 border-r-0' : 'border border-b-gray-200 border-t-0'}`}>
             {/* Left: Search bar and button */}
             <div className="relative flex items-center space-x-2">
                 <input
@@ -47,7 +47,6 @@ export default function Navbar() {
             {/* Center: Logo */}
             <Link to='/' className="flex items-center gap-2 text-2xl font-bold">
                 <img src="../src/assets/favicon.png" alt="" />
-
                 <span className='hidden text-primary md:block'>LitLibrary</span>
             </Link>
 
@@ -61,11 +60,13 @@ export default function Navbar() {
 
                         <span className="hidden md:block">Create</span>
                     </Link>
-                    <img
-                        src="https://avatars.githubusercontent.com/u/137766427?v=4"
-                        alt="Profile"
-                        className="w-10 h-10 rounded-full"
-                    />
+                    <Link to={'/profile'}>
+                        <img
+                            src="https://avatars.githubusercontent.com/u/137766427?v=4"
+                            alt="Profile"
+                            className="w-10 h-10 rounded-full"
+                        />
+                    </Link>
                 </div>}
                 <div>
                     {!!user && <button onClick={logOutUser} type='button' className='px-5 py-2.5 text-white bg-red-600 rounded-full hover:bg-red-700'>LogOut</button>}

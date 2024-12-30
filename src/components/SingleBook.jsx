@@ -20,7 +20,7 @@ export default function SingleBook({ book }) {
             <img src="../src/assets/book.png" alt="" className="rounded-md" />
             <div className="flex items-center justify-between">
                 <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title.length > 15 ? book.title.slice(0, 15) + '...' : book.title}</h2>
-                {!!user && <div className="flex items-center justify-center gap-1">
+                {(user?.uid === book?.uid) && <div className="flex items-center justify-center gap-1">
                     <span className="text-red-600 material-symbols-outlined text-md" onClick={(e) => deleteBook(e, book.id)}>
                         delete
                     </span>
