@@ -3,7 +3,7 @@ import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverT
 import { useEffect, useRef, useState } from "react"
 import { db } from "../firebase/config"
 
-const useFirestore = () => {
+export default function useFirestore() {
 
     const getAllDocuments = (collectionName, _q) => {
         const [data, setData] = useState([])
@@ -16,7 +16,7 @@ const useFirestore = () => {
             setLoading(true)
             let ref = collection(db, collectionName)
             let queries = []
-            
+
             if (qRef) {
                 queries.push(where(...qRef))
             }
@@ -25,18 +25,22 @@ const useFirestore = () => {
 
             const unsubscribe = onSnapshot(q, (snapShot) => {
                 if (snapShot.empty) {
+                    setData([])
                     setLoading(false)
                     setError("No book(s) found")
                     return
                 }
-                let result = []
+                let collectionDatas = []
                 snapShot.forEach(doc => {
                     let document = { ...doc.data(), id: doc.id }
-                    result.push(document)
+                    collectionDatas.push(document)
                 })
-                setData(result)
+                setData(collectionDatas)
                 setLoading(false)
                 setError(null)
+            }, (error) => {
+                setLoading(false)
+                setError(error.message)
             })
 
             return () => unsubscribe()
@@ -60,9 +64,13 @@ const useFirestore = () => {
                     setError(null)
                 }
                 else {
+                    setData(null)
                     setLoading(false)
                     setError("Something went wrong.!")
                 }
+            }, (error) => {
+                setLoading(false)
+                setError(error.message)
             })
 
             return () => unsubscribe()
@@ -90,5 +98,3 @@ const useFirestore = () => {
 
     return { getAllDocuments, getDocumentById, addDocument, updateDocument, deleteDocument }
 }
-
-export default useFirestore

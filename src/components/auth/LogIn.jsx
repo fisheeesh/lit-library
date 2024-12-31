@@ -57,9 +57,6 @@ export default function LogIn() {
                     </button>
                 </div>
             </form>
-            <p className="text-xs text-center text-gray-500">
-                &copy;2020 Acme Corp. All rights reserved.
-            </p>
         </div>
     )
 }

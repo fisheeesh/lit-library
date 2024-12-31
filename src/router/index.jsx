@@ -9,8 +9,7 @@ import BookForm from '../pages/BookForm'
 import BookDetail from '../pages/BookDetail'
 import Profile from '../pages/Profile'
 import NotFound from '../pages/NotFound'
-import Register from '../pages/auth/Register'
-import LogIn from '../pages/auth/LogIn'
+import Welcome from '../pages/Welcome'
 import useAuth from "../hooks/useAuth";
 
 export default function Router() {
@@ -29,27 +28,23 @@ export default function Router() {
                 },
                 {
                     path: '/create',
-                    element: isAuthenticated ? <BookForm /> : <Navigate to='/login' />
+                    element: isAuthenticated ? <BookForm /> : <Navigate to='/auth' />
                 },
                 {
                     path: '/edit/:id',
-                    element: isAuthenticated ? <BookForm /> : <Navigate to='/login' />
+                    element: isAuthenticated ? <BookForm /> : <Navigate to='/auth' />
+                },
+                {
+                    path: '/profile',
+                    element: isAuthenticated ? <Profile /> : <Navigate to='/auth' />
                 },
                 {
                     path: '/books/:id',
                     element: <BookDetail />
                 },
                 {
-                    path: '/profile',
-                    element: isAuthenticated ? <Profile /> : <Navigate to='/login' />
-                },
-                {
-                    path: '/register',
-                    element: !isAuthenticated ? <Register /> : <Navigate to='/' />
-                },
-                {
-                    path: '/login',
-                    element: !isAuthenticated ? <LogIn /> : <Navigate to='/' />
+                    path: '/auth',
+                    element: !isAuthenticated ? <Welcome /> : <Navigate to='/' />
                 }
             ]
         },
