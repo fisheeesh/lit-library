@@ -6,7 +6,7 @@ import { booksCollectionRef } from "../firebase/config"
 import useFirestore from "../hooks/useFirestore"
 import useAuth from "../hooks/useAuth"
 
-export default function Create() {
+export default function BookForm() {
   /**
    * @TODO: with json-server
    * $ import { useEffect } from "react"
@@ -33,9 +33,12 @@ export default function Create() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(false)
 
+  const [file, setFile] = useState(null)
+  const [preview, setPreview] = useState(null)
+
   const navigate = useNavigate()
 
-  const { addDocument, updateDocument } = useFirestore()
+  const { addDocument, updateDocument, uploadToFirebase } = useFirestore()
 
   useEffect(() => {
     if (id) {
@@ -66,14 +69,17 @@ export default function Create() {
       return
     }
 
+    const url = await uploadToFirebase(user.uid, file)
+
     let newBook = {
       uid: user.uid,
       title: title.trim(),
       author: author.trim(),
       description: description.trim(),
       categories: categories,
+      cover: url
     }
-    // @TODO : with firebase firestore
+
     if (isEdit) {
       await updateDocument('books', id, newBook)
     }
@@ -98,10 +104,32 @@ export default function Create() {
     setCategories(prevCate => prevCate.filter(c => c !== category))
   }
 
+  const handleImageChange = e => {
+    // console.log(e.target.files[0])
+    setFile(e.target.files[0])
+  }
+
+  const handleImagePreview = (file) => {
+    const reader = new FileReader()
+
+    reader.readAsDataURL(file)
+
+    reader.onload = () => {
+      setPreview(reader.result)
+    }
+  }
+
+  useEffect(() => {
+    if (file) {
+      handleImagePreview(file)
+    }
+  }, [file])
+
+
   return (
     <div className="h-screen">
-      <form onSubmit={handleSubmit} className="w-full max-w-lg px-5 py-5 mx-auto mt-3 rounded-md">
-        <div className="flex items-center gap-2 mt-1 mb-7">
+      <form onSubmit={handleSubmit} className="w-full max-w-lg px-5 py-5 mx-auto rounded-md">
+        <div className="flex items-center gap-2 mb-5">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-6 ${isDark ? 'text-white' : 'text-primary'}`}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
           </svg>
@@ -149,18 +177,37 @@ export default function Create() {
             </div>
           </div>
         </div>
+        <div className="flex flex-wrap mb-3 -mx-3">
+          <div className="w-full px-3">
+            <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-cover">
+              Cover
+            </label>
+            <input type="file" onChange={handleImageChange} />
+            {
+              !!preview && <img src={preview} className="w-full mt-2 rounded-md" alt="preview_img" />
+            }
+          </div>
+        </div>
         <div>
           {
             isEdit && (
-              <button disabled={loading} type="submit" className="w-full p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
-                {loading ? 'Updating...' : 'Update'}
+              <button disabled={loading} type="submit" className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
+                {loading && <svg className="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>}
+                <span>{loading ? 'Updating...' : 'Update'}</span>
               </button>
             )
           }
           {
             !isEdit && (
-              <button disabled={loading} type="submit" className="w-full p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
-                {loading ? 'Creating...' : 'Create'}
+              <button disabled={loading} type="submit" className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-1000 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
+                {loading && <svg className="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>}
+                <span>{loading ? 'Creating...' : 'Create'}</span>
               </button>
             )
           }

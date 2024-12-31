@@ -24,7 +24,7 @@ export default function Navbar() {
         await logOut()
 
         // $ redirect to login page after logout
-        navigate('/login')
+        navigate('/auth')
     }
 
     return (
@@ -72,8 +72,7 @@ export default function Navbar() {
                     {!!user && <button onClick={logOutUser} type='button' className='px-5 py-2.5 text-white bg-red-600 rounded-full hover:bg-red-700'>LogOut</button>}
                     {!user && (
                         <div className='flex items-center gap-3'>
-                            <Link to={'/login'} className='px-5 py-2.5 text-white bg-primary rounded-full hover:bg-indigo-700'>LogIn</Link>
-                            <Link to={'/register'} className='px-5 py-2.5 text-white bg-primary rounded-full hover:bg-indigo-700'>Register</Link>
+                            <Link to={'/auth'} className='px-5 py-2.5 text-white bg-primary rounded-full hover:bg-indigo-700'>Get Started</Link>
                         </div>
                     )}
                 </div>

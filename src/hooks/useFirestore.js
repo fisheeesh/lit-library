@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore"
 import { useEffect, useRef, useState } from "react"
-import { db } from "../firebase/config"
+import { db, storage } from "../firebase/config"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 
 export default function useFirestore() {
 
@@ -96,5 +97,12 @@ export default function useFirestore() {
         await deleteDoc(ref)
     }
 
-    return { getAllDocuments, getDocumentById, addDocument, updateDocument, deleteDocument }
+    const uploadToFirebase = async (uId, file) => {
+        let uniquePath = `/covers/${uId}/${Date.now().toString()}_${file.name}`
+        let storageRef = ref(storage, uniquePath)
+        await uploadBytes(storageRef, file)
+        return getDownloadURL(storageRef)
+    }
+
+    return { getAllDocuments, getDocumentById, addDocument, updateDocument, deleteDocument, uploadToFirebase }
 }

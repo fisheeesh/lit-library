@@ -15,7 +15,7 @@ export default function Profile() {
         <>
             <ProfileHeader user={user} isDark={isDark} books={books} />
             <h1 className="mt-8 mb-3 text-3xl font-bold text-primary">My Library 📚</h1>
-            <hr />
+            <hr className={`${isDark ? 'border-primary' : 'border-gray-200'}`} />
             <BookList books={books} error={error} loading={loading} />
         </>
     )

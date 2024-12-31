@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom"
-import bookImage from '../assets/book.png'
 import useTheme from "../hooks/useTheme"
 import { useEffect } from "react"
 import useFirestore from "../hooks/useFirestore"
@@ -39,7 +38,7 @@ export default function BookDetail() {
             {
                 book && (
                     <div className="grid grid-cols-2">
-                        <img src={bookImage} alt="" className={`w-[80%] ${error ? 'hidden' : ''}`} />
+                        <img src={book.cover} alt="" className={`w-[80%] h-[550px] ${error ? 'hidden' : ''}`} />
                         <div className="space-y-3">
                             <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
                             <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
