@@ -37,23 +37,31 @@ export default function BookDetail() {
             }
             {
                 book && (
-                    <div className="grid grid-cols-2">
-                        <img src={book.cover} alt="" className={`w-[80%] h-[550px] ${error ? 'hidden' : ''}`} />
-                        <div className="space-y-3">
-                            <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
-                            <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
-                            <div className="flex flex-wrap gap-2">
-                                {
-                                    book.categories.map(c => (
-                                        <span key={c} className="px-3 py-1 text-white rounded-full bg-primary">
-                                            {c}
-                                        </span>
-                                    ))
-                                }
+                    <>
+                        <div className="grid grid-cols-2">
+                            <div className="col-span-2 mb-3 md:px-16 md:col-span-1 md:mb-0">
+                                <img src={book.cover} alt="" className={`w-full h-[430px] ${error ? 'hidden' : ''}`} />
                             </div>
-                            <p className={`${isDark ? 'text-white' : ''}`}>{book.description}</p>
+                            <div className="space-y-3">
+                                <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
+                                <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
+                                <div className="flex flex-wrap gap-2">
+                                    {
+                                        book.categories.map(c => (
+                                            <span key={c} className="px-3 py-1 text-white rounded-full bg-primary">
+                                                {c}
+                                            </span>
+                                        ))
+                                    }
+                                </div>
+                                <p className={`${isDark ? 'text-white' : ''}`}>{book.description}</p>
+                            </div>
                         </div>
-                    </div>
+                        <hr className={`my-3 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
+                        <div>
+                            
+                        </div>
+                    </>
                 )
             }
         </div>

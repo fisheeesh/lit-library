@@ -46,11 +46,12 @@ export default function BookForm() {
       let ref = doc(booksCollectionRef, id)
       getDoc(ref)
         .then(doc => {
-          let { title, author, description, categories } = doc.data()
+          let { title, author, description, categories, cover } = doc.data()
           setTitle(title)
           setAuthor(author)
           setDescription(description)
           setCategories(categories)
+          setPreview(cover)
         })
     }
     else {

@@ -1,5 +1,17 @@
+import { useNavigate } from "react-router-dom"
+import useSignOut from "../hooks/useSignOut"
+
 /* eslint-disable react/prop-types */
 export default function ProfileHeader({ user, isDark, books }) {
+    const { logOut } = useSignOut()
+    const navigate = useNavigate()
+
+    const logOutUser = async () => {
+        await logOut()
+
+        // $ redirect to login page after logout
+        navigate('/auth')
+    }
     return (
         <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
@@ -16,7 +28,7 @@ export default function ProfileHeader({ user, isDark, books }) {
                         </span>
                         <h3 className={`text-md ${isDark ? 'text-white' : ''}`}>Email: {user.email}</h3>
                     </div>
-                    <button className="px-5 py-2.5 mt-14 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700">LogOut</button>
+                    <button type="button" onClick={logOutUser} className="px-5 py-2.5 mt-14 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700">LogOut</button>
                 </div>
             </div>
 
