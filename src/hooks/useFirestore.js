@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore"
 import { useEffect, useRef, useState } from "react"
-import { db, storage } from "../firebase/config"
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { db } from "../firebase/config"
 
 export default function useFirestore() {
 
@@ -21,7 +20,7 @@ export default function useFirestore() {
             if (qRef) {
                 queries.push(where(...qRef))
             }
-            queries.push(orderBy('date', 'desc'))
+            queries.push(orderBy('created_at', 'desc'))
             let q = query(ref, ...queries)
 
             const unsubscribe = onSnapshot(q, (snapShot) => {
@@ -81,13 +80,13 @@ export default function useFirestore() {
     }
 
     const addDocument = (collectionName, data) => {
-        data.date = serverTimestamp()
+        data.created_at = serverTimestamp()
         let ref = collection(db, collectionName)
         return addDoc(ref, data)
     }
 
     const updateDocument = (collectionName, id, data) => {
-        data.date = serverTimestamp()
+        data.created_at = serverTimestamp()
         let ref = doc(db, collectionName, id)
         return updateDoc(ref, data)
     }
@@ -97,12 +96,5 @@ export default function useFirestore() {
         await deleteDoc(ref)
     }
 
-    const uploadToFirebase = async (uId, file) => {
-        let uniquePath = `/covers/${uId}/${Date.now().toString()}_${file.name}`
-        let storageRef = ref(storage, uniquePath)
-        await uploadBytes(storageRef, file)
-        return getDownloadURL(storageRef)
-    }
-
-    return { getAllDocuments, getDocumentById, addDocument, updateDocument, deleteDocument, uploadToFirebase }
+    return { getAllDocuments, getDocumentById, addDocument, updateDocument, deleteDocument }
 }

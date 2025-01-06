@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore"
 import { booksCollectionRef } from "../firebase/config"
 import useFirestore from "../hooks/useFirestore"
 import useAuth from "../hooks/useAuth"
+import useStorage from "../hooks/useStorage"
 
 export default function BookForm() {
   /**
@@ -38,7 +39,9 @@ export default function BookForm() {
 
   const navigate = useNavigate()
 
-  const { addDocument, updateDocument, uploadToFirebase } = useFirestore()
+  const { addDocument, updateDocument } = useFirestore()
+
+  const { uploadFileToStorage } = useStorage()
 
   useEffect(() => {
     if (id) {
@@ -70,7 +73,9 @@ export default function BookForm() {
       return
     }
 
-    const url = await uploadToFirebase(user.uid, file)
+    let bookCoverName = Date.now().toString() + '_' + file.name
+    let uniquePath = `/covers/${user.uid}/${bookCoverName}`
+    const url = await uploadFileToStorage(uniquePath, file)
 
     let newBook = {
       uid: user.uid,
@@ -78,7 +83,8 @@ export default function BookForm() {
       author: author.trim(),
       description: description.trim(),
       categories: categories,
-      cover: url
+      cover: url,
+      bookCoverName
     }
 
     if (isEdit) {

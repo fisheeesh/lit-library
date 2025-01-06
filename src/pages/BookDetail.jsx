@@ -38,11 +38,11 @@ export default function BookDetail() {
             {
                 book && (
                     <>
-                        <div className="grid grid-cols-2">
-                            <div className="col-span-2 mb-3 md:px-16 md:col-span-1 md:mb-0">
-                                <img src={book.cover} alt="" className={`w-full h-[430px] ${error ? 'hidden' : ''}`} />
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="col-span-3 md:mb-0 md:col-span-1">
+                                <img src={book.cover} alt="" className={`w-full h-[450px] rounded-lg ${error ? 'hidden' : ''}`} />
                             </div>
-                            <div className="space-y-3">
+                            <div className="col-span-3 space-y-3 md:col-span-2">
                                 <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
                                 <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
                                 <div className="flex flex-wrap gap-2">
@@ -54,12 +54,12 @@ export default function BookDetail() {
                                         ))
                                     }
                                 </div>
-                                <p className={`${isDark ? 'text-white' : ''}`}>{book.description}</p>
+                                <p className={`${isDark ? 'text-white' : ''} border border-gray-200 rounded-md p-3 h-[338px] overflow-y-scroll`}>{book.description}</p>
                             </div>
                         </div>
                         <hr className={`my-3 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
                         <div>
-                            
+                        
                         </div>
                     </>
                 )

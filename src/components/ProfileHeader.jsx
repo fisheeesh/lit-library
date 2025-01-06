@@ -16,7 +16,7 @@ export default function ProfileHeader({ user, isDark, books }) {
         <div className="grid grid-cols-3 gap-4 mt-6">
             <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
                 <img
-                    src="https://avatars.githubusercontent.com/u/137766427?v=4"
+                    src={user?.photoURL}
                     alt="Profile"
                     className="my-0.5 rounded-3xl w-44 h-44"
                 />

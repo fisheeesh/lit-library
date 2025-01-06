@@ -52,7 +52,7 @@ export default function Navbar() {
                         </Link>
                         <Link to={'/profile'}>
                             <img
-                                src="https://avatars.githubusercontent.com/u/137766427?v=4"
+                                src={user?.photoURL}
                                 alt="Profile"
                                 className="w-10 h-10 rounded-full"
                             />
@@ -61,7 +61,7 @@ export default function Navbar() {
                 )
                 }
                 <div>
-                    {!user && <Link to={'/auth'} className='px-5 py-2.5 text-white bg-primary rounded-full hover:bg-indigo-700'>Get Started</Link>}
+                    {!user && <Link to={'/auth'} className='px-5 py-2.5 text-white bg-primary rounded-full hover:bg-indigo-700 transition duration-500 ease-in-out'>Get Started</Link>}
                 </div>
                 <div className='p-1.5 border border-1 rounded-full flex items-center cursor-pointer'>
                     {isDark && <img src={lightIcon} className='w-6' alt="lightIcon.png" onClick={() => changeTheme('light')} />}
