@@ -81,7 +81,7 @@ export default function BookForm() {
       uid: user.uid,
       title: title.trim(),
       author: author.trim(),
-      description: description.trim(),
+      description: description,
       categories: categories,
       cover: url,
       bookCoverName

@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
 import { useEffect } from "react"
 import useFirestore from "../hooks/useFirestore"
+import ReactLinkify from "react-linkify"
 
 export default function BookDetail() {
     /**
@@ -26,6 +27,12 @@ export default function BookDetail() {
             }, 2000)
         }
     }, [error, navigate, setData])
+
+    const componentDecorator = (href, text, key) => (
+        <a href={href} key={key} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+            {text}
+        </a>
+    )
 
     return (
         <div className="h-screen">
@@ -54,12 +61,14 @@ export default function BookDetail() {
                                         ))
                                     }
                                 </div>
-                                <p className={`${isDark ? 'text-white' : ''} border border-gray-200 rounded-md p-3 h-[338px] overflow-y-scroll`}>{book.description}</p>
+                                <ReactLinkify componentDecorator={componentDecorator}>
+                                    <p className={`${isDark ? 'text-white' : ''} whitespace-pre-line border border-gray-200 rounded-md p-3 h-[338px] overflow-y-scroll`}>{book.description}</p>
+                                </ReactLinkify>
                             </div>
                         </div>
                         <hr className={`my-3 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
                         <div>
-                        
+
                         </div>
                     </>
                 )
