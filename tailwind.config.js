@@ -11,7 +11,9 @@ export default {
         primary: "#4555d2",
         secondary: "#cc2973",
         dbg: '#050618',
-        dcard: '#070E27'
+        dcard: '#070E27',
+        dark: "#191e47",
+        light: '#f9fafe'
       }
     },
   },

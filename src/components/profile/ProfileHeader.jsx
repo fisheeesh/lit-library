@@ -18,12 +18,12 @@ export default function ProfileHeader({ user, isDark, books }) {
         navigate('/auth')
     }
     return (
-        <div className="grid grid-cols-3 gap-4 mt-6">
+        <div className="grid grid-cols-3 gap-4 mx-5 mt-6">
             <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
                 <img
                     src={user?.photoURL}
                     alt="Profile"
-                    className="my-0.5 rounded-3xl w-44 h-44"
+                    className={`my-0.5 rounded-3xl w-44 h-44 ${isDark ? 'border border-primary' : ''}`}
                 />
                 <div className="mt-2.5">
                     <h2 className="text-3xl font-bold text-primary">{user.displayName}</h2>

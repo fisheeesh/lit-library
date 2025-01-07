@@ -49,9 +49,9 @@ export default function BookDetail() {
             {
                 book && (
                     <>
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-3 gap-4 px-5 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
-                                <img src={book.cover} alt="" className={`w-full h-[450px] rounded-lg ${error ? 'hidden' : ''}`} />
+                                <img src={book.cover} alt="" className={`w-full h-[500px] rounded-lg ${error ? 'hidden' : ''}`} />
                             </div>
                             <div className="col-span-3 space-y-3 md:col-span-2">
                                 <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
@@ -66,13 +66,13 @@ export default function BookDetail() {
                                     }
                                 </div>
                                 <ReactLinkify componentDecorator={componentDecorator}>
-                                    <p className={`${isDark ? 'text-white' : ''} whitespace-pre-line border border-gray-200 rounded-md p-3 h-[338px] overflow-y-scroll`}>{book.description}</p>
+                                    <p className={`${isDark ? 'text-white border-primary' : 'border-gray-200'} whitespace-pre-line border  rounded-md p-3 h-[388px] overflow-y-scroll`}>{book.description}</p>
                                 </ReactLinkify>
                             </div>
                         </div>
-                        <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
-                        <h1 className="mb-2 text-2xl font-bold text-secondary">Ask Me Anything</h1>
-                        <div className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
+                        <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'} mx-5`} />
+                        <h1 className="px-5 mb-2 text-2xl font-bold text-secondary">Ask Me Anything</h1>
+                        <div className={`mx-5 pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
                             {/* Form */}
                             {!!user && <CmtForm user={user} bookId={id} />}
                             <CmtList bookId={id} />

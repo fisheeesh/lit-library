@@ -1,5 +1,5 @@
 import BookList from "../components/book/BookList"
-import HeroSection from "../components/hero/HeroSection"
+import Header from "../components/header/Header"
 import useFirestore from "../hooks/useFirestore"
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <HeroSection />
+      <Header />
       <BookList books={books} error={error} loading={loading} />
     </>
   )

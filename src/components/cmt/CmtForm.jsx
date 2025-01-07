@@ -48,7 +48,7 @@ export default function CmtForm({ user, bookId, type = 'create', setEditCmt, edi
 
     return (
         <form onSubmit={addComment}>
-            <textarea value={content} onChange={e => setContent(e.target.value)} placeholder="Your notes..." rows={6} className={`py-4 px-5 border bg-gray-50 w-full transition duration-700 ease-in-out outline-none resize-none rounded-3xl ${isDark ? 'bg-slate-900 text-white' : 'border-gray-200'}`}></textarea>
+            <textarea value={content} onChange={e => setContent(e.target.value)} placeholder="Your notes..." rows={6} className={`py-4 px-5 border bg-gray-50 w-full transition duration-700 ease-in-out outline-none resize-none rounded-3xl ${isDark ? 'bg-slate-900 text-white border-primary' : 'border-gray-200'}`}></textarea>
             <div className="flex items-center gap-2">
                 <button type="submit" className='flex items-center gap-2 px-3 py-2 mt-3 mb-3 text-white transition duration-1000 ease-out rounded-full bg-primary md:px-5 hover:bg-indigo-500'>
                     {loading && <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

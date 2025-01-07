@@ -25,3 +25,17 @@
     transform: scaleX(1);
     transform-origin: bottom left;
 }
+
+.header .decoration-star {
+    top: 80px;
+    left: -200px;
+    width: 500px;
+    opacity: 0.7;
+}
+
+.header .decoration-star-2 {
+    top: 80px;
+    right: -200px;
+    width: 500px;
+    opacity: 0.7;
+}

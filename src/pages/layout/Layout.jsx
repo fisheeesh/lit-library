@@ -27,7 +27,7 @@ export default function Layout() {
             <Navbar />
             <SwitchTransition>
                 <CSSTransition nodeRef={nodeRef} timeout={200} classNames="fade" key={location.pathname}>
-                    <div ref={nodeRef} className="px-4 py-3 mx-auto max-w-7xl md:px-0">
+                    <div ref={nodeRef} className="w-full py-3 mx-auto mt-16">
                         <Outlet />
                     </div>
                 </CSSTransition>
