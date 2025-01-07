@@ -1,5 +1,5 @@
-import BookList from "../components/BookList"
-import HeroSection from "../components/HeroSection"
+import BookList from "../components/book/BookList"
+import HeroSection from "../components/hero/HeroSection"
 import useFirestore from "../hooks/useFirestore"
 
 function App() {

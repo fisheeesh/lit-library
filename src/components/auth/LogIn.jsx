@@ -1,10 +1,13 @@
 import { useState } from "react"
 import useSignIn from "../../hooks/useSignIn"
 import { useNavigate } from "react-router-dom"
+import useTheme from "../../hooks/useTheme"
 
 export default function LogIn() {
     const { logInAccount, error, loading } = useSignIn()
     const navigate = useNavigate()
+
+    const { isDark } = useTheme()
 
     const [pVisible, setPVisible] = useState(false)
     const [email, setEmail] = useState('')
@@ -22,7 +25,7 @@ export default function LogIn() {
 
     return (
         <div className="w-full max-w-lg mx-auto mt-16">
-            <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md" onSubmit={logInUser}>
+            <form className={`px-8 pt-6 pb-8 mb-4 rounded shadow-md ${isDark ? 'bg-slate-900' : 'bg-white'}`} onSubmit={logInUser}>
                 <div className="flex items-center gap-2">
                     <span className="text-3xl material-symbols-outlined text-primary">
                         verified
@@ -32,13 +35,13 @@ export default function LogIn() {
                     </span>
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
+                    <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="email">
                         Email
                     </label>
                     <input value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
                 </div>
                 <div className="relative mb-4">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
+                    <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="password">
                         Password
                     </label>
                     <input value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />

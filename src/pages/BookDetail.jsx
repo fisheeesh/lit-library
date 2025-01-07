@@ -3,9 +3,9 @@ import useTheme from "../hooks/useTheme"
 import { useEffect } from "react"
 import useFirestore from "../hooks/useFirestore"
 import ReactLinkify from "react-linkify"
-import CmtForm from "../components/CmtForm"
-import CmtCard from "../components/CmtCard"
+import CmtForm from "../components/cmt/CmtForm"
 import useAuth from "../hooks/useAuth"
+import CmtList from "../components/cmt/CmtList"
 
 export default function BookDetail() {
     /**
@@ -39,7 +39,7 @@ export default function BookDetail() {
     )
 
     return (
-        <div className="h-screen">
+        <>
             {
                 error && <h3 className="my-5 text-xl font-bold text-center text-red-600">{error}</h3>
             }
@@ -72,14 +72,14 @@ export default function BookDetail() {
                         </div>
                         <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
                         <h1 className="mb-2 text-2xl font-bold text-secondary">Ask Me Anything</h1>
-                        <div className="p-5 mb-16 bg-gray-300 rounded-3xl">
+                        <div className={`p-5 mb-3 rounded-3xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
                             {/* Form */}
                             {!!user && <CmtForm user={user} bookId={id} />}
-                            <CmtCard bookId={id} />
+                            <CmtList bookId={id} />
                         </div>
                     </>
                 )
             }
-        </div>
+        </>
     )
 }

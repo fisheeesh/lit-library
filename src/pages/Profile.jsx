@@ -1,5 +1,5 @@
-import BookList from "../components/BookList"
-import ProfileHeader from "../components/ProfileHeader"
+import BookList from "../components/book/BookList"
+import ProfileHeader from "../components/profile/ProfileHeader"
 import useAuth from "../hooks/useAuth"
 import useFirestore from "../hooks/useFirestore"
 import useTheme from "../hooks/useTheme"

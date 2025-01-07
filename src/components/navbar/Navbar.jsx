@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import useTheme from '../hooks/useTheme';
-import lightIcon from '../assets/light_mode.svg'
-import darkIcon from '../assets/dark_mode.svg'
-import useAuth from '../hooks/useAuth'
+import useAuth from '../../hooks/useAuth';
+import useTheme from '../../hooks/useTheme';
+import lightIcon from '../../assets/light_mode.svg'
+import darkIcon from '../../assets/dark_mode.svg'
 
 export default function Navbar() {
     /**

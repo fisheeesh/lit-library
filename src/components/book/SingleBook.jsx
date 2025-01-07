@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import useTheme from "../hooks/useTheme";
-import useAuth from "../hooks/useAuth";
-import useFirestore from "../hooks/useFirestore";
-import useStorage from "../hooks/useStorage";
+import useTheme from "../../hooks/useTheme";
+import useAuth from "../../hooks/useAuth";
+import useFirestore from "../../hooks/useFirestore";
+import useStorage from "../../hooks/useStorage";
 
 /* eslint-disable react/prop-types */
 export default function SingleBook({ book }) {

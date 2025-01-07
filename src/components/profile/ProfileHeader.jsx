@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import useSignOut from "../hooks/useSignOut"
-import useFirestore from "../hooks/useFirestore"
+import useSignOut from "../../hooks/useSignOut"
+import useFirestore from "../../hooks/useFirestore"
 
 /* eslint-disable react/prop-types */
 export default function ProfileHeader({ user, isDark, books }) {

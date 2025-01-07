@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import useSignUp from "../../hooks/useSignUp"
 import { useNavigate } from "react-router-dom"
+import useTheme from "../../hooks/useTheme"
 
 export default function Register() {
     const { createAccount, error, loading } = useSignUp()
     const navigate = useNavigate()
+
+    const { isDark } = useTheme()
 
     const [pVisible, setPVisible] = useState(false)
     const [userName, setUserName] = useState('')
@@ -49,7 +52,7 @@ export default function Register() {
 
     return (
         <div className="w-full max-w-lg mx-auto mt-16">
-            <form className="px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md" onSubmit={signUpUser}>
+            <form className={`px-8 pt-6 pb-8 mb-4 rounded shadow-md ${isDark ? 'bg-slate-900' : 'bg-white'}`} onSubmit={signUpUser}>
                 <div className="flex items-center gap-2">
                     <span className="text-3xl material-symbols-outlined text-primary">
                         how_to_reg
@@ -59,19 +62,19 @@ export default function Register() {
                     </span>
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="username">
+                    <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="username">
                         Username
                     </label>
                     <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={userName} onChange={(e) => setUserName(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
                 </div>
                 <div className="mb-4">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="email">
+                    <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="email">
                         Email
                     </label>
                     <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
                 </div>
                 <div className="relative mb-4">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
+                    <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="password">
                         Password
                     </label>
                     <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
@@ -80,18 +83,18 @@ export default function Register() {
                     </span>
                 </div>
                 <div className="mb-3">
-                    <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="username">
+                    <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="username">
                         Profile Picture
                     </label>
                     <div className="flex items-center justify-between">
-                        <input type="file" onChange={handleImageChange} name="" id="" />
+                        <input type="file" onChange={handleImageChange} name="" id="" className={`${isDark ? 'text-white' : ''}`} />
                         {!!pPreview && <img src={pPreview} className="rounded-full h-7 w-7" alt="" />}
                     </div>
                 </div>
                 {
                     !!error && <p className="mb-2 text-xs italic text-red-500">{error}</p>
                 }
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-5">
                     <button disabled={loading} className="flex items-center gap-1 px-4 py-2 font-bold text-white transition duration-500 ease-in-out rounded bg-primary hover:bg-blue-700 focus:outline-none focus:shadow-outline" type="submit">
                         {loading && <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
