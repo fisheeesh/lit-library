@@ -86,8 +86,8 @@ export default function useFirestore() {
         return addDoc(ref, data)
     }
 
-    const updateDocument = (collectionName, id, data) => {
-        data.created_at = serverTimestamp()
+    const updateDocument = (collectionName, id, data, updateDate = true) => {
+        if (updateDate) data.created_at = serverTimestamp()
         let ref = doc(db, collectionName, id)
         return updateDoc(ref, data)
     }

@@ -72,7 +72,7 @@ export default function BookDetail() {
                         </div>
                         <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
                         <h1 className="mb-2 text-2xl font-bold text-secondary">Ask Me Anything</h1>
-                        <div className={`p-5 mb-3 rounded-3xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
+                        <div className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
                             {/* Form */}
                             {!!user && <CmtForm user={user} bookId={id} />}
                             <CmtList bookId={id} />

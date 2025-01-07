@@ -1,12 +1,8 @@
 /* eslint-disable react/prop-types */
 import useFirestore from "../../hooks/useFirestore"
-import { useState } from "react"
 import SingleCmt from "./SingleCmt"
 
 export default function CmtList({ bookId }) {
-
-    // eslint-disable-next-line no-unused-vars
-    const [editNote, setEditNote] = useState({})
 
     const { getAllDocuments, deleteDocument } = useFirestore()
 
