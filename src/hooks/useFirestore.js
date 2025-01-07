@@ -27,13 +27,14 @@ export default function useFirestore() {
                 if (snapShot.empty) {
                     setData([])
                     setLoading(false)
-                    setError("No book(s) found")
+                    if (collectionName === 'books') setError("No book(s) found")
+                    if (collectionName === 'comments') setError("No Comment(s) Found. Be the first to comment.")
                     return
                 }
                 let collectionDatas = []
                 snapShot.forEach(doc => {
                     let document = { ...doc.data(), id: doc.id }
-                    collectionDatas.push(document)
+                    doc.data().created_at && collectionDatas.push(document)
                 })
                 setData(collectionDatas)
                 setLoading(false)

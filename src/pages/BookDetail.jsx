@@ -3,6 +3,9 @@ import useTheme from "../hooks/useTheme"
 import { useEffect } from "react"
 import useFirestore from "../hooks/useFirestore"
 import ReactLinkify from "react-linkify"
+import CmtForm from "../components/CmtForm"
+import CmtCard from "../components/CmtCard"
+import useAuth from "../hooks/useAuth"
 
 export default function BookDetail() {
     /**
@@ -13,6 +16,7 @@ export default function BookDetail() {
     const { id } = useParams()
 
     const { isDark } = useTheme()
+    const { user } = useAuth()
     const navigate = useNavigate()
 
     const { getDocumentById } = useFirestore()
@@ -66,9 +70,12 @@ export default function BookDetail() {
                                 </ReactLinkify>
                             </div>
                         </div>
-                        <hr className={`my-3 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
-                        <div>
-
+                        <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
+                        <h1 className="mb-2 text-2xl font-bold text-secondary">Ask Me Anything</h1>
+                        <div className="p-5 mb-16 bg-gray-300 rounded-3xl">
+                            {/* Form */}
+                            {!!user && <CmtForm user={user} bookId={id} />}
+                            <CmtCard bookId={id} />
                         </div>
                     </>
                 )

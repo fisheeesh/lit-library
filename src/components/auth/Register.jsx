@@ -74,7 +74,7 @@ export default function Register() {
                     <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
                         Password
                     </label>
-                    <input value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
+                    <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
                     <span onClick={() => setPVisible(prevState => !prevState)} className="absolute text-gray-400 cursor-pointer material-symbols-outlined right-5 top-9">
                         {pVisible ? 'visibility' : 'visibility_off'}
                     </span>
