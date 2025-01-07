@@ -25,7 +25,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                         <h5 className="text-sm text-gray-400">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
                     </div>
                     <div className="flex items-center gap-2">
-                        {cmt.uId === user.uid && <div className="flex items-center gap-2">
+                        {cmt.uId === user?.uid && <div className="flex items-center gap-2">
                             <span onClick={() => setEditCmt(cmt)} className="text-blue-600 cursor-pointer material-symbols-outlined">
                                 edit
                             </span>

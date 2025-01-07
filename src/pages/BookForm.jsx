@@ -67,35 +67,51 @@ export default function BookForm() {
   }, [id])
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
+
+    // Validate required fields
     if (title.trim() === '' || author.trim() === '' || description.trim() === '') {
-      return
+      alert("Please fill in all the required fields.");
+      setLoading(false);
+      return;
     }
 
-    let bookCoverName = Date.now().toString() + '_' + file.name
-    let uniquePath = `/covers/${user.uid}/${bookCoverName}`
-    const url = await uploadFileToStorage(uniquePath, file)
+    let bookCoverName;
+    let url = preview; // Default to existing preview (current cover)
 
-    let newBook = {
+    // If a new file is selected, upload it
+    if (file) {
+      bookCoverName = Date.now().toString() + '_' + file.name;
+      let uniquePath = `/covers/${user.uid}/${bookCoverName}`;
+      url = await uploadFileToStorage(uniquePath, file);
+    }
+
+    // Construct the book data
+    let updatedBook = {
       uid: user.uid,
       title: title.trim(),
       author: author.trim(),
-      description: description,
+      description: description.trim(),
       categories: categories,
       cover: url,
-      bookCoverName
-    }
+      bookCoverName: bookCoverName || null, // Retain existing name if no new file
+    };
 
-    if (isEdit) {
-      await updateDocument('books', id, newBook)
+    // Update or add the document
+    try {
+      if (isEdit) {
+        await updateDocument('books', id, updatedBook);
+      } else {
+        await addDocument('books', updatedBook);
+      }
+      navigate('/');
+    } catch (error) {
+      console.error("Error saving book:", error);
+    } finally {
+      setLoading(false);
     }
-    else {
-      await addDocument('books', newBook)
-    }
-    setLoading(false)
-    navigate('/')
-  }
+  };
 
   const addCategory = () => {
     if (categories.includes(newCategory) || newCategory === '') {
@@ -134,8 +150,8 @@ export default function BookForm() {
 
 
   return (
-    <div className="h-screen">
-      <form onSubmit={handleSubmit} className="w-full max-w-lg px-5 py-5 mx-auto rounded-md">
+    <div className="">
+      <form onSubmit={handleSubmit} className={`w-full mt-4 max-w-lg px-5 py-5 mx-auto rounded-md ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
         <div className="flex items-center gap-2 mb-5">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`size-6 ${isDark ? 'text-white' : 'text-primary'}`}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
@@ -186,13 +202,40 @@ export default function BookForm() {
         </div>
         <div className="flex flex-wrap mb-3 -mx-3">
           <div className="w-full px-3">
-            <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-cover">
+            <label
+              className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`}
+              htmlFor="book-cover"
+            >
               Cover
             </label>
-            <input type="file" onChange={handleImageChange} />
-            {
-              !!preview && <img src={preview} className="w-full mt-2 rounded-md" alt="preview_img" />
-            }
+            <div className="relative">
+              {/* Hidden File Input */}
+              <input
+                type="file"
+                id="book-cover"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+
+              {/* Custom Display for File Input */}
+              <label
+                htmlFor="book-cover"
+                className="flex items-center justify-between px-4 py-2 text-gray-700 bg-gray-200 border border-gray-300 rounded cursor-pointer hover:bg-gray-300 focus:outline-none"
+              >
+                {file?.name || (preview ? "Current cover image used" : "Choose a file")}
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M7 16V4m0 0H3.5a1.5 1.5 0 00-1.5 1.5v15a1.5 1.5 0 001.5 1.5H7m0 0h14.5a1.5 1.5 0 001.5-1.5v-15A1.5 1.5 0 0021.5 4H7z"
+                  />
+                </svg>
+              </label>
+            </div>
+
+            {/* Image Preview */}
+            {preview && <img src={preview} className="w-full mt-2 rounded-md" alt="preview_img" />}
           </div>
         </div>
         <div>

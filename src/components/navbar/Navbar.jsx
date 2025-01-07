@@ -3,6 +3,7 @@ import useAuth from '../../hooks/useAuth';
 import useTheme from '../../hooks/useTheme';
 import lightIcon from '../../assets/light_mode.svg'
 import darkIcon from '../../assets/dark_mode.svg'
+// import Searchbar from './Searchbar';
 
 export default function Navbar() {
     /**
@@ -19,19 +20,7 @@ export default function Navbar() {
     return (
         <nav className={`flex items-center justify-between px-3.5 py-3.5 md:px-20 ${isDark ? 'border border-b-primary border-t-0 border-l-0 border-r-0' : 'border border-b-gray-200 border-t-0'}`}>
             {/* Left: Search bar and button */}
-            <div className="relative flex items-center space-x-2">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-36 text-sm md:text-normal md:w-[200px] px-5 py-3 transition duration-1000 ease-in-out border rounded-full outline-none border-1 focus:border-primary"
-                />
-                <button type='button' className="absolute hidden px-4 py-2.5 border border-primary text-center md:block left-40 bg-primary rounded-e-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                    </svg>
-
-                </button>
-            </div>
+            {/* <Searchbar /> */}
 
             {/* Center: Logo */}
             <Link to='/' className="flex items-center gap-2 text-2xl font-bold">

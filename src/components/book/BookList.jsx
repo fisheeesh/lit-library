@@ -23,7 +23,7 @@ export default function BookList({ books, error, loading }) {
             {loading && <h3 className={`my-20 text-xl text-center ${isDark ? 'text-white' : ''}`}>Loading...</h3>}
             {
                 !loading && !!books && (
-                    <div className="grid grid-cols-2 gap-2 mt-3 md:grid-cols-4">
+                    <div className="grid grid-cols-1 gap-2 mt-3 sm:grid-cols-2 md:grid-cols-4">
                         {
                             books.map(book => <SingleBook key={book.id} book={book} />)
                         }
