@@ -38,13 +38,13 @@ export default function HeroSection() {
                             <div className="flex justify-center gap-4 mt-4 lg:flex-row lg:justify-start">
                                 <a
                                     href="#introduction"
-                                    className="px-6 py-3 text-lg text-white transition duration-500 ease-in-out rounded-full btn bg-primary hover:bg-indigo-700"
+                                    className="px-5 py-2.5 text-lg text-white transition duration-500 ease-in-out rounded-full btn bg-primary hover:bg-indigo-700"
                                 >
                                     More Details
                                 </a>
                                 <a
                                     href="#contact"
-                                    className="px-6 py-3 text-lg transition duration-500 ease-in-out border rounded-full border-secondary text-secondary btn hover:bg-secondary hover:text-white"
+                                    className="px-5 py-2.5 text-lg transition duration-500 ease-in-out border rounded-full border-secondary text-secondary btn hover:bg-secondary hover:text-white"
                                 >
                                     Contact Us
                                 </a>
