@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth"
 import useTheme from "../../hooks/useTheme"
 import { useState } from "react"
 import CmtForm from "./CmtForm"
+import useFirestore from "../../hooks/useFirestore"
 
 /* eslint-disable react/prop-types */
 export default function SingleCmt({ cmt, deleteComment }) {
@@ -10,6 +11,13 @@ export default function SingleCmt({ cmt, deleteComment }) {
     const { user } = useAuth()
 
     const [editCmt, setEditCmt] = useState(null)
+
+    const { updateDocument } = useFirestore()
+
+    const increaseCmtCount = async(cmt) => {
+        cmt.like_count += 1
+        await updateDocument('comments', cmt.id, cmt, false)
+    }
 
     return (
         <div className={`px-6 py-8 my-3  shadow-md rounded-3xl ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
@@ -25,7 +33,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                         <h5 className="text-sm text-gray-400">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
                     </div>
                     <div className="flex items-center gap-2">
-                        {cmt.uId === user?.uid && <div className="flex items-center gap-2">
+                        {cmt.uid === user?.uid && <div className="flex items-center gap-2">
                             <span onClick={() => setEditCmt(cmt)} className="text-blue-600 cursor-pointer material-symbols-outlined">
                                 edit
                             </span>
@@ -34,6 +42,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                             </span>
                         </div>}
                         <button
+                        onClick={() => increaseCmtCount(cmt)}
                             type="button"
                             className={`px-3.5 py-1.5 border text-sm rounded-full flex items-center space-x-2`}
                         >

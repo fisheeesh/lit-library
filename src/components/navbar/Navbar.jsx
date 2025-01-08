@@ -24,14 +24,16 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed z-50 left-0 top-0 w-full flex items-center justify-between px-3.5 py-3.5 md:px-20 transition-all duration-500 ease-in-out ${isDark ? ' border-b-primary' : ' border-b-gray-200'
-                } ${isSticky ? 'bg-white shadow-lg' : 'bg-transparent'} ${isDark && isSticky ? 'bg-dark shadow-md' : ''
-                }`}
+            className={`fixed z-50 left-0 top-0 w-full flex items-center justify-between 
+                px-5 py-4 md:px-20 transition-all duration-500 ease-in-out 
+                ${isDark && isSticky ? 'bg-dark shadow-md' : ''}
+                ${!isDark && isSticky ? 'bg-light shadow-md' : ''}
+                `}
         >
             {/* Center: Logo */}
             <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
                 <img src="../src/assets/favicon.png" alt="" />
-                <span className="hidden text-primary md:block">LitLibrary</span>
+                <span className={`hidden md:block ${isDark ? 'text-light' : 'text-dark'}`}>LitLibrary</span>
             </Link>
 
             {/* Right: Create button and profile logo */}
@@ -55,7 +57,7 @@ export default function Navbar() {
 
                             <span className="hidden md:block">Create</span>
                         </Link>
-                        <Link to={'/profile'}>
+                        <Link to={`/profile/${user.uid}`}>
                             <img
                                 src={user?.photoURL}
                                 alt="Profile"
@@ -72,11 +74,11 @@ export default function Navbar() {
                         Get Started
                     </Link>
                 )}
-                <div className="p-1.5 border border-1 rounded-full flex items-center cursor-pointer">
+                <div className={`p-1.5 border border-1 rounded-full flex items-center cursor-pointer ${isDark ? 'border-primary' : 'border-gray-600'}`}>
                     {isDark && (
                         <img
                             src={lightIcon}
-                            className="w-6"
+                            className="w-6 text-primary"
                             alt="lightIcon.png"
                             onClick={() => changeTheme('light')}
                         />
@@ -84,7 +86,7 @@ export default function Navbar() {
                     {!isDark && (
                         <img
                             src={darkIcon}
-                            className="w-6"
+                            className="w-6 text-primary"
                             alt="darkIcon.png"
                             onClick={() => changeTheme('dark')}
                         />

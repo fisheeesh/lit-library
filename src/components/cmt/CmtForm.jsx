@@ -17,7 +17,7 @@ export default function CmtForm({ user, bookId, type = 'create', setEditCmt, edi
         setLoading(true)
         if (type === 'create') {
             let newComment = {
-                uId: user?.uid,
+                uid: user?.uid,
                 sender: user?.displayName,
                 bookId,
                 cmtContent: content,

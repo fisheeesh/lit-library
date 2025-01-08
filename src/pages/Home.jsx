@@ -1,15 +1,21 @@
+import { Link } from "react-router-dom"
 import BookList from "../components/book/BookList"
 import Header from "../components/header/Header"
-import useFirestore from "../hooks/useFirestore"
 
 function App() {
-  const { getAllDocuments } = useFirestore()
-  const { data: books, error, loading } = getAllDocuments('books')
 
   return (
     <>
       <Header />
-      <BookList books={books} error={error} loading={loading} />
+      <BookList limit={4} />
+      <div className="mt-8 mb-24 text-center">
+        <Link
+          to='/books'
+          className="px-6 py-3 text-lg transition duration-500 ease-in-out border rounded-full border-secondary text-secondary btn hover:bg-secondary hover:text-white"
+        >
+          See More
+        </Link>
+      </div>
     </>
   )
 }

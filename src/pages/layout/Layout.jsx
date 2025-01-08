@@ -27,11 +27,12 @@ export default function Layout() {
             <Navbar />
             <SwitchTransition>
                 <CSSTransition nodeRef={nodeRef} timeout={200} classNames="fade" key={location.pathname}>
-                    <div ref={nodeRef} className="w-full py-3 mx-auto mt-16">
+                    <div ref={nodeRef} className="w-full py-3 mt-16">
                         <Outlet />
                     </div>
                 </CSSTransition>
             </SwitchTransition>
+            <h3 className="mt-6 mb-3 text-sm text-center text-gray-500">Copyright © 2025 Lit-Library. All rights reserved.</h3>
         </div>
     )
 }

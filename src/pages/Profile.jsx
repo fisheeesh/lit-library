@@ -1,23 +1,17 @@
+import { useParams } from "react-router-dom"
 import BookList from "../components/book/BookList"
 import ProfileHeader from "../components/profile/ProfileHeader"
-import useAuth from "../hooks/useAuth"
-import useFirestore from "../hooks/useFirestore"
-import useTheme from "../hooks/useTheme"
 
 export default function Profile() {
-    const { getAllDocuments } = useFirestore()
-    const { user } = useAuth()
-    const { isDark } = useTheme()
+    const { id } = useParams()
 
-    const { data: books, error, loading } = getAllDocuments('books', ['uid', '==', user.uid])
+    const query = ['uid', '==', id]
 
     return (
-        <>
-            <ProfileHeader user={user} isDark={isDark} books={books} />
-            <h1 className="px-5 mt-8 mb-3 text-3xl font-bold text-primary">My Library 📚</h1>
-            <hr className={`${isDark ? 'border-primary' : 'border-gray-200'} mx-5`} />
-            <BookList books={books} error={error} loading={loading} />
-        </>
+        <div className="mx-auto max-w-7xl">
+            <ProfileHeader uId={id} />
+            <BookList query={query} />
+        </div>
     )
 }
 
