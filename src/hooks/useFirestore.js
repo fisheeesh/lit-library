@@ -5,7 +5,7 @@ import { db } from "../firebase/config"
 
 export default function useFirestore() {
 
-    const getAllDocuments = (collectionName, _q) => {
+    const getAllDocuments = (collectionName, _q, search) => {
         const [data, setData] = useState([])
         const [error, setError] = useState(null)
         const [loading, setLoading] = useState(false)
@@ -36,7 +36,18 @@ export default function useFirestore() {
                     let document = { ...doc.data(), id: doc.id }
                     doc.data().created_at && collectionDatas.push(document)
                 })
-                setData(collectionDatas)
+
+                // Search Feature
+                // console.log(collectionDatas)
+                if (search?.field && search?.value) {
+                    let searchedDatas = collectionDatas.filter(doc =>
+                        doc[search?.field].includes(search?.value)
+                    )
+                    setData(searchedDatas)
+                }
+                else {
+                    setData(collectionDatas)
+                }
                 setLoading(false)
                 setError(null)
             }, (error) => {
@@ -45,7 +56,7 @@ export default function useFirestore() {
             })
 
             return () => unsubscribe()
-        }, [collectionName, qRef])
+        }, [collectionName, qRef, search?.field, search?.value])
 
         return { data, error, loading }
     }

@@ -2,18 +2,13 @@
 import useFirestore from "../../hooks/useFirestore"
 import useTheme from "../../hooks/useTheme"
 import SingleBook from "./SingleBook"
+import { useLocation } from "react-router-dom"
 
 export default function BookList({ limit = null, query = null }) {
 
-    /**
-     *  @TODO: with json-server
-     * $ import useFetch from "../hooks/useFetch"
-     * $ import { useLocation } from "react-router-dom"
-     * ? const location = useLocation()
-     * ? const params = new URLSearchParams(location.search)
-     * ? const search = params.get('search')
-     * ? const { data: books, error, loading } = useFetch(`http://localhost:3001/books${search ? `?q=${search}` : ''}`)
-     */
+    const location = useLocation()
+    const params = new URLSearchParams(location.search)
+    const search = params.get('search')
 
     const { getAllDocuments } = useFirestore()
     let books;
@@ -21,13 +16,16 @@ export default function BookList({ limit = null, query = null }) {
     let loadinG;
 
     if (query) {
-        const { data, error, loading } = getAllDocuments('books', query)
+        const { data, error, loading } = getAllDocuments('books', query, null)
         books = data
         erroR = error
         loadinG = loading
     }
     else {
-        const { data, error, loading } = getAllDocuments('books')
+        const { data, error, loading } = getAllDocuments('books', null, {
+            field: 'title',
+            value: search
+        })
         books = data
         erroR = error
         loadinG = loading

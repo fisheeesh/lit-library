@@ -1,7 +1,22 @@
+import { useState } from "react";
 import BookList from "../components/book/BookList";
 import useTheme from "../hooks/useTheme";
+import { useNavigate } from "react-router-dom";
 
 export default function AllBooks() {
+    const params = new URLSearchParams(location.search)
+    const searchValue = params.get('search')
+
+    const [search, setSearch] = useState(searchValue)
+
+    const navigate = useNavigate()
+
+    const handleSearch = (e) => {
+        e.preventDefault()
+
+        navigate(`/books/?search=${search}`)
+    }
+
     const { isDark } = useTheme()
     return (
         <>
@@ -12,7 +27,7 @@ export default function AllBooks() {
             </div>
             {/* Search Bar */}
             <div className="mb-12 text-center">
-                <input type="text" className="w-full max-w-md px-5 py-3 text-lg transition duration-500 ease-in-out border border-gray-500 outline-none rounded-s-full border-1 focus:border-primary" placeholder="Search..." />
+                <input onKeyDown={e => e.key === 'Enter' && handleSearch(e)} value={search} onChange={(e) => setSearch(e.target.value)} type="text" className="w-full max-w-md px-5 py-3 text-lg transition duration-500 ease-in-out border border-gray-500 outline-none rounded-s-full border-1 focus:border-primary" placeholder="Press 'Enter' to Search" />
                 <button className="px-5 py-3 text-lg text-center text-white border border-primary bg-primary rounded-e-full">Dropdown</button>
             </div>
             <BookList />
