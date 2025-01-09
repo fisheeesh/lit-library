@@ -6,60 +6,69 @@ import { db } from "../firebase/config"
 export default function useFirestore() {
 
     const getAllDocuments = (collectionName, _q, search) => {
-        const [data, setData] = useState([])
-        const [error, setError] = useState(null)
-        const [loading, setLoading] = useState(false)
+        const [data, setData] = useState([]);
+        const [error, setError] = useState(null);
+        const [loading, setLoading] = useState(false);
 
-        const qRef = useRef(_q).current
+        const qRef = useRef(_q).current;
 
         useEffect(() => {
-            setLoading(true)
-            let ref = collection(db, collectionName)
-            let queries = []
+            setLoading(true);
+            let ref = collection(db, collectionName);
+            let queries = [];
 
             if (qRef) {
-                queries.push(where(...qRef))
+                queries.push(where(...qRef));
             }
-            queries.push(orderBy('created_at', 'desc'))
-            let q = query(ref, ...queries)
+            queries.push(orderBy('created_at', 'desc'));
+            let q = query(ref, ...queries);
 
-            const unsubscribe = onSnapshot(q, (snapShot) => {
-                if (snapShot.empty) {
-                    setData([])
-                    setLoading(false)
-                    if (collectionName === 'books') setError("No book(s) found")
-                    if (collectionName === 'comments') setError("No Comment(s) Found. Be the first to comment.")
-                    return
+            const unsubscribe = onSnapshot(
+                q,
+                (snapShot) => {
+                    if (snapShot.empty) {
+                        setData([]);
+                        setLoading(false);
+                        if (collectionName === 'books') setError("No book(s) found");
+                        if (collectionName === 'comments') setError("No Comment(s) Found. Be the first to comment.");
+                        return;
+                    }
+
+                    let collectionDatas = [];
+                    snapShot.forEach((doc) => {
+                        let document = { ...doc.data(), id: doc.id };
+                        doc.data().created_at && collectionDatas.push(document);
+                    });
+
+                    // Apply search filter
+                    let filteredData = collectionDatas;
+                    if (search?.field && search?.value) {
+                        filteredData = filteredData.filter((doc) =>
+                            doc[search.field].toLowerCase().includes(search.value.toLowerCase())
+                        );
+                    }
+
+                    // Apply category filter
+                    if (search?.filter && search.filter !== 'All') {
+                        // console.log("Filtering with:", search.filter);
+                        filteredData = filteredData.filter((doc) => doc.categories.includes(search.filter));
+                    }
+
+                    setData(filteredData);
+                    setLoading(false);
+                    setError(null);
+                },
+                (error) => {
+                    setLoading(false);
+                    setError(error.message);
                 }
-                let collectionDatas = []
-                snapShot.forEach(doc => {
-                    let document = { ...doc.data(), id: doc.id }
-                    doc.data().created_at && collectionDatas.push(document)
-                })
+            );
 
-                // Search Feature
-                // console.log(collectionDatas)
-                if (search?.field && search?.value) {
-                    let searchedDatas = collectionDatas.filter(doc =>
-                        doc[search?.field].includes(search?.value)
-                    )
-                    setData(searchedDatas)
-                }
-                else {
-                    setData(collectionDatas)
-                }
-                setLoading(false)
-                setError(null)
-            }, (error) => {
-                setLoading(false)
-                setError(error.message)
-            })
+            return () => unsubscribe();
+        }, [collectionName, qRef, search?.field, search?.value, search?.filter]);
 
-            return () => unsubscribe()
-        }, [collectionName, qRef, search?.field, search?.value])
-
-        return { data, error, loading }
-    }
+        return { data, error, loading };
+    };
 
     const getDocumentById = (collectionName, id) => {
         const [data, setData] = useState(null)

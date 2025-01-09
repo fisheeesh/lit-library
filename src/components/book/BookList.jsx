@@ -8,7 +8,8 @@ export default function BookList({ limit = null, query = null }) {
 
     const location = useLocation()
     const params = new URLSearchParams(location.search)
-    const search = params.get('search')
+    const search = params.get('search') || '';
+    const filterValue = params.get('category') || 'All';
 
     const { getAllDocuments } = useFirestore()
     let books;
@@ -24,7 +25,8 @@ export default function BookList({ limit = null, query = null }) {
     else {
         const { data, error, loading } = getAllDocuments('books', null, {
             field: 'title',
-            value: search
+            value: search,
+            filter: filterValue !== 'All' ? filterValue : null,
         })
         books = data
         erroR = error
@@ -40,7 +42,7 @@ export default function BookList({ limit = null, query = null }) {
             {loadinG && <h3 className={`my-20 text-xl text-center ${isDark ? 'text-white' : ''}`}>Loading...</h3>}
             {
                 !loadinG && !!books && limit ? (
-                    <div className="grid grid-cols-1 gap-4 px-5 mx-auto mt-3 sm:grid-cols-2 md:grid-cols-4 max-w-7xl md:px-0">
+                    <div className="grid grid-cols-1 gap-4 mx-auto mt-3 sm:grid-cols-2 md:grid-cols-4 max-w-7xl">
                         {
                             books.slice(0, limit).map(book => <SingleBook key={book.id} book={book} />)
                         }

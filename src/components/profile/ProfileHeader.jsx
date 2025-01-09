@@ -38,7 +38,7 @@ export default function ProfileHeader({ uId }) {
     }
 
     return (
-        <div className="px-5 md:px-0">
+        <div className="px-5 mb-4 md:px-0">
             <div className="grid grid-cols-3 gap-4 mt-6 ">
                 <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
                     <img
