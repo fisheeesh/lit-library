@@ -40,7 +40,7 @@ export default function useFirestore() {
                         doc.data().created_at && collectionDatas.push(document);
                     });
 
-                    // Apply search filter
+                    //$ Apply search filter
                     let filteredData = collectionDatas;
                     if (search?.field && search?.value) {
                         filteredData = filteredData.filter((doc) =>
@@ -48,7 +48,7 @@ export default function useFirestore() {
                         );
                     }
 
-                    // Apply category filter
+                    //$ Apply category filter
                     if (search?.filter && search.filter !== 'All') {
                         // console.log("Filtering with:", search.filter);
                         filteredData = filteredData.filter((doc) => doc.categories.includes(search.filter));
