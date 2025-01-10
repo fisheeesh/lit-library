@@ -4,6 +4,7 @@ import useSignOut from "../../hooks/useSignOut"
 import useFirestore from "../../hooks/useFirestore"
 import useTheme from "../../hooks/useTheme"
 import useAuth from "../../hooks/useAuth"
+import defaultProfile from '../../assets/default_profile.jpg'
 
 export default function ProfileHeader({ uId }) {
     const { logOut } = useSignOut()
@@ -42,7 +43,7 @@ export default function ProfileHeader({ uId }) {
             <div className="grid grid-cols-3 gap-4 mt-6 ">
                 <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
                     <img
-                        src={userData?.photoURL}
+                        src={userData?.photoURL || defaultProfile}
                         alt="Profile"
                         className={`my-0.5 rounded-3xl w-44 h-44 ${isDark ? 'border border-primary' : ''}`}
                     />
