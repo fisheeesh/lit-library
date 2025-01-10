@@ -26,12 +26,12 @@ export default function HeroSection() {
                         {/* Text Content */}
                         <div className="mt-6">
                             <h1
-                                className={`text-5xl md:text-5xl lg:text-[75px] font-bold leading-tight mb-6 ${isDark ? 'text-light' : 'text-dark'
+                                className={`tracking-wide text-5xl md:text-5xl lg:text-[75px] font-bold leading-tight mb-6 ${isDark ? 'text-light' : 'text-dark'
                                     }`}
                             >
                                 The <span className="text-primary">Perfect</span> <span className="text-secondary">Inspiration</span> Place
                             </h1>
-                            <p className={`text-lg text-gray-600 md:text-xl ${isDark ? 'text-light' : 'text-dark'}`}>
+                            <p className={`tracking-wide text-lg text-gray-600 md:text-xl ${isDark ? 'text-light' : 'text-dark'}`}>
                                 Share your thoughts, knowledge, and life lessons with a community built on wisdom and motivation.
                             </p>
                             <div className="flex justify-center gap-4 mt-4 lg:flex-row lg:justify-start">

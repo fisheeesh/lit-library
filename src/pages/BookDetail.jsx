@@ -54,7 +54,7 @@ export default function BookDetail() {
             }
             {
                 book && (
-                    <div className="mx-auto max-w-7xl">
+                    <div className="px-5 mx-auto max-w-7xl md:px-0">
                         <div className="grid grid-cols-3 gap-4 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
                                 <img src={book.cover} alt="" className={`w-full h-[544px] rounded-lg ${error ? 'hidden' : ''}`} />
@@ -100,7 +100,7 @@ export default function BookDetail() {
                         <h1 className="mb-2 text-2xl font-bold text-secondary">Say something...</h1>
                         <div className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
                             {/* Form */}
-                            {!!user && <CmtForm user={user} bookId={id} />}
+                            {user ? <CmtForm user={user} bookId={id} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />
                         </div>
                     </div>

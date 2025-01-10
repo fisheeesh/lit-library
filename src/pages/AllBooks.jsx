@@ -45,10 +45,10 @@ export default function AllBooks() {
         <>
             {/* Header */}
             <div className="flex flex-col items-center justify-center mt-16 mb-4 space-y-4">
-                <h1 className={`text-5xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'}`}>
+                <h1 className={`text-5xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'} tracking-wide`}>
                     Your Daily Dose of <span className="text-secondary">Inspiration</span> and <span className="text-secondary">Knowledge</span>
                 </h1>
-                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-lg`}>
+                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-lg tracking-wide`}>
                     Transform Your Skills in the Time! It Takes to Brew Coffee.
                 </h3>
             </div>

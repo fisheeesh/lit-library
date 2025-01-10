@@ -47,7 +47,7 @@ export default function BookList({ limit = null, query = null }) {
                 </div>}
             {
                 !loadinG && !!books && limit ? (
-                    <div className="grid grid-cols-1 gap-4 mx-auto mt-3 sm:grid-cols-2 md:grid-cols-4 max-w-7xl">
+                    <div className="grid grid-cols-1 gap-4 px-5 mx-auto mt-3 sm:grid-cols-2 md:grid-cols-4 max-w-7xl md:px-0">
                         {
                             books.slice(0, limit).map(book => <SingleBook key={book.id} book={book} />)
                         }
