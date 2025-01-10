@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { PropagateLoader } from "react-spinners"
 import useFirestore from "../../hooks/useFirestore"
 import useTheme from "../../hooks/useTheme"
 import SingleBook from "./SingleBook"
@@ -8,8 +9,8 @@ export default function BookList({ limit = null, query = null }) {
 
     const location = useLocation()
     const params = new URLSearchParams(location.search)
-    const search = params.get('search') || '';
-    const filterValue = params.get('category') || 'All';
+    const searchValue = params.get('search');
+    const filterValue = params.get('category');
 
     const { getAllDocuments } = useFirestore()
     let books;
@@ -25,21 +26,25 @@ export default function BookList({ limit = null, query = null }) {
     else {
         const { data, error, loading } = getAllDocuments('books', null, {
             field: 'title',
-            value: search,
-            filter: filterValue !== 'All' ? filterValue : null,
+            value: searchValue,
+            filter: filterValue
         })
         books = data
         erroR = error
         loadinG = loading
     }
 
-
     const { isDark } = useTheme()
+
+    const customColor = !isDark ? "#4555d2" : "#cc2973"
 
     return (
         <>
             {erroR && <h3 className="my-24 text-2xl font-bold text-center text-gray-500">{erroR}</h3>}
-            {loadinG && <h3 className={`my-20 text-xl text-center ${isDark ? 'text-white' : ''}`}>Loading...</h3>}
+            {loadinG &&
+                <div className={`my-40 flex items-center justify-center`}>
+                    <PropagateLoader width={"150px"} height={"5px"} color={customColor} />
+                </div>}
             {
                 !loadinG && !!books && limit ? (
                     <div className="grid grid-cols-1 gap-4 mx-auto mt-3 sm:grid-cols-2 md:grid-cols-4 max-w-7xl">
@@ -55,6 +60,7 @@ export default function BookList({ limit = null, query = null }) {
                     </div>
                 )
             }
+            {!loadinG && !books.length && <h3 className="my-24 text-2xl font-bold text-center text-primary">No book(s) found.</h3>}
         </>
     )
 }

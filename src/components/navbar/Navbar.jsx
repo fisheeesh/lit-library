@@ -71,7 +71,7 @@ export default function Navbar() {
                         to={'/auth'}
                         className="px-5 py-2.5 text-white bg-primary rounded-full hover:bg-indigo-700 transition duration-500 ease-in-out"
                     >
-                        Get Started
+                        Turn the Page
                     </Link>
                 )}
                 <div className={`p-1.5 border border-1 rounded-full flex items-center cursor-pointer ${isDark ? 'border-primary' : 'border-gray-600'}`}>

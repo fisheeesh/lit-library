@@ -14,6 +14,7 @@ export default function AllBooks() {
 
     const [search, setSearch] = useState(searchValue)
     const [selectedCategory, setSelectedCategory] = useState(filterValue)
+    
     const [isOpen, setIsOpen] = useState(false)
     const { getAllDocuments } = useFirestore()
 
@@ -39,8 +40,7 @@ export default function AllBooks() {
     const handleSearch = (e) => {
         e.preventDefault()
 
-        const filteredValue = selectedCategory !== 'All' ? selectedCategory : ''
-        navigate(`/books/?search=${search}${filteredValue ? `&category=${filteredValue}` : ''}`)
+        navigate(`/books/?search=${search}${selectedCategory ? `&category=${selectedCategory}` : ''}`)
     }
 
     return (
@@ -48,7 +48,7 @@ export default function AllBooks() {
             {/* Header */}
             <div className="flex flex-col items-center justify-center mt-16 mb-4 space-y-4">
                 <h1 className={`text-5xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'}`}>Your Daily Dose of <span className="text-secondary">Inspiration</span> and <span className="text-secondary">Knowledge</span></h1>
-                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-lg`}>Transform Your Skills in the Time It Takes to Brew Coffee.</h3>
+                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-lg`}>Transform Your Skills in the Time! It Takes to Brew Coffee.</h3>
             </div>
             {/* Search Bar */}
             <div className="flex items-center justify-center gap-2 px-5 mb-12">
@@ -76,8 +76,8 @@ export default function AllBooks() {
                                         <h3
                                             onClick={() => {
                                                 setSelectedCategory(cate);
-                                                const updatedSearch = search ? `search=${search}&` : '';
-                                                navigate(`/books/?${updatedSearch}category=${cate !== 'All' ? cate : 'All'}`); // Use 'filter' as key
+                                                const updatedPath = search ? `search=${search}&` : '';
+                                                navigate(`/books/?${updatedPath}category=${cate}`);
                                                 setIsOpen(false);
                                             }}
                                             key={index}
