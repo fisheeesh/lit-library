@@ -13,7 +13,8 @@ export default {
         dbg: '#050618',
         dcard: '#070E27',
         dark: "#191e47",
-        light: '#f9fafe'
+        light: '#f9fafe',
+        black: '#1d1d21'
       }
     },
   },

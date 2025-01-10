@@ -7,7 +7,6 @@ export default function HeroSection() {
 
     return (
         <>
-            {/* Header */}
             <header className="relative mt-12 overflow-hidden text-center lg:text-left">
                 {/* Decoration Stars */}
                 <img
@@ -36,18 +35,20 @@ export default function HeroSection() {
                                 Share your thoughts, knowledge, and life lessons with a community built on wisdom and motivation.
                             </p>
                             <div className="flex justify-center gap-4 mt-4 lg:flex-row lg:justify-start">
-                                <a
-                                    href="#introduction"
+                                <button
+                                    onClick={() => {
+                                        document.querySelector('#blogs').scrollIntoView({ behavior: 'smooth' });
+                                    }}
                                     className="px-5 py-2.5 text-lg text-white transition duration-500 ease-in-out rounded-full btn bg-primary hover:bg-indigo-700"
                                 >
                                     More Details
-                                </a>
-                                <a
+                                </button>
+                                {/* <a
                                     href="#contact"
                                     className="px-5 py-2.5 text-lg transition duration-500 ease-in-out border rounded-full border-secondary text-secondary btn hover:bg-secondary hover:text-white"
                                 >
                                     Contact Us
-                                </a>
+                                </a> */}
                             </div>
                         </div>
 

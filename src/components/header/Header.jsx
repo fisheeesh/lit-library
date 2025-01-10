@@ -14,7 +14,7 @@ export default function Header() {
             {/* Introduction Section */}
             <Intro />
 
-            <h3 className={`mt-20 mb-6 text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'}`}>Latest <span className="text-secondary">Blogs</span></h3>
+            <h3 id="blogs" className={`mt-20 mb-6 text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'}`}>Latest <span className="text-secondary">Blogs</span></h3>
         </>
     )
 }
