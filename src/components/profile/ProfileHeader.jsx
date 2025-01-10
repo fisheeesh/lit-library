@@ -48,7 +48,17 @@ export default function ProfileHeader({ uId }) {
                         className={`my-0.5 rounded-3xl w-44 h-44 ${isDark ? 'border border-primary' : ''}`}
                     />
                     <div className="mt-2.5">
-                        <h2 className="text-3xl font-bold text-primary">{userData?.displayName}</h2>
+                        <div className="flex items-center gap-1">
+                            <h2 className="text-3xl font-bold text-primary">{userData?.displayName}</h2>
+                            {userData?.uid === '1Ojc7pA10tVCpAo5bHxXVu5PHRA2' && <div className="relative mt-2 group">
+                                <span className="cursor-pointer text-secondary material-symbols-outlined">
+                                    check_circle
+                                </span>
+                                <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                    Developer of LitLibrary
+                                </span>
+                            </div>}
+                        </div>
                         <div className="flex items-center gap-2 mt-2">
                             <span className={`material-symbols-outlined ${isDark ? 'text-white' : ''}`}>
                                 mail

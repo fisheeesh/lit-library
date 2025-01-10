@@ -60,7 +60,7 @@ export default function BookList({ limit = null, query = null }) {
                     </div>
                 )
             }
-            {!loadinG && !books.length && <h3 className="my-24 text-2xl font-bold text-center text-primary">No book(s) found.</h3>}
+            {!loadinG && !books.length && !erroR && <h3 className="my-24 text-2xl font-bold text-center text-primary">No Search Book(s) found.</h3>}
         </>
     )
 }

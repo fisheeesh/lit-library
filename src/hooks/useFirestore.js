@@ -48,7 +48,7 @@ export default function useFirestore() {
                         );
                     }
 
-                    //$ Apply category filter
+                    // Apply category filter
                     if (search?.filter && search.filter !== 'All') {
                         // console.log("Filtering with:", search.filter);
                         filteredData = filteredData.filter((doc) => doc.categories.includes(search.filter));
