@@ -12,7 +12,7 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsSticky(window.scrollY > 50);
+            setIsSticky(window.scrollY > 20);
         };
 
         window.addEventListener('scroll', handleScroll);

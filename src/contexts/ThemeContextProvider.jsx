@@ -1,5 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useReducer } from "react"
+import { createContext, useEffect, useReducer } from "react"
 
 export const ThemeContext = createContext()
 
@@ -14,10 +14,17 @@ const ThemeReducer = (state, action) => {
 
 // eslint-disable-next-line react/prop-types
 export default function ThemedContextProvider({ children }) {
+    //$ Retrieve initial theme from localStorage or default to 'light'
+    const storedTheme = localStorage.getItem("theme") || "light";
 
     const [state, dispatch] = useReducer(ThemeReducer, {
-        theme: 'light'
+        theme: storedTheme
     })
+
+    //$ Update localStorage whenever theme changes
+    useEffect(() => {
+        localStorage.setItem("theme", state.theme);
+    }, [state.theme]);
 
     const changeTheme = (theme) => {
         dispatch({

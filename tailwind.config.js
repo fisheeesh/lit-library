@@ -14,7 +14,8 @@ export default {
         dcard: '#070E27',
         dark: "#191e47",
         light: '#f9fafe',
-        black: '#1d1d21'
+        black: '#1d1d21',
+        shadow: "#6a77db",
       }
     },
   },

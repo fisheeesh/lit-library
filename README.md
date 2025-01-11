@@ -1,8 +1,10 @@
 # LitLibrary 📚✨  
 
-LitLibrary is a vibrant blogging platform designed to foster a positive and supportive community. Users can share personal growth experiences, life knowledge, advice, and insights while engaging with others' blogs. It’s a place to inspire, learn, and connect.  
+LitLibrary (Literature Library) is a vibrant blogging platform designed to foster a positive and supportive community. Users can share personal growth experiences, life knowledge, advice, and insights while engaging with others' blogs. It’s a place to inspire, learn, and connect.  
 
 For instance, newbies and beginners from any career field can share their newly acquired knowledge by explaining concepts to others. This not only helps them solidify their understanding but also invites discussions, feedback, and suggestions from other users. The community can point out what works well, highlight any gaps, and offer advice to improve or expand on the shared knowledge. So, join the conversation and start growing together with LitLibrary! 🚀  
+
+![User Interface](./src/assets/preview.png)
 
 ## 🌟 Features  
 

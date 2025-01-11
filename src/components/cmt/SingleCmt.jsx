@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth"
 import useTheme from "../../hooks/useTheme"
 import { useState } from "react"
 import CmtForm from "./CmtForm"
+import { Link } from "react-router-dom"
 
 /* eslint-disable react/prop-types */
 export default function SingleCmt({ cmt, deleteComment }) {
@@ -20,7 +21,21 @@ export default function SingleCmt({ cmt, deleteComment }) {
                 />
                 <div className="flex items-center justify-between w-full">
                     <div>
-                        <h3 className={`text-lg font-bold ${isDark ? 'text-white' : ''}`}>{cmt.sender}</h3>
+                        {cmt.uid !== '1Ojc7pA10tVCpAo5bHxXVu5PHRA2' ? (
+                            <Link to={`/profile/${cmt.uid}`} className={`text-lg font-bold ${isDark ? 'text-white' : ''} cus-btn`}>{cmt.sender}</Link>
+                        ) : (
+                            <div className="flex items-center gap-1 text-center">
+                                <Link to={`/profile/${cmt.uid}`} className={`text-lg font-bold ${isDark ? 'text-white' : ''} cus-btn`}>{cmt.sender}</Link>
+                                <div className="relative mt-1 group">
+                                    <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">
+                                        check_circle
+                                    </span>
+                                    <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                        Developer of LitLibrary
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                         <h5 className="text-sm text-gray-400">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
                     </div>
                     <div className="flex items-center gap-2">
