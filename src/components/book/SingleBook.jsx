@@ -9,9 +9,11 @@ export default function SingleBook({ book }) {
 
     const { isDark } = useTheme()
     const { user } = useAuth()
-    const { deleteDocument } = useFirestore()
+    const { deleteDocument, getDocumentById, updateDocument } = useFirestore()
     const { deleteFileFromStorage } = useStorage()
     const navigate = useNavigate()
+
+    const { data: userData } = getDocumentById('users', user?.uid)
 
     const deleteBook = async (e, id) => {
         e.preventDefault()
@@ -19,11 +21,20 @@ export default function SingleBook({ book }) {
         await deleteFileFromStorage(`/covers/${user.uid}/${book.bookCoverName}`)
     }
 
+    const toggleSaved = async (bookId) => {
+        if (userData.saved.includes(bookId)) {
+            await updateDocument('users', user?.uid, { saved: userData.saved.filter(id => id !== bookId) }, false)
+        }
+        else {
+            await updateDocument('users', user?.uid, { saved: [...userData.saved, bookId] }, false)
+        }
+    }
+
     return (
-        <Link to={`/books/${book.id}`} className={`p-4 space-y-3  border rounded-md transition ease-in-out duration-700 hover:shadow-lg ${isDark ? 'border-primary hover:shadow-primary shadow' : ''}`}>
+        <Link to={`/books/${book.id}`} className={`p-4 space-y-3 relative border rounded-md transition ease-in-out duration-700 hover:shadow-lg ${isDark ? 'border-primary hover:shadow-primary shadow' : ''}`}>
             <img src={book.cover} alt="" className="w-full rounded-md h-[270px]" />
             <div className="flex items-center justify-between">
-                <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title.length > 15 ? book.title.slice(0, 15) + '...' : book.title}</h2>
+                <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book?.title?.length > 15 ? book?.title?.slice(0, 15) + '...' : book?.title}</h2>
                 {(user?.uid === book?.uid) &&
                     <div className="flex items-center justify-center gap-1">
                         <span className="text-red-600 material-symbols-outlined text-md" onClick={(e) => deleteBook(e, book.id)}>
@@ -39,11 +50,17 @@ export default function SingleBook({ book }) {
                         </span>
                     </div>
                 }
+                {(!(user?.uid === book?.uid) && !!user) && <span onClick={(e) => {
+                    e.preventDefault()
+                    toggleSaved(book.id)
+                }} className="p-1.5 transition-all duration-500 border-0 rounded-full text-[20px] hover:bg-indigo-700 material-symbols-outlined bg-primary text-light">
+                    {userData?.saved.includes(book.id) ? 'bookmark_added' : 'bookmark_add'}
+                </span>}
             </div>
-            <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author}</span>
+            <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author || 'Unknown'}</span>
             <div className="flex flex-wrap gap-2">
                 {
-                    book.categories.map(c => (
+                    book?.categories?.map(c => (
                         <span key={c} className="px-3 py-1 text-sm text-white rounded-full bg-primary">
                             {c}
                         </span>

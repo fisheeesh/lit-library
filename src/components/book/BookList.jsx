@@ -43,7 +43,7 @@ export default function BookList({ limit = null, query = null }) {
             {erroR && <h3 className="my-24 text-2xl font-bold text-center text-gray-500">{erroR}</h3>}
             {loadinG &&
                 <div className={`my-40 flex items-center justify-center`}>
-                    <PropagateLoader width={"150px"} height={"5px"} color={customColor} />
+                    <PropagateLoader width={"100px"} height={"5px"} color={customColor} />
                 </div>}
             {
                 !loadinG && !!books && limit ? (

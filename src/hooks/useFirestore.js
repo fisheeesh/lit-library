@@ -80,7 +80,8 @@ export default function useFirestore() {
             let ref = doc(db, collectionName, id)
             const unsubscribe = onSnapshot(ref, (doc) => {
                 if (doc.exists()) {
-                    setData(doc.data())
+                    let document = { ...doc.data(), id: doc.id }
+                    setData(document)
                     setLoading(false)
                     setError(null)
                 }

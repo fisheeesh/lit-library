@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import useFirestore from "../hooks/useFirestore"
 import ReactLinkify from "react-linkify"
 import CmtForm from "../components/cmt/CmtForm"
@@ -13,11 +13,8 @@ export default function BookDetail() {
     const { id } = useParams()
 
     const { isDark } = useTheme()
-    const { user } = useAuth() // Check user status
+    const { user } = useAuth()
     const navigate = useNavigate()
-
-    const [isFavorite, setIsFavorite] = useState({})
-    const [favorites, setFavorites] = useState([])
 
     const { getDocumentById, updateDocument } = useFirestore()
 
@@ -50,18 +47,20 @@ export default function BookDetail() {
             return;
         }
 
-        setIsFavorite(prevFav => ({
-            ...prevFav,
-            [bookId]: !prevFav[bookId]
-        }))
+        if (user.uid === book.uid) {
+            alert('You cannot like your own book!')
+            return
+        }
 
-        if (!isFavorite[bookId]) {
-            setFavorites(prevFav => [...prevFav, bookId])
-            await updateDocument('users', user?.uid, { favorites: [...favorites, bookId] }, false)
+        if (userData.favorites.includes(bookId)) {
+            book.likes_count -= 1
+            await updateDocument('users', user?.uid, { favorites: userData.favorites.filter(fav => fav !== bookId) }, false)
+            await updateDocument('books', bookId, { likes_count: book.likes_count }, false)
         }
         else {
-            setFavorites(prevFav => prevFav.filter(fav => fav !== bookId))
-            await updateDocument('users', user?.uid, { favorites: favorites.filter(fav => fav !== bookId) }, false)
+            book.likes_count += 1
+            await updateDocument('users', user?.uid, { favorites: [...userData.favorites, bookId] }, false)
+            await updateDocument('books', bookId, { likes_count: book.likes_count }, false)
         }
     }
 
@@ -72,7 +71,7 @@ export default function BookDetail() {
             }
             {
                 loading && <div className={`my-56 flex items-center justify-center`}>
-                    <PropagateLoader width={"150px"} height={"5px"} color={customColor} />
+                    <PropagateLoader width={"100px"} height={"5px"} color={customColor} />
                 </div>
             }
             {
@@ -94,11 +93,11 @@ export default function BookDetail() {
                                         </div>
                                     </div>
                                     <button
-                                        onClick={() => toggleFavorite(id)}
+                                        onClick={() => toggleFavorite(book.id)}
                                         type="button"
-                                        className={`px-3.5 py-2 border ${userData?.favorites?.includes(id) ? 'border-red-600' : 'border-gray-400'} text-sm rounded-full cursor-pointer flex items-center space-x-2`}
+                                        className={`px-3.5 py-2 border ${userData?.favorites?.includes(book.id) ? 'border-red-600' : 'border-gray-400'} text-sm rounded-full cursor-pointer flex items-center space-x-2`}
                                     >
-                                        {userData?.favorites?.includes(id) ?
+                                        {userData?.favorites?.includes(book.id) ?
                                             (<svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="size-6">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                             </svg>) :
@@ -106,7 +105,7 @@ export default function BookDetail() {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                             </svg>)
                                         }
-                                        <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>100</span>
+                                        <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
                                     </button>
                                 </div>
                                 <h2 className={`text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>

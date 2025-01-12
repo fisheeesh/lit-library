@@ -97,7 +97,8 @@ export default function BookForm() {
       cover: url,
       bookCoverName: bookCoverName || null, // Retain existing name if no new file
       userProfile: user.photoURL,
-      userName: user.displayName
+      userName: user.displayName,
+      likes_count: 0
     };
 
     // Update or add the document

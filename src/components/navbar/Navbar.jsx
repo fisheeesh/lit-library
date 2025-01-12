@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import useTheme from '../../hooks/useTheme';
 import lightIcon from '../../assets/light_mode.svg';
 import darkIcon from '../../assets/dark_mode.svg';
+import defaultProfile from '../../assets/default_profile.jpg'
 
 export default function Navbar() {
     const { isDark, changeTheme } = useTheme();
@@ -59,7 +60,7 @@ export default function Navbar() {
                         </Link>
                         <Link to={`/profile/${user.uid}`}>
                             <img
-                                src={user?.photoURL}
+                                src={user?.photoURL || defaultProfile}
                                 alt="Profile"
                                 className="w-10 h-10 rounded-full"
                             />
