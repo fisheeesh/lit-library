@@ -40,11 +40,11 @@ export default function Router() {
                     element: <Profile />
                 },
                 {
-                    path: '/books/:id',
+                    path: '/blogs/:id',
                     element: <BookDetail />
                 },
                 {
-                    path: '/books',
+                    path: '/blogs',
                     element: <AllBooks />
                 },
                 {

@@ -34,6 +34,8 @@ export default function BookForm() {
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(false)
 
+  const [bookOwner, setBookOwner] = useState(null)
+
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
 
@@ -49,7 +51,8 @@ export default function BookForm() {
       let ref = doc(booksCollectionRef, id)
       getDoc(ref)
         .then(doc => {
-          let { title, author, description, categories, cover } = doc.data()
+          let { uid, title, author, description, categories, cover } = doc.data()
+          setBookOwner(uid)
           setTitle(title)
           setAuthor(author)
           setDescription(description)
@@ -104,7 +107,13 @@ export default function BookForm() {
     // Update or add the document
     try {
       if (isEdit) {
-        await updateDocument('books', id, updatedBook);
+        if (bookOwner === user.uid) {
+          await updateDocument('books', id, updatedBook);
+        }
+        else {
+          alert('You are not authorized to edit this book.')
+          navigate('/')
+        }
       } else {
         await addDocument('books', updatedBook);
       }

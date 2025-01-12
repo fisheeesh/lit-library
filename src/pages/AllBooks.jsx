@@ -33,7 +33,7 @@ export default function AllBooks() {
         const params = new URLSearchParams();
         if (search) params.set('search', search);
         if (category && category !== 'All') params.set('category', category);
-        navigate(`/books?${params.toString()}`, { replace: true });
+        navigate(`/blogs?${params.toString()}`, { replace: true });
     };
 
     const handleSearch = (e) => {
