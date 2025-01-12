@@ -20,7 +20,7 @@ export default function BookDetail() {
 
     const { data: book, setData, error, loading } = getDocumentById('books', id)
 
-    //$ If the user is not logged in, don't try to fetch the user data
+    //$ If there is no user, then userData will be null. So we all fetch the data if only the user is logged in
     const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null }
 
     useEffect(() => {

@@ -92,8 +92,17 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-between mt-8 mb-3">
-                <h1 className={` text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>{currnetUser ? 'My ' : `${userData?.displayName}` + '\'s ' || 'User' + '\'s '}<span className="text-primary">Library</span> 📚</h1>
+            {userData?.uid === 'Uz5ZUht55mcYnLC64sRYfvuY9ab2' && <div className={`flex border-2 flex-col justify-center w-full p-4 mt-5 text-center rounded-lg ${isDark ? ' text-light border-primary' : ' text-dark border-dark'}`}>
+                <h1 className="mb-2 text-3xl font-bold tracking-wide text-red-500">Disclaimer</h1>
+                <p className="mb-4 text-lg leading-relaxed tracking-wide">
+                    We do not own the content posted by this account, and this is not the official Creative Coder Myanmar account. The blogs shared here are for informational purposes only.
+                </p>
+                <p className="text-lg leading-relaxed tracking-wide">
+                    We encourage you to explore and enjoy their fantastic blogs and tricks directly on their official platform <a target="_blank" href="https://creativecodermm.com/" className="text-blue-400 underline">here</a>.
+                </p>
+            </div>}
+            <div className="flex items-center justify-between mt-5 mb-3">
+                <h1 className={` text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>{currnetUser ? 'My ' : `${userData?.displayName}` + '\'s ' || 'User' + '\'s '}<span className="text-primary">Collection</span> 📚</h1>
                 {currnetUser && <div className="flex items-center gap-3">
                     <button type="button" onClick={() => setFilter('uploaded')} className={`${filter === 'uploaded' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} px-3 py-2 rounded-lg`}>Uploaded</button>
                     <button type="button" onClick={() => setFilter('likes')} className={`${filter === 'likes' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} px-3 py-2 rounded-lg`}>Likes</button>

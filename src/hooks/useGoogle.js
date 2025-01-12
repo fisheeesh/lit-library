@@ -20,7 +20,9 @@ const useGoogle = () => {
                 displayName: user.displayName,
                 email: user.email,
                 photoURL: user.photoURL,
-                created_at: serverTimestamp()
+                created_at: serverTimestamp(),
+                saved: [],
+                favorites: []
             })
 
             setError(null)

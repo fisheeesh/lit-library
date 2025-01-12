@@ -29,7 +29,7 @@ export default function useFirestore() {
                     if (snapShot.empty) {
                         setData([]);
                         setLoading(false);
-                        if (collectionName === 'books') setError("No book(s) found");
+                        if (collectionName === 'books') setError("No Book(s) Found.");
                         if (collectionName === 'comments') setError("No Comment(s) Found. Be the first to comment.");
                         return;
                     }

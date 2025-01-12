@@ -30,7 +30,9 @@ const useSignUp = () => {
                 displayName: displayName,
                 email: email,
                 photoURL: res.user.photoURL,
-                created_at: serverTimestamp()
+                created_at: serverTimestamp(),
+                saved: [],
+                favorites: []
             })
 
             setLoading(false)

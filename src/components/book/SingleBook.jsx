@@ -13,7 +13,8 @@ export default function SingleBook({ book }) {
     const { deleteFileFromStorage } = useStorage()
     const navigate = useNavigate()
 
-    const { data: userData } = getDocumentById('users', user?.uid)
+    //$ If there is no user, then userData will be null. So we all fetch the data if only the user is logged in
+    const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null }
 
     const deleteBook = async (e, id) => {
         e.preventDefault()

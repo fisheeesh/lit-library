@@ -5,6 +5,7 @@ import useTheme from '../../hooks/useTheme';
 import lightIcon from '../../assets/light_mode.svg';
 import darkIcon from '../../assets/dark_mode.svg';
 import defaultProfile from '../../assets/default_profile.jpg'
+import logo from '../../assets/favicon.png'
 
 export default function Navbar() {
     const { isDark, changeTheme } = useTheme();
@@ -33,7 +34,7 @@ export default function Navbar() {
         >
             {/* Center: Logo */}
             <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
-                <img src="../src/assets/favicon.png" alt="" />
+                <img src={logo} alt="Logo.png" />
                 <span className={`hidden md:block ${isDark ? 'text-light' : 'text-dark'}`}>LitLibrary</span>
             </Link>
 

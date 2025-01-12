@@ -43,7 +43,7 @@ export default function Profile() {
                         ))
                     }{
                         userFavBooks.length === 0 && (
-                            <p className="col-span-4 my-24 text-2xl font-bold text-center text-primary">No Favorite Blog(s)</p>
+                            <p className="col-span-4 my-20 text-2xl font-bold text-center text-gray-500">No Favorite Blog(s)</p>
                         )
                     }
                 </div>
@@ -56,8 +56,8 @@ export default function Profile() {
                             <SingleBook key={index} book={book} />
                         ))
                     }{
-                        userFavBooks.length === 0 && (
-                            <p className="col-span-4 my-24 text-2xl font-bold text-center text-primary">No Saved Blog(s)</p>
+                        userSavBooks.length === 0 && (
+                            <p className="col-span-4 my-20 text-2xl font-bold text-center text-gray-500">No Saved Blog(s)</p>
                         )
                     }
                 </div>
