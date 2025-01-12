@@ -91,7 +91,7 @@ LitLibrary (Literature Library) was inspired by the need for a positive, support
 6. Create a pull request.
 
 ## 🌐 Live Demo
-Check out the live version of LitLibrary: https://lit-library-3kqu23vtq-fisheeeshs-projects.vercel.app
+Check out the live version of LitLibrary: https://lit-library-iota.vercel.app
 
 ---
 Crafted with 💖 by Fisheeesh
