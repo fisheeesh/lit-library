@@ -11,12 +11,12 @@ export default function HeroSection() {
                 {/* Decoration Stars */}
                 <img
                     src={decorationStar}
-                    className="absolute top-20 -left-24 lg:-left-52 w-[250px] lg:w-[500px] opacity-70"
+                    className="absolute top-0 md:top-20 -left-24 lg:-left-52 w-[250px] lg:w-[500px] opacity-70"
                     alt="Decoration Star"
                 />
                 <img
                     src={decorationStar}
-                    className="absolute top-20 -right-24 lg:-right-52 w-[250px] lg:w-[500px] opacity-70"
+                    className="absolute top-0 md:top-20 -right-24 lg:-right-52 w-[250px] lg:w-[500px] opacity-70"
                     alt="Decoration Star"
                 />
 
@@ -26,12 +26,12 @@ export default function HeroSection() {
                         {/* Text Content */}
                         <div className="mt-6">
                             <h1
-                                className={`tracking-wide text-5xl md:text-5xl lg:text-[75px] font-bold leading-tight mb-6 ${isDark ? 'text-light' : 'text-dark'
+                                className={`tracking-wide text-3xl md:text-5xl lg:text-[75px] font-bold leading-tight mb-6 ${isDark ? 'text-light' : 'text-dark'
                                     }`}
                             >
                                 The <span className="text-primary">Perfect</span> <span className="text-secondary">Inspiration</span> Place
                             </h1>
-                            <p className={`tracking-wide text-lg text-gray-600 md:text-xl ${isDark ? 'text-light' : 'text-dark'}`}>
+                            <p className={`tracking-wide text-md sm:text-lg text-gray-600 md:text-xl ${isDark ? 'text-light' : 'text-dark'}`}>
                                 Share your thoughts, knowledge, and life lessons with a community built on wisdom and motivation.
                             </p>
                             <div className="flex justify-center gap-4 mt-4 lg:flex-row lg:justify-start">
@@ -43,12 +43,6 @@ export default function HeroSection() {
                                 >
                                     More Details
                                 </button>
-                                {/* <a
-                                    href="#contact"
-                                    className="px-5 py-2.5 text-lg transition duration-500 ease-in-out border rounded-full border-secondary text-secondary btn hover:bg-secondary hover:text-white"
-                                >
-                                    Contact Us
-                                </a> */}
                             </div>
                         </div>
 

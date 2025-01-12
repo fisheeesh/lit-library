@@ -44,11 +44,11 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                     <img
                         src={userData?.photoURL || defaultProfile}
                         alt="Profile"
-                        className={`my-0.5 rounded-3xl w-44 h-44 ${isDark ? 'border border-primary' : ''}`}
+                        className={`my-0.5 rounded-3xl w-40 h-40 md:w-44 md:h-44 ${isDark ? 'border border-primary' : ''}`}
                     />
-                    <div className="mt-2.5">
+                    <div className="mt-1 md:mt-0">
                         <div className="flex items-center gap-1">
-                            <h2 className="text-3xl font-bold text-primary">{userData?.displayName || 'User'}</h2>
+                            <h2 className="text-xl font-bold sm:text-2xl md:text-3xl text-primary">{userData?.displayName || 'User'}</h2>
                             {userData?.uid === '1Ojc7pA10tVCpAo5bHxXVu5PHRA2' && <div className="relative mt-2 group">
                                 <span className="cursor-pointer text-secondary material-symbols-outlined">
                                     check_circle
@@ -59,20 +59,20 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                             </div>}
                         </div>
                         <div className="flex items-center gap-2 mt-2">
-                            <span className={`material-symbols-outlined ${isDark ? 'text-white' : ''}`}>
+                            <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>
                                 mail
                             </span>
-                            <h3 className={`text-md ${isDark ? 'text-white' : ''}`}>Email: {userData?.email || 'name@gmail.com'} </h3>
+                            <h3 className={`md:text-base text-sm ${isDark ? 'text-white' : ''}`}>Email: {userData?.email || 'name@gmail.com'} </h3>
                         </div>
                         <div className="flex items-center gap-2 mt-2">
-                            <span className={`material-symbols-outlined ${isDark ? 'text-white' : ''}`}>
+                            <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>
                                 Schedule
                             </span>
-                            <h3 className={`text-md ${isDark ? 'text-white' : ''} `}>Joined at: {userData?.created_at.toDate().toDateString() || 'N/A'}</h3>
+                            <h3 className={`md:text-base text-sm ${isDark ? 'text-white' : ''} `}>Joined at: {userData?.created_at.toDate().toDateString() || 'N/A'}</h3>
                         </div>
 
                         {currnetUser ?
-                            (<button type="button" onClick={logOutUser} className="px-5 py-2.5 mt-6 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700">
+                            (<button type="button" onClick={logOutUser} className="md:px-5 md:py-2.5 md:mt-6 px-5 py-1.5 mt-8 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700">
                                 LogOut
                             </button>) :
                             (
@@ -85,28 +85,43 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                 </div>
 
                 <div className="flex flex-col col-span-3 md:justify-center md:items-center rounded-3xl md:col-span-1">
-                    <div className="py-10 text-center bg-secondary rounded-3xl px-7">
-                        <h2 className="text-2xl text-white">{books.length}</h2>
-                        <h2 className="text-2xl font-bold text-white">Blogs</h2>
-                        <h2 className="text-2xl font-bold text-white">Uploaded</h2>
+                    <div className="py-6 text-center md:py-10 bg-secondary rounded-3xl px-7">
+                        <h2 className="text-xl text-white md:text-2xl">{books.length}</h2>
+                        <h2 className="text-xl font-bold text-white md:text-2xl">Blogs</h2>
+                        <h2 className="text-xl font-bold text-white md:text-2xl">Uploaded</h2>
                     </div>
                 </div>
             </div>
             {userData?.uid === 'Uz5ZUht55mcYnLC64sRYfvuY9ab2' && <div className={`flex border-2 flex-col justify-center w-full p-4 mt-5 text-center rounded-lg ${isDark ? ' text-light border-primary' : ' text-dark border-dark'}`}>
-                <h1 className="mb-2 text-3xl font-bold tracking-wide text-red-500">Disclaimer</h1>
-                <p className="mb-4 text-lg leading-relaxed tracking-wide">
+                <h1 className="mb-2 text-2xl font-bold tracking-wide text-red-500 md:text-3xl">Disclaimer</h1>
+                <p className="mb-4 text-base leading-relaxed tracking-wide md:text-lg">
                     We do not own the content posted by this account, and this is not the official Creative Coder Myanmar account. The blogs shared here are for informational purposes only.
                 </p>
-                <p className="text-lg leading-relaxed tracking-wide">
+                <p className="text-base leading-relaxed tracking-wide md:text-lg">
                     We encourage you to explore and enjoy their fantastic blogs and tricks directly on their official platform <a target="_blank" href="https://creativecodermm.com/" className="text-blue-400 underline">here</a>.
                 </p>
             </div>}
             <div className="flex items-center justify-between mt-5 mb-3">
-                <h1 className={` text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>{currnetUser ? 'My ' : `${userData?.displayName}` + '\'s ' || 'User' + '\'s '}<span className="text-primary">Collection</span> 📚</h1>
+                <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>{currnetUser ? 'My ' : `${userData?.displayName}` + '\'s ' || 'User' + '\'s '}<span className="text-primary">Library</span> 📚</h1>
                 {currnetUser && <div className="flex items-center gap-3">
-                    <button type="button" onClick={() => setFilter('uploaded')} className={`${filter === 'uploaded' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} px-3 py-2 rounded-lg`}>Uploaded</button>
-                    <button type="button" onClick={() => setFilter('likes')} className={`${filter === 'likes' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} px-3 py-2 rounded-lg`}>Likes</button>
-                    <button type="button" onClick={() => setFilter('saved')} className={`${filter === 'saved' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} px-3 py-2 rounded-lg`}>Saved</button>
+                    <button type="button" onClick={() => setFilter('uploaded')} className={`${filter === 'uploaded' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} flex items-center gap-1 px-3 py-2 rounded-lg text-sm sm:text-md md:text-lg`}>
+                        <span className="hidden lg:block">Uploaded</span>
+                        <span className="block material-symbols-outlined lg:hidden">
+                            upload
+                        </span>
+                    </button>
+                    <button type="button" onClick={() => setFilter('likes')} className={`${filter === 'likes' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} flex items-center gap-1 px-3 py-2 rounded-lg text-sm sm:text-md md:text-lg`}>
+                        <span className="hidden lg:block">Likes</span>
+                        <span className="block material-symbols-outlined lg:hidden">
+                            favorite
+                        </span>
+                    </button>
+                    <button type="button" onClick={() => setFilter('saved')} className={`${filter === 'saved' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} flex items-center gap-1 px-3 py-2 rounded-lg text-sm sm:text-md md:text-lg`}>
+                        <span className="hidden lg:block">Saved</span>
+                        <span className="block material-symbols-outlined lg:hidden">
+                            bookmark
+                        </span>
+                    </button>
                 </div>}
             </div>
             <hr className={`${isDark ? 'border-primary' : 'border-gray-200'}`} />

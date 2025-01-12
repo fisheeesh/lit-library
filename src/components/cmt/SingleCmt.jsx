@@ -12,7 +12,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
 
     const [editCmt, setEditCmt] = useState(null)
     return (
-        <div className={`px-6 py-8 my-3  shadow-md rounded-3xl ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
+        <div className={`px-6 py-8 my-1.5 shadow-md rounded-3xl ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
             <div className="flex space-x-3">
                 <img
                     src={cmt.photoURL}

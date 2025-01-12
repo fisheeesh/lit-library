@@ -18,7 +18,7 @@ export default function Header() {
             {/* Persude to create a blog */}
             <WhyJoin />
 
-            <h3 id="blogs" className={`tracking-wide mb-6 text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'}`}>Latest <span className="text-secondary">Blogs</span></h3>
+            <h3 id="blogs" className={`tracking-wide mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'}`}>Latest <span className="text-secondary">Blogs</span></h3>
         </>
     )
 }

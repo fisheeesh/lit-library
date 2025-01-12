@@ -43,24 +43,24 @@ export default function Stats() {
                 <div className="grid grid-cols-3 gap-6 text-center">
                     <div>
                         <h2
-                            className={`font-bold text-7xl counter ${isDark ? 'text-light' : 'text-dark'}`}
+                            className={`font-bold text-4xl sm:text-5xl md:text-7xl counter ${isDark ? 'text-light' : 'text-dark'}`}
                             data-target={users?.length || 0}
                         ></h2>
-                        <div className={`mt-4 ${isDark ? 'text-light' : 'text-dark'}`}>Current Users</div>
+                        <div className={`mt-4 text-sm md:text-base ${isDark ? 'text-light' : 'text-dark'}`}>Current Users</div>
                     </div>
                     <div>
                         <h2
-                            className={`font-bold text-7xl counter ${isDark ? 'text-light' : 'text-dark'}`}
+                            className={`font-bold text-4xl sm:text-5xl md:text-7xl counter ${isDark ? 'text-light' : 'text-dark'}`}
                             data-target={books?.length || 0}
                         ></h2>
-                        <div className={`mt-4 ${isDark ? 'text-light' : 'text-dark'}`}>Blogs Posted</div>
+                        <div className={`mt-4 text-sm md:text-base ${isDark ? 'text-light' : 'text-dark'}`}>Blogs Posted</div>
                     </div>
                     <div>
                         <h2
-                            className={`font-bold text-7xl counter ${isDark ? 'text-light' : 'text-dark'}`}
+                            className={`font-bold text-4xl sm:text-5xl md:text-7xl counter ${isDark ? 'text-light' : 'text-dark'}`}
                             data-target={comments?.length || 0}
                         ></h2>
-                        <div className={`mt-4 ${isDark ? 'text-light' : 'text-dark'}`}>Comments Given</div>
+                        <div className={`mt-4 text-sm md:text-base ${isDark ? 'text-light' : 'text-dark'}`}>Comments Given</div>
                     </div>
                 </div>
             </div>
