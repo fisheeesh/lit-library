@@ -90,11 +90,8 @@ LitLibrary (Literature Library) was inspired by the need for a positive, support
    git push origin feature-name
 6. Create a pull request.
 
-## 📄 License
-This project is licensed under the MIT License.
-
 ## 🌐 Live Demo
-Check out the live version of LitLibrary:
+Check out the live version of LitLibrary: https://lit-library-3kqu23vtq-fisheeeshs-projects.vercel.app
 
 ---
 Crafted with 💖 by Fisheeesh
