@@ -108,18 +108,18 @@ export default function BookDetail() {
                                         <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
                                     </button>
                                 </div>
-                                <h2 className={`text-lg sm:text-xl md:text-2xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
+                                <h2 className={`text-base sm:text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         book.categories.map(c => (
-                                            <span key={c} className="px-3 py-1 text-white rounded-full bg-primary">
+                                            <span key={c} className="px-3 py-1 mb-1 text-white rounded-full bg-primary">
                                                 {c}
                                             </span>
                                         ))
                                     }
                                 </div>
-                                <ReactLinkify componentDecorator={componentDecorator}>
-                                    <p className={`${isDark ? 'text-white border-primary' : 'border-gray-200'} whitespace-pre-line border rounded-md p-3.5 h-[388px] overflow-y-scroll`}>{book.description}</p>
+                                <ReactLinkify componentDecorator={componentDecorator} >
+                                    <p className={`${isDark ? 'text-white border-primary' : 'border-gray-200'} whitespace-pre-line border rounded-md p-3.5 h-[388px] book-des overflow-y-scroll`}>{book.description}</p>
                                 </ReactLinkify>
                             </div>
                         </div>
