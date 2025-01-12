@@ -41,7 +41,7 @@ export default function Navbar() {
             {/* Right: Create button and profile logo */}
             <div className="flex items-center gap-2">
                 {!!user && (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2">
                         <Link
                             to="/create"
                             className="p-1.5 md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
