@@ -35,7 +35,7 @@ export default function Navbar() {
             {/* Center: Logo */}
             <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
                 <img src={logo} alt="Logo.png" className='w-7 md:w-8' />
-                <span className={`${isDark ? 'text-light' : 'text-dark'} text-xl md:text-2xl`}>LitLibrary</span>
+                <span className={`${isDark ? 'text-light' : 'text-dark'} text-xl md:text-2xl tracking-wide`}>LitLibrary</span>
             </Link>
 
             {/* Right: Create button and profile logo */}
