@@ -40,7 +40,7 @@ export default function BookList({ limit = null, query = null }) {
 
     return (
         <>
-            {erroR && <h3 className="my-24 text-sm font-bold text-center text-gray-500 sm:text-xl md:text-2xl">{erroR}</h3>}
+            {erroR && <h3 className="my-24 text-xl font-bold text-center text-gray-500">{erroR}</h3>}
             {loadinG &&
                 <div className={`my-40 flex items-center justify-center`}>
                     <PropagateLoader width={"100px"} height={"5px"} color={customColor} />
@@ -60,7 +60,7 @@ export default function BookList({ limit = null, query = null }) {
                     </div>
                 )
             }
-            {!loadinG && !books.length && !erroR && <h3 className="my-24 text-sm font-bold text-center md:text-2xl sm:text-xl text-primary">No Search Book(s) found.</h3>}
+            {!loadinG && !books.length && !erroR && <h3 className="my-24 text-xl font-bold text-center text-gray-500">Oops. No Blog(s) Found.</h3>}
         </>
     )
 }

@@ -25,18 +25,6 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
         // $ redirect to login page after logout
         navigate('/auth')
     }
-
-    const followUser = (e) => {
-        e.preventDefault()
-
-        if (user) {
-            alert('Will implemete soom!')
-        }
-        else {
-            navigate('/auth')
-        }
-    }
-
     return (
         <div className="px-5 mb-4 md:px-0">
             <div className="grid grid-cols-3 gap-4 mt-6 ">
@@ -44,13 +32,13 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                     <img
                         src={userData?.photoURL || defaultProfile}
                         alt="Profile"
-                        className={`my-0.5 rounded-3xl w-40 h-40 md:w-44 md:h-44 ${isDark ? 'border border-primary' : ''}`}
+                        className={`my-0.5 rounded-3xl w-40 h-40 md:w-44 md:h-44 ${isDark ? 'border border-primary' : 'border border-gray-300'}`}
                     />
                     <div className="mt-1 md:mt-0">
                         <div className="flex items-center gap-1">
                             <h2 className="text-xl font-bold sm:text-2xl md:text-3xl text-primary">{userData?.displayName || 'User'}</h2>
-                            {userData?.uid === '1Ojc7pA10tVCpAo5bHxXVu5PHRA2' && <div className="relative mt-2 group">
-                                <span className="cursor-pointer text-secondary material-symbols-outlined">
+                            {userData?.uid === '1Ojc7pA10tVCpAo5bHxXVu5PHRA2' && <div className="relative mt-1 md:mt-2 group">
+                                <span className="text-sm cursor-pointer text-secondary material-symbols-outlined">
                                     check_circle
                                 </span>
                                 <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
@@ -62,24 +50,25 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                             <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>
                                 mail
                             </span>
-                            <h3 className={`md:text-base text-sm ${isDark ? 'text-white' : ''}`}>Email: {userData?.email || 'name@gmail.com'} </h3>
+                            <div className={`md:text-base flex items-center gap-1 text-sm ${isDark ? 'text-white' : ''}`}>
+                                <span className="display_text">Email: </span>
+                                <span>{userData?.email || 'name@gmail.com'}</span>
+                            </div>
                         </div>
                         <div className="flex items-center gap-2 mt-2">
                             <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>
                                 Schedule
                             </span>
-                            <h3 className={`md:text-base text-sm ${isDark ? 'text-white' : ''} `}>Joined at: {userData?.created_at.toDate().toDateString() || 'N/A'}</h3>
+                            <div className={`flex items-center gap-1 md:text-base text-sm ${isDark ? 'text-white' : ''} `}>
+                                <span className="display_text">Joined at: </span>
+                                <span>{userData?.created_at?.toDate()?.toDateString() || 'N/A'}</span>
+                            </div>
                         </div>
 
-                        {currnetUser ?
-                            (<button type="button" onClick={logOutUser} className="md:px-5 md:py-2.5 md:mt-6 px-5 py-1.5 mt-8 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700">
+                        {currnetUser &&
+                            (<button type="button" onClick={logOutUser} className="md:px-5 md:py-2.5 md:mt-6 px-5 py-2.5 mt-7 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700">
                                 LogOut
-                            </button>) :
-                            (
-                                <button type="button" onClick={followUser} className="px-5 py-2.5 mt-6 text-white transition duration-1000 ease-in-out bg-primary rounded-full hover:bg-indigo-700">
-                                    Follow
-                                </button>
-                            )
+                            </button>)
                         }
                     </div>
                 </div>
@@ -102,7 +91,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                 </p>
             </div>}
             <div className="flex items-center justify-between mt-5 mb-3">
-                <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>{currnetUser ? 'My ' : `${userData?.displayName}` + '\'s ' || 'User' + '\'s '}<span className="text-primary">Library</span> 📚</h1>
+                <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>{currnetUser ? 'My ' : `${userData?.displayName || 'User'}` + '\'s ' || 'User' + '\'s '}<span className="text-primary">Library</span> 📚</h1>
                 {currnetUser && <div className="flex items-center gap-3">
                     <button type="button" onClick={() => setFilter('uploaded')} className={`${filter === 'uploaded' ? 'bg-primary text-light' : ''} ${isDark ? 'text-light' : 'text-dark'} flex items-center gap-1 px-3 py-2 rounded-lg text-sm sm:text-md md:text-lg`}>
                         <span className="hidden lg:block">Uploaded</span>

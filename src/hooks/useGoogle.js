@@ -2,8 +2,13 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../firebase/config";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import useFirestore from './useFirestore'
 
 const useGoogle = () => {
+
+    const { getAllDocuments } = useFirestore()
+
+    const { data: users } = getAllDocuments('users')
 
     const [error, setError] = useState(null)
     const signInWithGoogle = async () => {
@@ -13,6 +18,10 @@ const useGoogle = () => {
             const result = await signInWithPopup(auth, provider)
 
             const user = result.user;
+
+            if (users.find(u => u.uid === user.uid)) {
+                return user
+            }
 
             let docRef = doc(db, 'users', user.uid)
             setDoc(docRef, {

@@ -45,3 +45,12 @@
     height: 358px;
   }
 }
+
+@media(max-width: 430px){
+  .display_text{
+    display: none;
+  }
+  .blog_cover{
+    height: 350px;
+  }
+}
