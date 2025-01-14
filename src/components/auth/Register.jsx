@@ -19,11 +19,12 @@ export default function Register() {
     const signUpUser = async (e) => {
         e.preventDefault()
 
-        let res = await createAccount(userName, email, password, pPic)
-        console.log('Created Account: ', res.user)
+        let user = await createAccount(userName, email, password, pPic)
 
         // $ redirect to home page after signup
-        navigate('/')
+        if (user) {
+            navigate('/')
+        }
     }
 
     const handleImageChange = (e) => {

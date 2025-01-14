@@ -7,7 +7,7 @@ import CmtForm from "../components/cmt/CmtForm"
 import useAuth from "../hooks/useAuth"
 import CmtList from "../components/cmt/CmtList"
 import moment from "moment"
-import { PropagateLoader } from "react-spinners"
+import { BeatLoader } from "react-spinners"
 
 export default function BookDetail() {
     const { id } = useParams()
@@ -71,7 +71,7 @@ export default function BookDetail() {
             }
             {
                 loading && <div className={`my-56 flex items-center justify-center`}>
-                    <PropagateLoader width={"100px"} height={"5px"} color={customColor} />
+                    <BeatLoader width={"100px"} height={"5px"} color={customColor} />
                 </div>
             }
             {

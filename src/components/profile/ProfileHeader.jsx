@@ -25,6 +25,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
         // $ redirect to login page after logout
         navigate('/auth')
     }
+
     return (
         <div className="px-5 mb-4 md:px-0">
             <div className="grid grid-cols-3 gap-4 mt-6 ">

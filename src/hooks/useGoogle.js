@@ -39,7 +39,6 @@ const useGoogle = () => {
 
         } catch (error) {
             setError(error.message)
-            console.error('Error signing in with Google:', error.message);
         }
     }
 

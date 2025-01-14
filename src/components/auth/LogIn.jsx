@@ -16,11 +16,12 @@ export default function LogIn() {
     const logInUser = async (e) => {
         e.preventDefault()
 
-        let res = await logInAccount(email, password)
-        console.log('Logged In as: ', res.user)
+        let user = await logInAccount(email, password)
 
         // $ redirect to home page after login
-        navigate('/')
+        if (user) {
+            navigate('/')
+        }
     }
 
     return (

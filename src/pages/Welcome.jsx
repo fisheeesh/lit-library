@@ -15,10 +15,10 @@ export default function Welcome() {
     const handleGoogleLogIn = async () => {
         let user = await signInWithGoogle()
 
-        if (user) console.log('User logged in with Google:', user)
-
         // $ redirect to home page after login
-        navigate('/')
+        if (user) {
+            navigate('/')
+        }
     }
 
     return (

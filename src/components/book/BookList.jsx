@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { PropagateLoader } from "react-spinners"
+import { BeatLoader } from "react-spinners"
 import useFirestore from "../../hooks/useFirestore"
 import useTheme from "../../hooks/useTheme"
 import SingleBook from "./SingleBook"
@@ -43,7 +43,7 @@ export default function BookList({ limit = null, query = null }) {
             {erroR && <h3 className="my-24 text-xl font-bold text-center text-gray-500">{erroR}</h3>}
             {loadinG &&
                 <div className={`my-40 flex items-center justify-center`}>
-                    <PropagateLoader width={"100px"} height={"5px"} color={customColor} />
+                    <BeatLoader width={"100px"} height={"5px"} color={customColor} />
                 </div>}
             {
                 !loadinG && !!books && limit ? (
