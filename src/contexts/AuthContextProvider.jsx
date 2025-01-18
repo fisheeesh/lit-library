@@ -10,7 +10,7 @@ const AuthReducer = (state, action) => {
         case "LOGIN":
             return { ...state, user: action.payload }
         case "LOGOUT":
-            return { ...state, user: null }
+            return { ...state, user: action.payload }
         case "AUTH_READY":
             return { ...state, authReady: action.payload }
         default:
@@ -32,13 +32,15 @@ export default function AuthContextProvider({ children }) {
                 dispatch({ type: "LOGIN", payload: user })
             }
             else {
-                dispatch({ type: "LOGOUT" })
+                dispatch({ type: "LOGOUT", payload: null })
             }
         })
     }, [])
 
+    const DEVELOPER_UID = 'Uz5ZUht55mcYnLC64sRYfvuY9ab2';
+
     return (
-        <AuthContext.Provider value={{ ...state }}>
+        <AuthContext.Provider value={{ ...state, DEVELOPER_UID }}>
             {children}
         </AuthContext.Provider>
     )

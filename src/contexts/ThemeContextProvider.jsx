@@ -35,8 +35,10 @@ export default function ThemedContextProvider({ children }) {
 
     const isDark = state.theme === 'dark'
 
+    const customColor = state.theme === 'light' ? "#4555d2" : "#cc2973";
+
     return (
-        <ThemeContext.Provider value={{ ...state, changeTheme, isDark }}>
+        <ThemeContext.Provider value={{ ...state, changeTheme, isDark, customColor }}>
             {children}
         </ThemeContext.Provider>
     )

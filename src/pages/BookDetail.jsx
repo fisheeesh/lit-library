@@ -16,7 +16,7 @@ export default function BookDetail() {
     const { user } = useAuth()
     const navigate = useNavigate()
 
-    const { getDocumentById, updateDocument } = useFirestore()
+    const { getDocumentById, updateDocument, addDocument } = useFirestore()
 
     const { data: book, setData, error, loading } = getDocumentById('books', id)
 
@@ -58,9 +58,17 @@ export default function BookDetail() {
             await updateDocument('books', bookId, { likes_count: book.likes_count }, false)
         }
         else {
+            const newNoti = {
+                uid: book?.uid,
+                senderPhotoURL: user?.photoURL,
+                senderName: user?.displayName,
+                bookId: book?.id,
+                isComment: false,
+            }
             book.likes_count += 1
             await updateDocument('users', user?.uid, { favorites: [...userData.favorites, bookId] }, false)
             await updateDocument('books', bookId, { likes_count: book.likes_count }, false)
+            await addDocument('notifications', newNoti)
         }
     }
 
@@ -126,7 +134,7 @@ export default function BookDetail() {
                         <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
                         <h1 className="mb-2 text-2xl font-bold text-secondary">Say something...</h1>
                         <div className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
-                            {user ? <CmtForm user={user} bookId={id} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
+                            {user ? <CmtForm user={user} book={book} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />
                         </div>
                     </div>

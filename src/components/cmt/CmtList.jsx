@@ -1,17 +1,21 @@
 /* eslint-disable react/prop-types */
-import useFirestore from "../../hooks/useFirestore"
-import SingleCmt from "./SingleCmt"
+import { useCallback } from "react";
+import useFirestore from "../../hooks/useFirestore";
+import SingleCmt from "./SingleCmt";
+import { BeatLoader } from "react-spinners";
+import useTheme from "../../hooks/useTheme";
 
 export default function CmtList({ bookId }) {
+    const { isDark } = useTheme();
+    const { getAllDocuments, deleteDocument } = useFirestore();
 
-    const { getAllDocuments, deleteDocument } = useFirestore()
+    const { data: comments = [], error, loading } = getAllDocuments('comments', ['bookId', '==', bookId]);
 
-    const { data: comments, error, loading } = getAllDocuments('comments', ['bookId', '==', bookId])
+    const deleteComment = useCallback(async (id) => {
+        await deleteDocument('comments', id);
+    }, [deleteDocument]);
 
-    const deleteComment = async (id) => {
-        // console.log(id)
-        await deleteDocument('comments', id)
-    }
+    const customColor = !isDark ? "#4555d2" : "#cc2973";
 
     return (
         <>
@@ -19,13 +23,20 @@ export default function CmtList({ bookId }) {
                 <h6 className="text-xl font-bold text-primary">Comments</h6>
                 <h5 className="px-3.5 py-1 text-sm text-center text-white rounded-full bg-primary">{comments.length}</h5>
             </div>
-            {error && <h3 className="my-6 text-center text-gray-400 font-bo ld text-md">{error}</h3>}
-            {loading && <h3 className="my-6 text-center">Loading...</h3>}
-            {!loading && comments &&
-                comments.map(cmt => (
-                    <SingleCmt key={cmt.id} cmt={cmt} deleteComment={deleteComment} />
-                ))
-            }
+
+            {loading && (
+                <div className="flex items-center justify-center my-56">
+                    <BeatLoader width={"100px"} height={"5px"} color={customColor} />
+                </div>
+            )}
+
+            {!loading && comments.length === 0 && (
+                <h3 className="my-6 text-center text-gray-400">{error}</h3>
+            )}
+
+            {!loading && comments.length > 0 && comments.map((cmt) => (
+                <SingleCmt key={cmt.id} cmt={cmt} deleteComment={deleteComment} />
+            ))}
         </>
-    )
+    );
 }

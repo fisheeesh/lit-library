@@ -5,7 +5,7 @@ import { db } from "../firebase/config"
 
 export default function useFirestore() {
 
-    const getAllDocuments = (collectionName, _q, search) => {
+    const getAllDocuments = (collectionName, _q = null, search = null) => {
         const [data, setData] = useState([]);
         const [error, setError] = useState(null);
         const [loading, setLoading] = useState(false);
@@ -31,6 +31,7 @@ export default function useFirestore() {
                         setLoading(false);
                         if (collectionName === 'books') setError("No Blogs(s) Found.");
                         if (collectionName === 'comments') setError("No Comment(s) Found. Be the first to comment.");
+                        if (collectionName === 'notifications') setError("You have no notifications.");
                         return;
                     }
 
