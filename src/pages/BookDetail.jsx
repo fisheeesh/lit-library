@@ -13,7 +13,7 @@ export default function BookDetail() {
     const { id } = useParams()
 
     const { isDark } = useTheme()
-    const { user } = useAuth()
+    const { user, DEVELOPER_UID } = useAuth()
     const navigate = useNavigate()
 
     const { getDocumentById, updateDocument, addDocument } = useFirestore()
@@ -92,10 +92,18 @@ export default function BookDetail() {
                             <div className="col-span-3 space-y-3 md:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
-                                        <img src={book.userProfile} alt="" className="rounded-full h-14 w-14" />
+                                        <img src={book.userProfile} alt="user_profile" className="rounded-full h-14 w-14" />
                                         <div className="flex flex-col">
-                                            <div className="flex items-start justify-between">
+                                            <div className="flex items-start gap-1">
                                                 <Link to={`/profile/${book.uid}`} className={`text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName}</Link>
+
+                                                {userData?.uid === DEVELOPER_UID && <div className="relative mt-1 group">
+                                                    <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
+                                                    <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                                        Developer of LitLibrary
+                                                    </span>
+                                                </div>}
+
                                             </div>
                                             <span className="text-sm text-gray-400">{moment(book.created_at.seconds * 1000).format('LLL')}</span>
                                         </div>
@@ -132,7 +140,7 @@ export default function BookDetail() {
                             </div>
                         </div>
                         <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
-                        <h1 className="mb-2 text-2xl font-bold text-secondary">Say something...</h1>
+                        <h1 className="mb-2 text-lg font-bold sm:text-xl md:text-2xl text-secondary">Say something...</h1>
                         <div className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
                             {user ? <CmtForm user={user} book={book} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />

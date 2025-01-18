@@ -6,6 +6,7 @@ import useTheme from "../../hooks/useTheme"
 import useAuth from "../../hooks/useAuth"
 import defaultProfile from '../../assets/default_profile.jpg'
 import { FilterButtons } from "../buttons/FilterButtons"
+import Disclaimer from "../disclaimer/Disclaimer"
 
 export default function ProfileHeader({ uId, filter, setFilter }) {
     const navigate = useNavigate()
@@ -44,7 +45,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                             {/* Show developer badge if the user is the developer */}
                             {userData?.uid === DEVELOPER_UID && (
                                 <div className="relative mt-1 md:mt-2 group">
-                                    <span className="text-sm cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
+                                    <span className="text-xs md:text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
                                     <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
                                         Developer of LitLibrary
                                     </span>
@@ -90,17 +91,8 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
             </div>
 
             {/* Disclaimer for the developer account */}
-            {userData?.uid === DEVELOPER_UID && (
-                <div className={`flex border-2 flex-col justify-center w-full p-4 mt-5 text-center rounded-lg ${isDark ? 'text-light border-primary' : 'text-dark border-dark'}`}>
-                    <h1 className="mb-2 text-2xl font-bold tracking-wide text-red-500 md:text-3xl">Disclaimer</h1>
-                    <p className="mb-4 text-base leading-relaxed tracking-wide md:text-lg">
-                        We do not own the content posted by this account, and this is not the official Creative Coder Myanmar account. The blogs shared here are for informational purposes only.
-                    </p>
-                    <p className="text-base leading-relaxed tracking-wide md:text-lg">
-                        We encourage you to explore and enjoy their fantastic blogs and tricks directly on their official platform{' '}
-                        <a target="_blank" rel="noopener noreferrer" href="https://creativecodermm.com/" className="text-blue-400 underline">here</a>.
-                    </p>
-                </div>
+            {userData?.uid === 'Uz5ZUht55mcYnLC64sRYfvuY9ab2' && (
+                <Disclaimer />
             )}
 
             <div className="flex items-center justify-between mt-5 mb-3">

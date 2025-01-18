@@ -37,7 +37,7 @@ export default function AuthContextProvider({ children }) {
         })
     }, [])
 
-    const DEVELOPER_UID = 'Uz5ZUht55mcYnLC64sRYfvuY9ab2';
+    const DEVELOPER_UID = '1Ojc7pA10tVCpAo5bHxXVu5PHRA2';
 
     return (
         <AuthContext.Provider value={{ ...state, DEVELOPER_UID }}>

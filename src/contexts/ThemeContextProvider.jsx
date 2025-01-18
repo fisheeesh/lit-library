@@ -14,8 +14,8 @@ const ThemeReducer = (state, action) => {
 
 // eslint-disable-next-line react/prop-types
 export default function ThemedContextProvider({ children }) {
-    //$ Retrieve initial theme from localStorage or default to 'light'
-    const storedTheme = localStorage.getItem("theme") || "light";
+    //$ Retrieve initial theme from localStorage or default to 'dark'
+    const storedTheme = localStorage.getItem("theme") || "dark";
 
     const [state, dispatch] = useReducer(ThemeReducer, {
         theme: storedTheme

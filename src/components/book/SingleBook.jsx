@@ -56,7 +56,7 @@ export default function SingleBook({ book }) {
                     </span>
                 )}
             </div>
-            <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>By: {book.author || 'Unknown'}</span>
+            <span className={`text-sm italic ${isDark ? 'text-white' : ''}`}>Author: {book.author || 'Unknown'}</span>
             <div className="flex flex-wrap gap-2">
                 {book?.categories?.map(c => (
                     <span key={c} className="px-3 py-1 text-sm text-white rounded-full bg-primary">

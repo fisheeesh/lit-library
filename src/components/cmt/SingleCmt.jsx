@@ -8,7 +8,7 @@ import useTheme from "../../hooks/useTheme";
 
 export default function SingleCmt({ cmt, deleteComment }) {
     const { isDark } = useTheme();
-    const { user } = useAuth();
+    const { user, DEVELOPER_UID } = useAuth();
 
     const [editCmt, setEditCmt] = useState(null);
 
@@ -31,34 +31,34 @@ export default function SingleCmt({ cmt, deleteComment }) {
     };
 
     return (
-        <div className={`px-6 py-8 my-1.5 shadow-md rounded-3xl ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
-            <div className="flex space-x-3">
-                <img src={cmt?.photoURL} className="w-12 h-12 rounded-full" alt="" />
+        <div className={`md:px-6 px-4 py-4 md:py-5 my-1.5 shadow-md rounded-3xl ${isDark ? 'bg-slate-900' : 'bg-white'}`}>
+            <div className="flex space-x-2">
+                <img src={cmt?.photoURL} className="rounded-full w-11 h-11 md:w-12 md:h-12" alt="" />
                 <div className="flex items-center justify-between w-full">
                     <div>
                         <div className="flex items-center gap-1">
-                            <Link to={`/profile/${cmt.uid}`} className={`text-lg font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
+                            <Link to={`/profile/${cmt.uid}`} className={`md:text-lg font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
                                 {cmt.sender}
                             </Link>
-                            {cmt.uid === '1Ojc7pA10tVCpAo5bHxXVu5PHRA2' && (
-                                <div className="relative mt-1 group">
-                                    <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">
+                            {cmt.uid === DEVELOPER_UID && (
+                                <div className="relative group">
+                                    <span className="text-xs md:mt-1.5 md:text-[14px] cursor-pointer text-secondary material-symbols-outlined">
                                         check_circle
                                     </span>
-                                    <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                    <span className="absolute px-3 py-1 text-xs text-white transition-all rounded-md opacity-0 pointer-events-none md:text-base -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
                                         Developer of LitLibrary
                                     </span>
                                 </div>
                             )}
                         </div>
-                        <h5 className="text-sm text-gray-400">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
+                        <h5 className="text-[10px] text-gray-400 md:text-sm">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
                     </div>
                     {renderEditDelete()}
                 </div>
             </div>
             <div className="mt-3">
                 {editCmt?.id !== cmt.id ? (
-                    <div className={`${isDark ? 'text-white' : ''} text-lg flex gap-3 items-center`}>
+                    <div className={`${isDark ? 'text-white' : ''} md:text-lg flex gap-3 items-center`}>
                         <span>{cmt.cmtContent}</span>
                         {cmt.isEdited && <span className="text-sm italic text-blue-500">(Edited)</span>}
                     </div>

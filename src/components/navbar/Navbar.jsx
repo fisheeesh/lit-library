@@ -85,7 +85,7 @@ export default function Navbar() {
                         <div className="flex items-center gap-2">
                             <Link
                                 to="/create"
-                                className="p-1.5 md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
+                                className="p-2 md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -104,12 +104,12 @@ export default function Navbar() {
                                 <img
                                     src={user?.photoURL || defaultProfile}
                                     alt="Profile"
-                                    className="rounded-full h-11 w-11"
+                                    className="w-10 h-10 rounded-full md:h-11 md:w-11"
                                 />
                             </Link>
                             <div
                                 onClick={handleNotiClick}
-                                className={`cursor-pointer relative flex items-center p-2 border rounded-full ${isDark ? 'border-primary' : 'border-dark'}`}
+                                className={`cursor-pointer relative flex items-center md:p-2 p-1.5 border rounded-full ${isDark ? 'border-primary' : 'border-dark'}`}
                             >
                                 <span className={`${isDark ? 'text-light' : 'text-dark'} material-symbols-outlined`}>
                                     notifications
@@ -132,7 +132,7 @@ export default function Navbar() {
                         </Link>
                     )}
                     <div
-                        className={`p-2 border border-1 rounded-full flex items-center cursor-pointer ${isDark ? 'border-primary' : 'border-gray-600'}`}
+                        className={`p-1.5 md:p-2 border border-1 rounded-full flex items-center cursor-pointer ${isDark ? 'border-primary' : 'border-gray-600'}`}
                     >
                         {isDark && (
                             <img
@@ -163,6 +163,9 @@ export default function Navbar() {
                             <h3 className={`text-lg font-bold ${isDark ? 'text-light' : 'text-dark'}`}>
                                 Notifications
                             </h3>
+                            <span onClick={() => setIsOpen(false)} className={`transition duration-500 ease-in-out cursor-pointer material-symbols-outlined hover:text-red-500 ${isDark ? 'text-light' : 'text-dark'}`}>
+                                cancel
+                            </span>
                         </div>
                         {!!userNoti &&
                             userNoti.map((noti, index) => (
