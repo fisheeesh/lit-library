@@ -16,7 +16,7 @@ export default function SingleBook({ book }) {
     const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null };
 
     const deleteBook = async (e, id) => {
-        e.stopPropagation();
+        e.preventDefault();
         await deleteDocument('books', id);
         await deleteFileFromStorage(`/covers/${user.uid}/${book.bookCoverName}`);
     };
@@ -44,7 +44,11 @@ export default function SingleBook({ book }) {
                             delete
                         </span>
                         <span
-                            onClick={() => navigate(`/edit/${book.id}`)}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                navigate(`/edit/${book.id}`)
+                            }
+                            }
                             className="text-blue-600 material-symbols-outlined text-md">
                             edit
                         </span>
