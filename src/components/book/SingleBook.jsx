@@ -21,7 +21,8 @@ export default function SingleBook({ book }) {
         await deleteFileFromStorage(`/covers/${user.uid}/${book.bookCoverName}`);
     };
 
-    const toggleSaved = async (bookId) => {
+    const toggleSaved = async (e, bookId) => {
+        e.preventDefault()
         const updatedSaved = userData.saved.includes(bookId)
             ? userData.saved.filter(id => id !== bookId)
             : [...userData.saved, bookId];
@@ -55,7 +56,7 @@ export default function SingleBook({ book }) {
                     </div>
                 )}
                 {user && !isOwner && (
-                    <span onClick={() => toggleSaved(book.id)} className="p-1.5 transition-all duration-500 border-0 rounded-full text-[20px] hover:bg-indigo-700 material-symbols-outlined bg-primary text-light">
+                    <span onClick={(e) => toggleSaved(e, book.id)} className="p-1.5 transition-all duration-500 border-0 rounded-full text-[20px] hover:bg-indigo-700 material-symbols-outlined bg-primary text-light">
                         {savedIcon}
                     </span>
                 )}
