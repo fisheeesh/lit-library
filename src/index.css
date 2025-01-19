@@ -54,3 +54,9 @@
     height: 350px;
   }
 }
+
+@media (min-width: 390px){
+  .noti-dialog{
+    right: 20px;
+  }
+}

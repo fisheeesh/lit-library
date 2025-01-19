@@ -155,7 +155,7 @@ export default function Navbar() {
             </nav>
             {isOpen && (
                 <div
-                    className={`overflow-y-scroll fixed top-20 right-12 w-[350px] h-[400px] rounded-lg z-50 ${isDark ? 'bg-dark shadow-xl' : ' bg-gray-100 shadow-md'
+                    className={`noti-dialog overflow-y-scroll fixed top-20 right-12 w-[350px] h-[400px] rounded-lg z-50 ${isDark ? 'bg-dark shadow-xl' : ' bg-gray-100 shadow-md'
                         }`}
                 >
                     <div>
