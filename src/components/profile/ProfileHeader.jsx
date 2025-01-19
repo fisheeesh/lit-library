@@ -41,7 +41,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                     />
                     <div className="mt-1 md:mt-0">
                         <div className="flex items-center gap-1">
-                            <h2 className="text-lg font-bold sm:text-2xl md:text-3xl text-primary">{userData?.displayName || 'User'}</h2>
+                            <h2 className="text-xl font-bold md:text-3xl text-primary user-name">{userData?.displayName || 'User'}</h2>
                             {/* Show developer badge if the user is the developer */}
                             {userData?.uid === DEVELOPER_UID && (
                                 <div className="relative mt-1 md:mt-2 group">
@@ -72,7 +72,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                             (<button
                                 type="button"
                                 onClick={logOutUser}
-                                className={`${userData?.displayName.length > 20 ? 'mt-1.5' : 'mt-7'} md:px-5 md:py-2.5 md:mt-6 px-5 py-2.5  text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700`}
+                                className={`logout-btn md:px-5 md:py-2.5 mt-7 px-5 py-2.5  text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700`}
                             >
                                 LogOut
                             </button>)
