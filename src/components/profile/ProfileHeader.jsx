@@ -41,7 +41,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                     />
                     <div className="mt-1 md:mt-0">
                         <div className="flex items-center gap-1">
-                            <h2 className="text-xl font-bold sm:text-2xl md:text-3xl text-primary">{userData?.displayName || 'User'}</h2>
+                            <h2 className="text-lg font-bold sm:text-2xl md:text-3xl text-primary">{userData?.displayName || 'User'}</h2>
                             {/* Show developer badge if the user is the developer */}
                             {userData?.uid === DEVELOPER_UID && (
                                 <div className="relative mt-1 md:mt-2 group">
@@ -52,7 +52,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                                 </div>
                             )}
                         </div>
-                        <div className="flex items-center gap-2 mt-2">
+                        <div className="flex items-center gap-2 mt-1">
                             <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>mail</span>
                             <div className={`md:text-base flex items-center gap-1 text-sm ${isDark ? 'text-white' : ''}`}>
                                 <span className="display_text">Email: </span>
@@ -68,15 +68,15 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                         </div>
 
                         {/* Logout button for the current user */}
-                        {currnetUser && (
+                        {
                             <button
                                 type="button"
                                 onClick={logOutUser}
-                                className="md:px-5 md:py-2.5 md:mt-6 px-5 py-2.5 mt-7 text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700"
+                                className={`${userData?.displayName.length > 20 ? 'mt-1.5' : 'mt-7'} md:px-5 md:py-2.5 md:mt-6 px-5 py-2.5  text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700`}
                             >
                                 LogOut
                             </button>
-                        )}
+                        }
                     </div>
                 </div>
 
@@ -98,7 +98,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
             <div className="flex items-center justify-between mt-5 mb-3">
                 {/* Display library title based on the user */}
                 <h1 className={`text-xl sm:text-2xl md:text-3xl font-bold ${isDark ? 'text-light' : 'text-dark'}`}>
-                    {currnetUser ? 'My ' : `${userData?.displayName || 'User'}'s `}<span className="text-primary">Library</span> 📚
+                    {currnetUser ? 'My ' : `${userData?.displayName || 'User'}'s `}<span className="text-primary">Library</span>
                 </h1>
                 {currnetUser && <FilterButtons filter={filter} setFilter={setFilter} isDark={isDark} />}
             </div>

@@ -32,6 +32,7 @@ export default function BookForm() {
   const [description, setDescription] = useState('')
   const [newCategory, setNewCategory] = useState('')
   const [categories, setCategories] = useState([])
+  const [likes_count, setLikesCount] = useState(0)
   const [loading, setLoading] = useState(false)
 
   const [bookOwner, setBookOwner] = useState(null)
@@ -51,13 +52,14 @@ export default function BookForm() {
       let ref = doc(booksCollectionRef, id)
       getDoc(ref)
         .then(doc => {
-          let { uid, title, author, description, categories, cover } = doc.data()
+          let { uid, title, author, description, categories, cover, likes_count } = doc.data()
           setBookOwner(uid)
           setTitle(title)
           setAuthor(author)
           setDescription(description)
           setCategories(categories)
           setPreview(cover)
+          setLikesCount(likes_count)
         })
     }
     else {
@@ -101,7 +103,7 @@ export default function BookForm() {
       bookCoverName: bookCoverName || null, // Retain existing name if no new file
       userProfile: user.photoURL,
       userName: user.displayName,
-      likes_count: 0
+      likes_count
     };
 
     // Update or add the document
