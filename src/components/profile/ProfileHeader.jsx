@@ -68,14 +68,14 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                         </div>
 
                         {/* Logout button for the current user */}
-                        {
-                            <button
+                        { currnetUser && 
+                            (<button
                                 type="button"
                                 onClick={logOutUser}
                                 className={`${userData?.displayName.length > 20 ? 'mt-1.5' : 'mt-7'} md:px-5 md:py-2.5 md:mt-6 px-5 py-2.5  text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700`}
                             >
                                 LogOut
-                            </button>
+                            </button>)
                         }
                     </div>
                 </div>
