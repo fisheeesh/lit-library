@@ -22,12 +22,16 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
     const currnetUser = user?.uid === userData?.uid
 
     const logOutUser = async () => {
-        await logOut()
+        const confirmLogout = window.confirm("Are you sure you want to log out?");
 
-        // $ redirect to login page after logout
-        navigate('/auth')
-        // window.location.reload()
-    }
+        if (confirmLogout) {
+
+            await logOut();
+            navigate('/auth');
+        } else {
+            return;
+        }
+    };
 
     return (
         <div className="px-5 mb-4 md:px-0">
@@ -59,7 +63,7 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                                 <span>{userData?.email || 'name@gmail.com'}</span>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-2">
+                        <div className="flex items-center gap-2 mt-1">
                             <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>Schedule</span>
                             <div className={`flex items-center gap-1 md:text-base text-sm ${isDark ? 'text-white' : ''}`}>
                                 <span className="display_text">Joined at: </span>
@@ -68,11 +72,11 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                         </div>
 
                         {/* Logout button for the current user */}
-                        { currnetUser && 
+                        {currnetUser &&
                             (<button
                                 type="button"
                                 onClick={logOutUser}
-                                className={`logout-btn md:px-5 md:py-2.5 mt-7 px-5 py-2.5  text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700`}
+                                className={`${userData?.displayName.length > 20 ? 'logout-btn' : ''} md:px-5 md:py-2.5 mt-[32px] px-5 py-2.5  text-white transition duration-1000 ease-in-out bg-red-600 rounded-full hover:bg-red-700`}
                             >
                                 LogOut
                             </button>)
