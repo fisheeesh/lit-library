@@ -95,6 +95,9 @@ LitLibrary (Literature Library) was inspired by the need for a positive, support
 ## 🌐 Live Demo
 Check out the live version of LitLibrary: https://lit-library-iota.vercel.app
 
+## License
+This project is licensed under the [MIT License](LICENSE).
+
 ---
 Crafted with 💖 by Fisheeesh
 ```bash
