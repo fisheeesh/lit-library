@@ -84,7 +84,7 @@ export default function BookDetail() {
             }
             {
                 book && (
-                    <div className="px-5 mx-auto max-w-7xl md:px-0">
+                    <div className="max-w-screen-xl px-5 mx-auto">
                         <div className="grid grid-cols-3 gap-4 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
                                 <img src={book.cover} alt="" className={`blog_cover w-full md:h-[544px] h-[444px] rounded-lg ${error ? 'hidden' : ''}`} />

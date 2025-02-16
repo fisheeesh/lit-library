@@ -34,8 +34,8 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
     };
 
     return (
-        <div className="px-5 mb-4 md:px-0">
-            <div className="grid grid-cols-3 gap-4 mt-6">
+        <div className="max-w-screen-xl mx-auto">
+            <div className="grid grid-cols-3 gap-4">
                 {/* User profile information */}
                 <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
                     <img

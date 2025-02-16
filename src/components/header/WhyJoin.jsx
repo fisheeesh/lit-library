@@ -26,8 +26,8 @@ export default function WhyJoin() {
                 className="absolute top-16 md:top-32 -left-52 w-[500px] opacity-70"
                 alt="Decoration Star"
             />
-            <div className="container relative z-10 mx-auto">
-                <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 ">
+            <div className="relative z-10 max-w-screen-xl px-5 mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 ">
                     {/* Image Section */}
                     <div className="flex justify-center">
                         <img src={detailImage} alt="Office Space"

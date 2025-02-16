@@ -49,10 +49,12 @@ export default function BookList({ limit = null, query = null }) {
     const displayedBooks = limit ? books.slice(0, limit) : books;
 
     return (
-        <div className="grid grid-cols-1 gap-4 px-5 mx-auto mt-3 sm:grid-cols-2 md:grid-cols-4 max-w-7xl md:px-0">
-            {displayedBooks.map((book) => (
-                <SingleBook key={book.id} book={book} />
-            ))}
+        <div className={`max-w-screen-xl mx-auto mt-5 ${query ? '' : 'px-5'}`}>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {displayedBooks.map((book) => (
+                    <SingleBook key={book.id} book={book} />
+                ))}
+            </div>
         </div>
     );
 }

@@ -21,7 +21,7 @@ export default function HeroSection() {
                 />
 
                 {/* Content */}
-                <div className="container relative z-10 px-4 mx-auto lg:px-0">
+                <div className="relative z-10 max-w-screen-xl px-5 mx-auto">
                     <div className="grid items-center grid-cols-1 gap-6 lg:grid-cols-2">
                         {/* Text Content */}
                         <div className="mt-6">
