@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth"
 import CmtList from "../components/cmt/CmtList"
 import moment from "moment"
 import { BeatLoader } from "react-spinners"
+import useKey from "../hooks/useKey"
 
 export default function BookDetail() {
     const { id } = useParams()
@@ -72,6 +73,17 @@ export default function BookDetail() {
         }
     }
 
+    useEffect(() => {
+        if (!book?.title) return
+        document.title = `LitLibrary | ${book?.title}`
+
+        return () => {
+            document.title = 'LitLibrary'
+        }
+    }, [book?.title])
+
+    useKey('Escape', () => navigate(-1))
+
     return (
         <>
             {
@@ -84,10 +96,10 @@ export default function BookDetail() {
             }
             {
                 book && (
-                    <div className="max-w-screen-xl px-5 mx-auto">
+                    <div className="max-w-screen-xl px-10 mx-auto lg:px-5">
                         <div className="grid grid-cols-3 gap-4 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
-                                <img src={book.cover} alt="" className={`blog_cover w-full md:h-[544px] h-[444px] rounded-lg ${error ? 'hidden' : ''}`} />
+                                <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} />
                             </div>
                             <div className="col-span-3 space-y-3 md:col-span-2">
                                 <div className="flex items-center justify-between">

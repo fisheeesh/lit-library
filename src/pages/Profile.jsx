@@ -16,6 +16,11 @@ export default function Profile() {
     const { data: books } = getAllDocuments("books");
 
     useEffect(() => {
+        document.title = 'Profile'
+        return () => document.title = 'LitLibrary'
+    }, [filter])
+
+    useEffect(() => {
         if (userData) {
             setUserFav(userData.favorites || []);
             setUserSav(userData.saved || []);
@@ -28,10 +33,9 @@ export default function Profile() {
     const query = ["uid", "==", id];
 
     return (
-        <div className="max-w-screen-xl px-5 mx-auto mt-2">
+        <div className="max-w-screen-xl px-10 mx-auto mt-2 lg:px-5">
             {/* Profile Header */}
             <ProfileHeader uId={id} filter={filter} setFilter={setFilter} />
-
             {/* Uploaded Books Section */}
             {filter === "uploaded" && <BookList query={query} />}
 

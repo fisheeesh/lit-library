@@ -22,6 +22,7 @@ export default function BookForm() {
    * ? })
    */
 
+  const maxCate = 5
   const { isDark } = useTheme()
   const { user } = useAuth()
 
@@ -45,6 +46,13 @@ export default function BookForm() {
   const { addDocument, updateDocument } = useFirestore()
 
   const { uploadFileToStorage } = useStorage()
+
+  useEffect(() => {
+    if (id) document.title = "Edit Book"
+    else document.title = "Create Book"
+
+    return () => document.title = "LitLibrary"
+  }, [id])
 
   useEffect(() => {
     if (id) {
@@ -75,7 +83,7 @@ export default function BookForm() {
     e.preventDefault();
     setLoading(true);
 
-    // Validate required fields
+    //$ Validate required fields
     if (title.trim() === '' || author.trim() === '' || description.trim() === '') {
       alert("Please fill in all the required fields.");
       setLoading(false);
@@ -83,16 +91,16 @@ export default function BookForm() {
     }
 
     let bookCoverName;
-    let url = preview; // Default to existing preview (current cover)
+    let url = preview; //? Default to existing preview (current cover)
 
-    // If a new file is selected, upload it
+    //? If a new file is selected, upload it
     if (file) {
       bookCoverName = Date.now().toString() + '_' + file.name;
       let uniquePath = `/covers/${user.uid}/${bookCoverName}`;
       url = await uploadFileToStorage(uniquePath, file);
     }
 
-    // Construct the book data
+    //? Construct the book data
     let updatedBook = {
       uid: user.uid,
       title: title.trim(),
@@ -100,13 +108,13 @@ export default function BookForm() {
       description: description.trim(),
       categories: categories,
       cover: url,
-      bookCoverName: bookCoverName || null, // Retain existing name if no new file
+      bookCoverName: bookCoverName || null, //? Retain existing name if no new file
       userProfile: user.photoURL,
       userName: user.displayName,
       likes_count
     };
 
-    // Update or add the document
+    //$ Update or add the document
     try {
       if (isEdit) {
         if (bookOwner === user.uid) {
@@ -200,8 +208,8 @@ export default function BookForm() {
               Categories
             </label>
             <div className="flex items-center gap-3">
-              <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setNewCategory(e.target.value)} value={newCategory} className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="book-cate" type="text" placeholder="classic" />
-              <button onClick={addCategory} type="button" className="p-1 mb-3 rounded-full bg-primary">
+              <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setNewCategory(e.target.value)} value={newCategory} className="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500 placeholder:italic" id="book-cate" type="text" placeholder="5 categoires per blog." />
+              <button disabled={categories.length >= maxCate} onClick={addCategory} type="button" className={`p-1 mb-3 rounded-full bg-primary ${categories.length >= maxCate ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="text-white size-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>

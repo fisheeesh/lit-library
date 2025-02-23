@@ -63,12 +63,12 @@ export default function Navbar() {
                 ${isDark && isSticky ? 'bg-dark shadow-md' : ''}
                 ${!isDark && isSticky ? 'bg-light shadow-md' : ''}
             `}>
-                <div className="flex items-center justify-between max-w-screen-xl px-5 py-4 mx-auto">
+                <div className="flex items-center justify-between max-w-screen-xl px-10 py-4 mx-auto lg:px-5">
 
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
-                        <img src={logo} alt="LitLibrary Logo" className="w-7 md:w-8" />
-                        <span className={`text-xl md:text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <img src={logo} alt="LitLibrary Logo" className="w-7 lg:w-8" />
+                        <span className={`text-xl lg:text-2xl  font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
                             LitLibrary
                         </span>
                     </Link>
@@ -110,8 +110,11 @@ export default function Navbar() {
                                 </div>
                             </div>
                         ) : (
-                            <Link to="/auth" className="px-4 py-2 text-white transition duration-500 rounded-full bg-primary hover:bg-indigo-700">
-                                Turn the Page
+                            <Link to="/auth" className="flex items-center justify-center p-2 text-white transition duration-500 rounded-full md:py-2 md:px-4 bg-primary hover:bg-indigo-700">
+                                <span className="material-symbols-outlined md:hidden">
+                                    app_registration
+                                </span>
+                                <span className="hidden md:block">Turn the Page</span>
                             </Link>
                         )}
 

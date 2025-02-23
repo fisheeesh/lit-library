@@ -45,7 +45,8 @@ export default function useFirestore() {
                     let filteredData = collectionDatas;
                     if (search?.field && search?.value) {
                         filteredData = filteredData.filter((doc) =>
-                            doc[search.field].toLowerCase().includes(search.value.toLowerCase())
+                            doc[search.field].toLowerCase().includes(search.value.toLowerCase()),
+                            // doc['userName'].toLowerCase().includes(search.value.toLowerCase())
                         );
                     }
 
