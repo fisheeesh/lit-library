@@ -96,7 +96,7 @@ export default function BookDetail() {
             }
             {
                 book && (
-                    <div className="max-w-screen-xl px-10 mx-auto lg:px-5">
+                    <div className="max-w-screen-xl mx-auto px-7">
                         <div className="grid grid-cols-3 gap-4 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
                                 <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} />
@@ -107,7 +107,7 @@ export default function BookDetail() {
                                         <img src={book.userProfile} alt="user_profile" className="rounded-full h-14 w-14" />
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
-                                                <Link to={`/profile/${book.uid}`} className={`text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName}</Link>
+                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName}</Link>
 
                                                 {book.uid === DEVELOPER_UID && <div className="relative mt-1 group">
                                                     <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>

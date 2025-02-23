@@ -19,10 +19,10 @@ export default function SingleCmt({ cmt, deleteComment }) {
         if (cmt.uid === user?.uid) {
             return (
                 <div className="flex items-center gap-2">
-                    <span onClick={handleEditClick} className="text-blue-600 cursor-pointer material-symbols-outlined">
+                    <span onClick={handleEditClick} className="text-[16px] md:text-xl text-blue-600 cursor-pointer material-symbols-outlined">
                         edit
                     </span>
-                    <span onClick={handleDeleteClick} className="text-red-600 cursor-pointer material-symbols-outlined">
+                    <span onClick={handleDeleteClick} className="text-red-600 text-[16px] md:text-xl cursor-pointer material-symbols-outlined">
                         delete
                     </span>
                 </div>
@@ -37,7 +37,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                 <div className="flex items-center justify-between w-full">
                     <div>
                         <div className="flex items-center gap-1">
-                            <Link to={`/profile/${cmt.uid}`} className={`md:text-lg font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
+                            <Link to={`/profile/${cmt.uid}`} className={`md:text-lg text-sm font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
                                 {cmt.sender}
                             </Link>
                             {cmt.uid === DEVELOPER_UID && (
@@ -59,7 +59,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
             <div className="mt-3">
                 {editCmt?.id !== cmt.id ? (
                     <div className={`${isDark ? 'text-white' : ''} md:text-lg flex gap-3 items-center`}>
-                        <span>{cmt.cmtContent}</span>
+                        <span className="text-sm md:text-lg">{cmt.cmtContent}</span>
                         {cmt.isEdited && <span className="text-sm italic text-blue-500">(Edited)</span>}
                     </div>
                 ) : (

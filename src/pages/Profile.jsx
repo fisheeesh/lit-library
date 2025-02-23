@@ -33,7 +33,7 @@ export default function Profile() {
     const query = ["uid", "==", id];
 
     return (
-        <div className="max-w-screen-xl px-10 mx-auto mt-2 lg:px-5">
+        <div className="max-w-screen-xl mx-auto mt-2 overflow-x-hidden px-7">
             {/* Profile Header */}
             <ProfileHeader uId={id} filter={filter} setFilter={setFilter} />
             {/* Uploaded Books Section */}

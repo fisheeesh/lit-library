@@ -56,13 +56,13 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
                                 </div>
                             )}
                         </div>
-                        <div className="flex items-center gap-2 mt-1">
+                        {currnetUser && <div className="flex items-center gap-2 mt-1">
                             <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>mail</span>
                             <div className={`md:text-base flex items-center gap-1 text-sm ${isDark ? 'text-white' : ''}`}>
                                 <span className="display_text">Email: </span>
                                 <span>{userData?.email || 'name@gmail.com'}</span>
                             </div>
-                        </div>
+                        </div>}
                         <div className="flex items-center gap-2 mt-1">
                             <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>Schedule</span>
                             <div className={`flex items-center gap-1 md:text-base text-sm ${isDark ? 'text-white' : ''}`}>

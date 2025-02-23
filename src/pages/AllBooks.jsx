@@ -60,11 +60,11 @@ export default function AllBooks() {
     return (
         <>
             {/* Header */}
-            <div className="flex flex-col items-center justify-center mt-16 mb-4 space-y-4">
-                <h1 className={`md:text-5xl px-5 md:px-0 text-2xl sm:text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'} tracking-wide`}>
+            <div className="flex flex-col items-center justify-center mt-16 mb-4 space-y-2">
+                <h1 className={`md:text-5xl px-5 md:px-0 text-xl sm:text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'} tracking-wide`}>
                     Your Daily Dose of <span className="text-secondary">Inspiration</span> and <span className="text-secondary">Knowledge</span>
                 </h1>
-                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center px-10 md:px-0 text-md md:text-lg tracking-wide`}>
+                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center px-10 md:px-0 text-sm md:text-lg tracking-wide`}>
                     Transform Your Skills in the Time! It Takes to Brew Coffee.
                 </h3>
             </div>
@@ -77,7 +77,7 @@ export default function AllBooks() {
                     onKeyDown={e => e.key === 'Enter' && handleSearch(e)}
                     onChange={e => setSearch(e.target.value)}
                     type="text"
-                    className="md:px-5  placeholder:text-[16px] text-md md:py-4 px-5 py-3 text-[16px] transition duration-500 ease-in-out border border-gray-500 rounded-full outline-none w-[300px] sm:w-[500px] md:w-[700px] border-1 focus:border-primary"
+                    className="md:px-5 placeholder:text-xs md:placeholder:text-sm text-md md:py-4 px-4 py-3 text-[16px] transition duration-500 ease-in-out border border-gray-500 rounded-full outline-none w-[300px] sm:w-[500px] md:w-[700px] border-1 focus:border-primary"
                     placeholder="Press 'Enter' to Search"
                 />
                 {/* Dropdown */}
@@ -85,9 +85,9 @@ export default function AllBooks() {
                     <button
                         type="button"
                         onClick={() => setIsOpen(prev => !prev)}
-                        className="text-sm text-light flex items-center justify-between w-full md:py-2.5 p-1.5 px-5 font-bold tracking-wider duration-300 bg-primary border-4 border-transparent rounded-full active:border-white active:text-white"
+                        className="text-xs md:text-sm text-light flex items-center justify-between w-full md:py-2.5 p-1.5 px-4 font-bold tracking-wider duration-300 bg-primary border-4 border-transparent rounded-full active:border-white active:text-white"
                     >
-                        {selectedCategory.length > 15 ? selectedCategory.slice(0, 13) + '...' : selectedCategory}
+                        {selectedCategory.length > 10 ? selectedCategory.slice(0, 8) + '...' : selectedCategory}
                         {isOpen ? <AiOutlineCaretUp className="h-8" /> : <AiOutlineCaretDown className="h-8" />}
                     </button>
                     {isOpen && (

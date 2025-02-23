@@ -63,7 +63,7 @@ export default function Navbar() {
                 ${isDark && isSticky ? 'bg-dark shadow-md' : ''}
                 ${!isDark && isSticky ? 'bg-light shadow-md' : ''}
             `}>
-                <div className="flex items-center justify-between max-w-screen-xl px-10 py-4 mx-auto lg:px-5">
+                <div className="flex items-center justify-between max-w-screen-xl py-4 mx-auto px-7">
 
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
@@ -80,7 +80,7 @@ export default function Navbar() {
                                 {/* Create Button */}
                                 <Link
                                     to="/create"
-                                    className="p-2 md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
+                                    className="p-[9px] md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
                                 >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +98,7 @@ export default function Navbar() {
 
                                 {/* Profile Avatar */}
                                 <Link to={`/profile/${user.uid}`}>
-                                    <img src={user?.photoURL || defaultProfile} alt="Profile" className="w-10 h-10 rounded-full md:h-11 md:w-11" />
+                                    <img src={user?.photoURL || defaultProfile} alt="Profile" className="w-[42px] h-[42px] rounded-full md:h-11 md:w-11" />
                                 </Link>
 
                                 {/* Notifications */}
