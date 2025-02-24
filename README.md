@@ -7,20 +7,20 @@ For instance, newbies and beginners from any career field can share their newly 
 ![User Interface](./src/assets/preview.png)
 
 ## 📑 Table of Contents
-- [Features](#-features)
+- [Features](#🌟-features)
   - [Blogging Features](#blogging-features)
   - [User Experience](#user-experience)
   - [Upcoming Features](#upcoming-features)
-- [Tech Stack](#-tech-stack)
+- [Tech Stack](#🛠️-tech-stack)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Deployment](#deployment)
   - [Code Optimization](#code-optimization)
-- [How to Get Started](#-how-to-get-started)
-- [Inspiration](#-inspiration)
-- [Contributing](#-contributing)
-- [Live Demo](#-live-demo)
-- [License](#-license)
+- [How to Get Started](#🚀-how-to-get-started)
+- [Inspiration](#💡-inspiration)
+- [Contributing](#🧑‍💻-contributing)
+- [Live Demo](#🌐-live-demo)
+- [License](#license)
 
 ## 🌟 Features  
 
@@ -94,7 +94,7 @@ For instance, newbies and beginners from any career field can share their newly 
 LitLibrary (Literature Library) was inspired by the need for a positive, supportive platform where users can freely share experiences and knowledge while learning from others. It’s designed to create connections and foster personal and collective growth.
 
 ## 🧑‍💻 Contributing
-Contributions are welcome! Follow these steps to contribut:
+Contributions are welcome! Follow these steps to contribute:
 1. Fork the repository.
 2. Create a new branch for your feature:
    
