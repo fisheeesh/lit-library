@@ -94,7 +94,7 @@ For instance, newbies and beginners from any career field can share their newly 
 LitLibrary (Literature Library) was inspired by the need for a positive, supportive platform where users can freely share experiences and knowledge while learning from others. It’s designed to create connections and foster personal and collective growth.
 
 ## 🧑‍💻 Contributing
-#Contributions are welcome! Follow these steps to contribut:
+Contributions are welcome! Follow these steps to contribut:
 1. Fork the repository.
 2. Create a new branch for your feature:
    
@@ -118,3 +118,5 @@ This project is licensed under the [MIT License](LICENSE.md).
 Crafted with 💖 by Fisheeesh
 ```bash
 Let me know if you need additional refinements! 😊
+```
+📧 Contact: [swanphyo444@gmail.com](mailto:swanphyo444@gmail.com)
