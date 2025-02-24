@@ -7,20 +7,20 @@ For instance, newbies and beginners from any career field can share their newly 
 ![User Interface](./src/assets/preview.png)
 
 ## 📑 Table of Contents
-- [🌟 Features](#-features)
+- [Features](#-features)
   - [Blogging Features](#blogging-features)
   - [User Experience](#user-experience)
   - [Upcoming Features](#upcoming-features)
-- [🛠️ Tech Stack](#-tech-stack)
+- [Tech Stack](#-tech-stack)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Deployment](#deployment)
   - [Code Optimization](#code-optimization)
-- [🚀 How to Get Started](#-how-to-get-started)
-- [💡 Inspiration](#-inspiration)
-- [🧑‍💻 Contributing](#-contributing)
-- [🌐 Live Demo](#-live-demo)
-- [📜 License](#-license)
+- [How to Get Started](#-how-to-get-started)
+- [Inspiration](#-inspiration)
+- [Contributing](#-contributing)
+- [Live Demo](#-live-demo)
+- [License](#-license)
 
 ## 🌟 Features  
 
