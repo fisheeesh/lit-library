@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
 import { useEffect } from "react"
 import useFirestore from "../hooks/useFirestore"
@@ -9,8 +9,10 @@ import CmtList from "../components/cmt/CmtList"
 import moment from "moment"
 import { BeatLoader } from "react-spinners"
 import useKey from "../hooks/useKey"
+import { toast } from "react-toastify"
 
 export default function BookDetail() {
+    const location = useLocation()
     const { id } = useParams()
 
     const { isDark } = useTheme()
@@ -23,6 +25,16 @@ export default function BookDetail() {
 
     //$ If there is no user, then userData will be null. So we all fetch the data if only the user is logged in
     const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null }
+
+    //? Check if there is scrollTo as params in URL, if so then scroll to comments
+    useEffect(() => {
+        const params = new URLSearchParams(location.search)
+        if (params.get("scrollTo") === "comments") {
+            setTimeout(() => {
+                document.getElementById("comments")?.scrollIntoView({ behavior: "smooth" })
+            }, 500)
+        }
+    }, [location])
 
     useEffect(() => {
         if (error) {
@@ -49,7 +61,16 @@ export default function BookDetail() {
         }
 
         if (user.uid === book.uid) {
-            alert('You cannot like your own book!')
+            toast.info('You cannot like your own book!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
             return
         }
 
@@ -99,16 +120,20 @@ export default function BookDetail() {
                     <div className="max-w-screen-xl mx-auto px-7">
                         <div className="grid grid-cols-3 gap-4 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
+                                {/* Cover */}
                                 <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} />
                             </div>
                             <div className="col-span-3 space-y-3 md:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
+                                        {/* Profile */}
                                         <img src={book.userProfile} alt="user_profile" className="rounded-full h-14 w-14" />
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
+                                                {/* Username */}
                                                 <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName}</Link>
 
+                                                {/* Privilege */}
                                                 {book.uid === DEVELOPER_UID && <div className="relative mt-1 group">
                                                     <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
                                                     <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
@@ -120,6 +145,7 @@ export default function BookDetail() {
                                             <span className="text-sm text-gray-400">{moment(book.created_at.seconds * 1000).format('LLL')}</span>
                                         </div>
                                     </div>
+                                    {/* Like Button */}
                                     <button
                                         onClick={() => toggleFavorite(book.id)}
                                         type="button"
@@ -136,7 +162,9 @@ export default function BookDetail() {
                                         <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
                                     </button>
                                 </div>
+                                {/* Title */}
                                 <h2 className={`text-base sm:text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
+                                {/* Categoreis */}
                                 <div className="flex flex-wrap gap-2">
                                     {
                                         book.categories.map(c => (
@@ -146,14 +174,18 @@ export default function BookDetail() {
                                         ))
                                     }
                                 </div>
+                                {/* Description */}
                                 <ReactLinkify componentDecorator={componentDecorator} >
-                                    <p className={`${isDark ? 'text-white border-primary' : 'border-gray-200'} whitespace-pre-line border rounded-md p-3.5 h-[388px] book-des overflow-y-scroll`}>{book.description}</p>
+                                    <p className={`${isDark ? 'text-white border-primary' : 'border-gray-200'} whitespace-pre-line border rounded-md p-3.5 h-[400px] book-des overflow-y-scroll`}>{book.description}</p>
                                 </ReactLinkify>
                             </div>
                         </div>
+                        {/* Horizontal Line */}
                         <hr className={`my-5 ${isDark ? 'border-primary' : 'border-gray-200'}`} />
+                        {/* Heading */}
                         <h1 className="mb-2 text-lg font-bold sm:text-xl md:text-2xl text-secondary">Say something...</h1>
-                        <div className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
+                        {/* Cmt List/Form */}
+                        <div id="comments" className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
                             {user ? <CmtForm user={user} book={book} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />
                         </div>

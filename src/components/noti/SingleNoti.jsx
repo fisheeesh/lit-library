@@ -9,7 +9,7 @@ export default function SingleNoti({ noti, setIsOpen }) {
 
     return (
         <div onClick={() => {
-            navigate(`/blogs/${noti.bookId}`)
+            noti.isComment ? navigate(`/blogs/${noti.bookId}?scrollTo=comments`) : navigate(`/blogs/${noti.bookId}`)
             setIsOpen(false)
         }} className={`relative flex items-center gap-3.5 p-3 my-2 cursor-pointer ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-200'}`}>
             <img src={noti.senderPhotoURL} alt="Profile" className='w-12 h-12 rounded-full' />

@@ -5,6 +5,8 @@ import './layout.css'
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useEffect, useRef } from "react";
 import useTheme from "../../hooks/useTheme";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Layout() {
     const location = useLocation()
@@ -32,6 +34,7 @@ export default function Layout() {
                     </div>
                 </CSSTransition>
             </SwitchTransition>
+            <ToastContainer />
         </div>
     )
 }

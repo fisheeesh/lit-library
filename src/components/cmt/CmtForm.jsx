@@ -66,7 +66,7 @@ export default function CmtForm({ user, book, type = 'create', setEditCmt, editC
             <div className="flex items-center gap-2">
                 <button
                     type="submit"
-                    className="flex items-center gap-2 px-5 py-2.5 mt-3 mb-3 text-white transition duration-1000 ease-out rounded-full bg-primary md:px-5 hover:bg-indigo-500"
+                    className="flex items-center gap-1 px-3 py-1 md:py-2.5 mt-3 mb-3 text-white transition duration-1000 ease-out rounded-full bg-primary md:px-5 hover:bg-indigo-500"
                 >
                     {loading && (
                         <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@ export default function CmtForm({ user, book, type = 'create', setEditCmt, editC
                     <button
                         onClick={() => setEditCmt(null)}
                         type="button"
-                        className="hover:bg-primary hover:text-white px-5 py-2.5 mt-3 mb-3 transition duration-1000 ease-out border rounded-full text-primary border-primary md:px-5"
+                        className="hover:bg-primary hover:text-white py-1 px-3 md:py-2.5 mt-3 mb-3 transition duration-1000 ease-out border rounded-full text-primary border-primary md:px-5"
                     >
                         <span>Cancel</span>
                     </button>

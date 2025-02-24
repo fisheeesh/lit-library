@@ -12,6 +12,7 @@ import Profile from '../pages/Profile'
 import NotFound from '../pages/NotFound'
 import Welcome from '../pages/Welcome'
 import useAuth from "../hooks/useAuth";
+import Test from "../pages/Test";
 
 export default function Router() {
     const { authReady, user } = useAuth()
@@ -50,6 +51,10 @@ export default function Router() {
                 {
                     path: '/auth',
                     element: !isAuthenticated ? <Welcome /> : <Navigate to='/' />
+                },
+                {
+                    path: '/test',
+                    element: <Test />
                 }
             ]
         },

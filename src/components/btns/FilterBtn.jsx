@@ -1,5 +1,8 @@
+import useTheme from "../../hooks/useTheme";
+
 /* eslint-disable react/prop-types */
-export function FilterButtons({ filter, setFilter, isDark }) {
+export function FilterButtons({ filter, setFilter }) {
+    const { isDark } = useTheme()
     const filters = [
         { name: 'uploaded', icon: 'upload' },
         { name: 'likes', icon: 'favorite' },

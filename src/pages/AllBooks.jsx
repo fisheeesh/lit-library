@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import BookList from "../components/book/BookList";
-import useTheme from "../hooks/useTheme";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AiOutlineCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import useFirestore from "../hooks/useFirestore";
 import useKey from "../hooks/useKey";
+import ScrollTopBtn from "../components/btns/ScrollTopBtn";
+import SearchBar from "../components/searchBar/SearchBar";
+import DropDownBtn from "../components/btns/DropDownBtn";
+import Heading from "../components/heading/Heading";
 
 export default function AllBooks() {
-    const { isDark } = useTheme();
     const navigate = useNavigate();
     const location = useLocation();
-    const inputEl = useRef(null);
 
     const params = new URLSearchParams(location.search);
     const initialSearch = params.get('search') || '';
@@ -23,6 +23,7 @@ export default function AllBooks() {
     const { getAllDocuments } = useFirestore();
     const { data: books } = getAllDocuments('books');
 
+    //? Extract unique categories from books
     const uniqueCategories = useMemo(() => {
         const allCategories = [];
         books.forEach(book => {
@@ -31,6 +32,7 @@ export default function AllBooks() {
         return ['All', ...new Set(allCategories)];
     }, [books]);
 
+    //? Update the URL with the current search query and selected category
     const updateURL = (search, category) => {
         const params = new URLSearchParams();
         if (search) params.set('search', search);
@@ -38,78 +40,38 @@ export default function AllBooks() {
         navigate(`/blogs?${params.toString()}`, { replace: true });
     };
 
+    //? Handle the search submission
     const handleSearch = (e) => {
         e.preventDefault();
         updateURL(search, selectedCategory);
     };
 
+    //? Set the page title when mounting and reset it on unmount
     useEffect(() => {
         document.title = 'LitLibrary | Blogs';
 
         return () => {
             document.title = 'LitLibrary';
-        }
-    }, [])
+        };
+    }, []);
 
+    //? If user click 'Escape' key, navigate to previous page
     useKey('Escape', () => navigate(-1))
-    useKey('Enter', () => {
-        if(document.activeElement === inputEl.current) return
-        inputEl.current.focus()
-    })
 
     return (
         <>
             {/* Header */}
-            <div className="flex flex-col items-center justify-center mt-16 mb-4 space-y-2">
-                <h1 className={`md:text-5xl px-5 md:px-0 text-xl sm:text-4xl font-bold text-center ${isDark ? 'text-light' : 'text-dark'} tracking-wide`}>
-                    Your Daily Dose of <span className="text-secondary">Inspiration</span> and <span className="text-secondary">Knowledge</span>
-                </h1>
-                <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center px-10 md:px-0 text-sm md:text-lg tracking-wide`}>
-                    Transform Your Skills in the Time! It Takes to Brew Coffee.
-                </h3>
-            </div>
-
+            <Heading />
             {/* Search Bar */}
-            <div className="flex items-center justify-center gap-2 px-10 mb-10 md:px-5">
-                <input
-                    ref={inputEl}
-                    value={search}
-                    onKeyDown={e => e.key === 'Enter' && handleSearch(e)}
-                    onChange={e => setSearch(e.target.value)}
-                    type="text"
-                    className="md:px-5 placeholder:text-xs md:placeholder:text-sm text-md md:py-4 px-4 py-3 text-[16px] transition duration-500 ease-in-out border border-gray-500 rounded-full outline-none w-[300px] sm:w-[500px] md:w-[700px] border-1 focus:border-primary"
-                    placeholder="Press 'Enter' to Search"
-                />
-                {/* Dropdown */}
-                <div className="relative flex flex-col items-center rounded-full w-[190px]">
-                    <button
-                        type="button"
-                        onClick={() => setIsOpen(prev => !prev)}
-                        className="text-xs md:text-sm text-light flex items-center justify-between w-full md:py-2.5 p-1.5 px-4 font-bold tracking-wider duration-300 bg-primary border-4 border-transparent rounded-full active:border-white active:text-white"
-                    >
-                        {selectedCategory.length > 10 ? selectedCategory.slice(0, 8) + '...' : selectedCategory}
-                        {isOpen ? <AiOutlineCaretUp className="h-8" /> : <AiOutlineCaretDown className="h-8" />}
-                    </button>
-                    {isOpen && (
-                        <div className="absolute z-10 flex flex-col items-start w-full px-3 py-3 bg-primary rounded-2xl top-16">
-                            {uniqueCategories.map((cate, index) => (
-                                <h3
-                                    key={index}
-                                    onClick={() => {
-                                        setSelectedCategory(cate);
-                                        updateURL(search, cate);
-                                        setIsOpen(false);
-                                    }}
-                                    className="text-sm font-bold text-light flex w-full py-2.5 border-l-4 rounded-r-xl cursor-pointer hover:border-l-secondary hover:bg-blue-300 border-l-transparent"
-                                >
-                                    {cate}
-                                </h3>
-                            ))}
-                        </div>
-                    )}
-                </div>
+            <div className="flex items-center justify-center gap-2 px-5 mb-17">
+                <SearchBar search={search} setSearch={setSearch} onSearch={handleSearch} />
+                {/* Dropdown Button */}
+                <DropDownBtn selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} isOpen={isOpen} setIsOpen={setIsOpen} uniqueCategories={uniqueCategories} updateURL={updateURL} search={search} />
             </div>
+            {/* BookList */}
             <BookList />
+            {/* Scroll to Top Button */}
+            <ScrollTopBtn />
         </>
     );
 }

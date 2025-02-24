@@ -6,6 +6,7 @@ import { booksCollectionRef } from "../firebase/config"
 import useFirestore from "../hooks/useFirestore"
 import useAuth from "../hooks/useAuth"
 import useStorage from "../hooks/useStorage"
+import { toast } from "react-toastify"
 
 export default function BookForm() {
   /**
@@ -119,19 +120,38 @@ export default function BookForm() {
       if (isEdit) {
         if (bookOwner === user.uid) {
           await updateDocument('books', id, updatedBook);
-        }
-        else {
-          alert('You are not authorized to edit this book.')
-          navigate('/')
+        } else {
+          toast.error('You are not allowed to edit this book!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          navigate('/');
+          return;
         }
       } else {
         await addDocument('books', updatedBook);
       }
-      navigate('/');
     } catch (error) {
       console.error("Error saving book:", error);
     } finally {
       setLoading(false);
+      navigate('/');
+      toast.success(isEdit ? 'Book updated successfully!' : 'Book added successfully!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
     }
   };
 

@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
 import useFirestore from "../../hooks/useFirestore";
 import SingleNoti from "../noti/SingleNoti";
 import { BeatLoader } from "react-spinners";
-
-import lightIcon from "../../assets/light_mode.svg";
-import darkIcon from "../../assets/dark_mode.svg";
-import defaultProfile from "../../assets/default_profile.jpg";
-import logo from "../../assets/favicon.png";
+import Logo from "./Logo";
+import CreateBtn from "../btns/CreateBtn";
+import Avatar from "./Avatar";
+import NotiBtn from "../btns/NotiBtn";
+import GetStarted from "./GetStarted";
+import ToggleTheme from "./ToggleTheme";
 
 export default function Navbar() {
-    const { isDark, changeTheme } = useTheme();
+    const { isDark } = useTheme();
     const { user } = useAuth();
     const [isSticky, setIsSticky] = useState(false);
     const [userNoti, setUserNoti] = useState([]);
@@ -23,28 +23,38 @@ export default function Navbar() {
     const customColor = !isDark ? "#4555d2" : "#cc2973";
     const { data: notis, loading } = getAllDocuments("notifications");
 
-    // Filter notifications for the current user
+    //? Filter notifications specific to the current user
     useEffect(() => {
         if (notis && user) {
+            //? Retrieve notifications that belong to the logged-in user
             const userNotifications = notis.filter(noti => noti.uid === user.uid);
             setUserNoti(userNotifications);
 
+            //? Retrieve read notifications from local storage
             const readNotifications = JSON.parse(localStorage.getItem(`readNoti-${user.uid}`)) || [];
+
+            //? Check if there are any new (unread) notifications
             const newNotiExists = userNotifications.some(noti => !readNotifications.includes(noti.id));
             setHasNewNoti(newNotiExists);
         }
     }, [notis, user]);
 
-    // Mark notifications as read
+    //? Handle notification click event
     const handleNotiClick = () => {
+        // Toggle notification dropdown?
         setIsOpen(prev => !prev);
+
+        //? If notifications are opened and there are unread notifications, mark them as read
         if (!isOpen && userNoti.length > 0) {
             const readNotifications = userNoti.map(noti => noti.id);
+            //? Save read notifications
             localStorage.setItem(`readNoti-${user.uid}`, JSON.stringify(readNotifications));
+            //? Remove new notification indicator
             setHasNewNoti(false);
         }
     };
 
+    //? Add a scroll event listener to track the page scroll position
     useEffect(() => {
         const handleScroll = () => {
             setIsSticky(window.scrollY > 20);
@@ -66,73 +76,39 @@ export default function Navbar() {
                 <div className="flex items-center justify-between max-w-screen-xl py-4 mx-auto px-7">
 
                     {/* Logo */}
-                    <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
-                        <img src={logo} alt="LitLibrary Logo" className="w-7 lg:w-8" />
-                        <span className={`text-xl lg:text-2xl  font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
-                            LitLibrary
-                        </span>
-                    </Link>
+                    <Logo />
 
-                    {/* Right: User, Create Button, Theme Toggle */}
+                    {/* Profile, Create Button, Theme Toggle */}
                     <div className="flex items-center gap-1">
                         {user ? (
                             <div className="flex items-center gap-1">
                                 {/* Create Button */}
-                                <Link
-                                    to="/create"
-                                    className="p-[9px] md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className="size-6"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg>
-
-                                    <span className="hidden md:block">Create</span>
-                                </Link>
+                                <CreateBtn />
 
                                 {/* Profile Avatar */}
-                                <Link to={`/profile/${user.uid}`}>
-                                    <img src={user?.photoURL || defaultProfile} alt="Profile" className="w-[42px] h-[42px] rounded-full md:h-11 md:w-11" />
-                                </Link>
+                                <Avatar />
 
                                 {/* Notifications */}
-                                <div onClick={handleNotiClick} className="relative flex items-center p-2 border rounded-full cursor-pointer">
-                                    <span className={`material-symbols-outlined ${isDark ? "text-white" : "text-gray-800"}`}>
-                                        notifications
-                                    </span>
-                                    {hasNewNoti && <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-600 rounded-full"></span>}
-                                </div>
+                                <NotiBtn hasNewNoti={hasNewNoti} onNotiClick={handleNotiClick} />
                             </div>
                         ) : (
-                            <Link to="/auth" className="flex items-center justify-center p-2 text-white transition duration-500 rounded-full md:py-2 md:px-4 bg-primary hover:bg-indigo-700">
-                                <span className="material-symbols-outlined md:hidden">
-                                    app_registration
-                                </span>
-                                <span className="hidden md:block">Turn the Page</span>
-                            </Link>
+                            <GetStarted />
                         )}
 
                         {/* Theme Toggle */}
-                        <button onClick={() => changeTheme(isDark ? "light" : "dark")} className="p-2 border rounded-full">
-                            <img src={isDark ? lightIcon : darkIcon} className="w-6" alt="Theme Toggle" />
-                        </button>
+                        <ToggleTheme />
                     </div>
                 </div>
             </nav>
 
             {/* Notifications Dropdown */}
             {isOpen && (
-                <div className={`fixed top-20 right-10 w-[350px] h-[400px] overflow-y-scroll rounded-lg shadow-xl z-50 
+                <div className={`fixed top-20 right-5 w-[350px] h-[400px] overflow-y-scroll rounded-lg shadow-xl z-50 
                     ${isDark ? "bg-gray-800 text-white" : "bg-white text-gray-900"}
                 `}>
                     <div className="flex items-center justify-between px-3 mt-3">
                         <h3 className="text-lg font-bold">Notifications</h3>
+                        {/* Cancel Btn */}
                         <span onClick={() => setIsOpen(false)} className="cursor-pointer material-symbols-outlined hover:text-red-500">
                             cancel
                         </span>
