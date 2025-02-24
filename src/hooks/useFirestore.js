@@ -44,9 +44,13 @@ export default function useFirestore() {
                     //$ Apply search filter
                     let filteredData = collectionDatas;
                     if (search?.field && search?.value) {
-                        filteredData = filteredData.filter((doc) =>
-                            doc[search.field].toLowerCase().includes(search.value.toLowerCase()),
-                            // doc['userName'].toLowerCase().includes(search.value.toLowerCase())
+                        const searchNormalized = search.value.replace(/\s+/g, '').toLowerCase();
+                        filteredData = filteredData.filter((doc) => {
+                            const titleNormalized = doc[search.field].replace(/\s+/g, '').toLowerCase();
+                            const userNameNormalized = doc['userName'].replace(/\s+/g, '').toLowerCase();
+
+                            return titleNormalized.includes(searchNormalized) || userNameNormalized.includes(searchNormalized);
+                        }
                         );
                     }
 

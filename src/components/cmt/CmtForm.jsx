@@ -37,11 +37,11 @@ export default function CmtForm({ user, book, type = 'create', setEditCmt, editC
             }
 
             await addDocument('comments', newComment);
-            await addDocument('notifications', newNoti)
+            if (book.uid !== user.uid) await addDocument('notifications', newNoti)
         } else if (type === 'update') {
             const updatedComment = { ...editCmt, cmtContent: content, isEdited: true };
             await updateDocument('comments', editCmt.id, updatedComment, false);
-            setEditCmt(null); // Reset the edit comment state
+            setEditCmt(null);
         }
 
         setLoading(false);
