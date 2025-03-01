@@ -43,6 +43,8 @@ For instance, newbies and beginners from any career field can share their newly 
 - **Infinite Scroll**: Effortless browsing with infinite scrolling in the "All Blogs" page.  (Implemented ✅ – however, this feature is disabled in the app as it interferes with the search functionality. You can still check it out in src/pages/Test.jsx.)
 - **Notifications**: Receive a notification alert whenever someone likes or comments on your blog. (Manually implemented ✅ – not using Firebase Notifications.)
 - **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary.
+- **ModiyUI** - Improve Blog Form page design.
+- **NProgress** - Add nProgress for smooth page transitions
 
 ## 🛠️ Tech Stack  
 
@@ -75,7 +77,7 @@ For instance, newbies and beginners from any career field can share their newly 
 1. **Clone the Repository**:
   
    ```bash  
-   git clone https://github.com/yourusername/litlibrary.git  
+   git clone https://github.com/fisheeesh/litlibrary.git  
 3. **Install Dependencies**:
    ```bash  
    npm install
