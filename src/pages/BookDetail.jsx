@@ -10,6 +10,7 @@ import moment from "moment"
 import { BeatLoader } from "react-spinners"
 import useKey from "../hooks/useKey"
 import { toast } from "react-toastify"
+import ScrollTopBtn from "../components/btns/ScrollTopBtn"
 
 export default function BookDetail() {
     const location = useLocation()
@@ -189,6 +190,7 @@ export default function BookDetail() {
                             {user ? <CmtForm user={user} book={book} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />
                         </div>
+                        <ScrollTopBtn />
                     </div>
                 )
             }

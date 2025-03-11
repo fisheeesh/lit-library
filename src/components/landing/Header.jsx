@@ -14,7 +14,7 @@ export default function Header() {
             <Stats />
             {/* Introduction Section */}
             <Intro />
-
+            
             {/* Persude to create a blog */}
             <WhyJoin />
 

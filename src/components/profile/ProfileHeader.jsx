@@ -23,14 +23,8 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
     const currnetUser = user?.uid === userData?.uid
 
     const logOutUser = async () => {
-        const confirmLogout = window.confirm("Are you sure you want to log out?");
-
-        if (confirmLogout) {
-            await logOut();
-            navigate('/auth');
-        } else {
-            return;
-        }
+        await logOut();
+        navigate('/auth', { replace: true });
     };
 
     return (

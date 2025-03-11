@@ -1,13 +1,33 @@
+import { useState, useEffect } from "react";
 import decorationStar from '../../assets/decoration-star.svg';
 import headerImage from '../../assets/header.png';
 import useTheme from '../../hooks/useTheme';
 
 export default function HeroSection() {
     const { isDark } = useTheme();
+    const words = [
+        "Inspiration",
+        "Motivating",
+    ];
+    const count = words.length;
+    const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [isFadingOut, setIsFadingOut] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsFadingOut(true);
+            setTimeout(() => {
+                setCurrentWordIndex((prevIndex) => (prevIndex + 1) % count);
+                setIsFadingOut(false);
+            }, 600);
+        }, 2500);
+
+        return () => clearInterval(interval);
+    }, [count]);
 
     return (
         <>
-            <header className="relative mt-12 overflow-hidden text-center lg:text-left">
+            <header className="relative mt-12 overflow-hidden text-center transition-all duration-300 lg:text-left" id='home'>
                 {/* Decoration Stars */}
                 <img
                     src={decorationStar}
@@ -29,7 +49,10 @@ export default function HeroSection() {
                                 className={`tracking-wide text-3xl md:text-5xl lg:text-[75px] font-bold leading-tight mb-6 ${isDark ? 'text-light' : 'text-dark'
                                     }`}
                             >
-                                The <span className="text-primary">Perfect</span> <span className="text-secondary">Inspiration</span> Place
+                                The <span className="text-primary">Perfect </span>
+                                <span className={`text-secondary inline-block transition-text ${isFadingOut ? 'fade-out' : 'fade-in'}`}>
+                                    {words[currentWordIndex]}
+                                </span>{" "}Place
                             </h1>
                             <p className={`tracking-wide text-md sm:text-lg text-gray-600 md:text-xl ${isDark ? 'text-light' : 'text-dark'}`}>
                                 Share your thoughts, knowledge, and life lessons with a community built on wisdom and motivation.
@@ -39,7 +62,7 @@ export default function HeroSection() {
                                     onClick={() => {
                                         document.querySelector('#blogs').scrollIntoView({ behavior: 'smooth' });
                                     }}
-                                    className="px-5 py-2.5 text-lg text-white transition duration-500 ease-in-out rounded-full btn bg-primary hover:bg-indigo-700"
+                                    className="px-5 shadow-lg py-2.5 text-lg text-white transition duration-500 ease-in-out rounded-full btn bg-primary hover:bg-indigo-700"
                                 >
                                     More Details
                                 </button>
@@ -57,6 +80,8 @@ export default function HeroSection() {
                     </div>
                 </div>
             </header>
+
+
         </>
     );
 }

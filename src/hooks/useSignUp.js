@@ -31,6 +31,7 @@ const useSignUp = () => {
                 email: email,
                 photoURL: res.user.photoURL,
                 created_at: serverTimestamp(),
+                hasReview: false,
                 saved: [],
                 favorites: []
             })

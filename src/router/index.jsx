@@ -30,11 +30,11 @@ export default function Router() {
                 },
                 {
                     path: '/create',
-                    element: isAuthenticated ? <BookForm /> : <Navigate to='/auth' />
+                    element: isAuthenticated ? <BookForm /> : <Navigate to='/auth' replace />
                 },
                 {
                     path: '/edit/:id',
-                    element: isAuthenticated ? <BookForm /> : <Navigate to='/auth' />
+                    element: isAuthenticated ? <BookForm /> : <Navigate to='/auth' replace />
                 },
                 {
                     path: '/profile/:id',

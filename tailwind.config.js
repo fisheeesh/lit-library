@@ -16,7 +16,11 @@ export default {
         light: '#f9fafe',
         black: '#1d1d21',
         shadow: "#6a77db",
-      }
+        lightBlue: '#2887ff'
+      },
+      borderRadius: {
+        'custom': 'calc(1rem - 6px)',
+      },
     },
   },
   plugins: [],

@@ -3,7 +3,7 @@ import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 /* eslint-disable react/prop-types */
 export default function DropDownBtn({ selectedCategory, setSelectedCategory, isOpen, setIsOpen, uniqueCategories, updateURL, search }) {
     return (
-        <div className="relative flex flex-col items-center w-[130px] sm:w-[17sd0px]">
+        <div className="relative flex flex-col items-center w-[130px] sm:w-[170px]">
             <button
                 type="button"
                 onClick={() => setIsOpen(prev => !prev)}
@@ -17,7 +17,7 @@ export default function DropDownBtn({ selectedCategory, setSelectedCategory, isO
                 {isOpen ? <AiOutlineCaretUp className="h-8" /> : <AiOutlineCaretDown className="h-8" />}
             </button>
             {isOpen && (
-                <div className="absolute z-10 flex flex-col items-start w-full px-3 py-3 bg-primary rounded-2xl top-16">
+                <div className="absolute z-10 flex flex-col items-start w-full px-3 py-3 h-[350px] overflow-y-scroll bg-primary rounded-2xl top-16">
                     {uniqueCategories.map((cate, index) => (
                         <h3
                             key={index}

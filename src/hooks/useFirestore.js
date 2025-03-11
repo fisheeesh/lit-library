@@ -5,7 +5,7 @@ import { db } from "../firebase/config"
 
 export default function useFirestore() {
 
-    const getAllDocuments = (collectionName, _q = null, search = null) => {
+    const getAllDocuments = (collectionName, _q = null, search = null, order = 'created_at') => {
         const [data, setData] = useState([]);
         const [error, setError] = useState(null);
         const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ export default function useFirestore() {
             if (qRef) {
                 queries.push(where(...qRef));
             }
-            queries.push(orderBy('created_at', 'desc'));
+            queries.push(orderBy(order, 'desc'));
             let q = query(ref, ...queries);
 
             const unsubscribe = onSnapshot(
@@ -57,7 +57,7 @@ export default function useFirestore() {
                     // Apply category filter
                     if (search?.filter && search.filter !== 'All') {
                         // console.log("Filtering with:", search.filter);
-                        filteredData = filteredData.filter((doc) => doc.categories.includes(search.filter));
+                        filteredData = filteredData.filter((doc) => doc?.categories.includes(search.filter));
                     }
 
                     setData(filteredData);
@@ -71,7 +71,7 @@ export default function useFirestore() {
             );
 
             return () => unsubscribe();
-        }, [collectionName, qRef, search?.field, search?.value, search?.filter]);
+        }, [collectionName, qRef, search?.field, search?.value, search?.filter, order]);
 
         return { data, error, loading };
     };

@@ -18,7 +18,7 @@ export default function WhyJoin() {
 
     return (
         <section
-            id="details"
+            id="whyjoin"
             className="relative py-32 overflow-hidden"
         >
             <img
@@ -45,8 +45,7 @@ export default function WhyJoin() {
                                     check
                                 </span>
                                 <p className={`text-md tracking-wide ${isDark ? 'text-light' : 'text-dark'}`}>
-                                    At Lit Library, we celebrate individuality, where every idea,
-                                    experience, and story is unique, and no two blogs or discussions are the same.
+                                    At LitLibrary, every book, blog, and discussion reflects unique ideas and creativity.
                                 </p>
                             </li>
                             <li className="flex items-start gap-3">
@@ -54,7 +53,7 @@ export default function WhyJoin() {
                                     check
                                 </span>
                                 <p className={`text-md tracking-wide ${isDark ? 'text-light' : 'text-dark'}`}>
-                                    Join us, share your journey, and be part of a community that values growth and respect.
+                                    Write a book, start a blog, or share your journey. Your words matter and can inspire others.
                                 </p>
                             </li>
                             <li className="flex items-start gap-3">
@@ -62,7 +61,7 @@ export default function WhyJoin() {
                                     check
                                 </span>
                                 <p className={`text-md tracking-wide ${isDark ? 'text-light' : 'text-dark'}`}>
-                                    Join Lit Library: where ideas thrive, connections grow, and the community supports you.
+                                    Join our community to connect with readers and writers in a space that values growth.
                                 </p>
                             </li>
                             <li className="flex items-start gap-3">
@@ -70,11 +69,11 @@ export default function WhyJoin() {
                                     check
                                 </span>
                                 <p className={`text-md tracking-wide ${isDark ? 'text-light' : 'text-dark'}`}>
-                                    Share your experiences and unlock endless opportunities. Lit Library is a hub for growth and community development.
+                                    LitLibrary is where ideas thrive, creativity shines, and every voice is heard. Start sharing your story today!
                                 </p>
                             </li>
                         </ul>
-                        <button onClick={handleClick} type='button' className="inline-block px-5 py-2.5 mt-4 font-semibold text-white transition-all duration-300 rounded-full bg-primary hover:bg-indigo-700">
+                        <button onClick={handleClick} type='button' className="inline-block px-5 py-2.5 mt-4 text-white transition-all duration-300 rounded-full bg-primary hover:bg-indigo-700">
                             Get Started
                         </button>
                     </div>

@@ -42,7 +42,7 @@ export default function Profile() {
     const query = ["uid", "==", id];
 
     return (
-        <div className="max-w-screen-xl mx-auto mt-2 overflow-x-hidden px-7">
+        <div className="max-w-screen-xl pb-3 mx-auto mt-2 overflow-x-hidden px-7">
             {/* Profile Header */}
             <ProfileHeader uId={id} filter={filter} setFilter={setFilter} />
 

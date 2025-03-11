@@ -3,7 +3,7 @@ import useTheme from "../../hooks/useTheme"
 export default function Intro() {
     const { isDark } = useTheme()
     return (
-        <section id="introduction" className={`py-20 ${isDark ? 'bg-dark' : 'bg-light'}`}>
+        <section id="about" className={`py-20 ${isDark ? 'bg-dark' : 'bg-light'}`}>
             <div className="container px-4 mx-auto">
                 <div className="flex justify-center">
                     <div className="max-w-3xl text-center">

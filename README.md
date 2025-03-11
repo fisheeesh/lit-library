@@ -40,11 +40,17 @@ For instance, newbies and beginners from any career field can share their newly 
   - Filter by uploaded blogs, liked blogs, and read-later lists.  
 
 ### Upcoming Features  
-- **Infinite Scroll**: Effortless browsing with infinite scrolling in the "All Blogs" page.  (Implemented ✅ – however, this feature is disabled in the app as it interferes with the search functionality. You can still check it out in src/pages/Test.jsx.)
+- **Infinite Scroll**: Effortless browsing with infinite scrolling in the "All Blogs" page.  (Implemented ✅ – however, this feature is disabled in the app as it interferes with the search functionality. You can still check it out in /test.)
 - **Notifications**: Receive a notification alert whenever someone likes or comments on your blog. (Manually implemented ✅ – not using Firebase Notifications.)
+<<<<<<< Updated upstream
 - **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary.
 - **ModiyUI** - Improve Blog Form page design.
 - **NProgress** - Add nProgress for smooth page transitions
+=======
+- **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary (Implemented ✅).
+- ModifyUI - Improve Blog Form page design. (Modified ✅ )
+- Progress bar - Add react-top-loading-bar for smooth page transitions(Implemented ✅)
+>>>>>>> Stashed changes
 
 ## 🛠️ Tech Stack  
 

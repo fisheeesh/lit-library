@@ -30,6 +30,7 @@ const useGoogle = () => {
                 email: user.email,
                 photoURL: user.photoURL,
                 created_at: serverTimestamp(),
+                hasReview: false,   
                 saved: [],
                 favorites: []
             })

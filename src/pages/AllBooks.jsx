@@ -21,7 +21,7 @@ export default function AllBooks() {
     const [isOpen, setIsOpen] = useState(false);
 
     const { getAllDocuments } = useFirestore();
-    const { data: books } = getAllDocuments('books');
+    const { data: books } = getAllDocuments('books', null, null, 'created_at');
 
     //? Extract unique categories from books
     const uniqueCategories = useMemo(() => {
@@ -59,7 +59,7 @@ export default function AllBooks() {
     useKey('Escape', () => navigate(-1))
 
     return (
-        <>
+        <div className="pb-3">
             {/* Header */}
             <Heading />
             {/* Search Bar */}
@@ -72,6 +72,6 @@ export default function AllBooks() {
             <BookList />
             {/* Scroll to Top Button */}
             <ScrollTopBtn />
-        </>
+        </div>
     );
 }
