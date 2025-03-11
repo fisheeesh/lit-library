@@ -26,7 +26,7 @@ export default function LogIn() {
 
     return (
         <div className="w-full max-w-lg px-5 mx-auto mt-16 md:px-0">
-            <form className={`px-8 pt-6 pb-8 mb-4 rounded shadow-md ${isDark ? 'bg-dbg shadow-[0px_4px_10px_rgba(255,255,255,0.1)]' : 'bg-white'}`} onSubmit={logInUser}>
+            <form className={`px-8 pt-6 pb-8 mb-4 rounded ${isDark ? 'bg-dbg shadow-[0px_4px_10px_rgba(255,255,255,0.1)]' : 'bg-white shadow-md'}`} onSubmit={logInUser}>
                 <div className="flex items-center gap-2">
                     <span className="text-3xl material-symbols-outlined text-primary">
                         verified
