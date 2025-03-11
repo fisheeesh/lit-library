@@ -6,23 +6,23 @@ For instance, newbies and beginners from any career field can share their newly 
 
 ![User Interface](./src/assets/preview.png)
 
-## 📑 Table of Contents
-- [Features](#🌟-features)
+## Table of Contents
+- [Features](#features)
   - [Blogging Features](#blogging-features)
   - [User Experience](#user-experience)
   - [Upcoming Features](#upcoming-features)
-- [Tech Stack](#🛠️-tech-stack)
+- [Tech Stack](#tech-stack)
   - [Frontend](#frontend)
   - [Backend](#backend)
   - [Deployment](#deployment)
   - [Code Optimization](#code-optimization)
-- [How to Get Started](#🚀-how-to-get-started)
-- [Inspiration](#💡-inspiration)
-- [Contributing](#🧑‍💻-contributing)
+- [How to Get Started](#how-to-get-started)
+- [Inspiration](#inspiration)
+- [Contributing](#contributing)
 - [Live Demo](#🌐-live-demo)
 - [License](#license)
 
-## 🌟 Features  
+## Features  
 
 ### Blogging Features  
 - **Post Blogs**: Share blogs about personal growth, life experiences, advice, or knowledge sharing.  
@@ -42,17 +42,13 @@ For instance, newbies and beginners from any career field can share their newly 
 ### Upcoming Features  
 - **Infinite Scroll**: Effortless browsing with infinite scrolling in the "All Blogs" page.  (Implemented ✅ – however, this feature is disabled in the app as it interferes with the search functionality. You can still check it out in /test.)
 - **Notifications**: Receive a notification alert whenever someone likes or comments on your blog. (Manually implemented ✅ – not using Firebase Notifications.)
-<<<<<<< Updated upstream
 - **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary.
 - **ModiyUI** - Improve Blog Form page design.
-- **NProgress** - Add nProgress for smooth page transitions
-=======
 - **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary (Implemented ✅).
 - ModifyUI - Improve Blog Form page design. (Modified ✅ )
 - Progress bar - Add react-top-loading-bar for smooth page transitions(Implemented ✅)
->>>>>>> Stashed changes
 
-## 🛠️ Tech Stack  
+## Tech Stack  
 
 ### Frontend  
 - **React**: Component-based frontend library for building dynamic UI.  
@@ -78,7 +74,7 @@ For instance, newbies and beginners from any career field can share their newly 
 - **Reusable Components**: Clean, DRY (Don’t Repeat Yourself) code principles.  
 - **Context API**: Global state management across the app.  
 
-## 🚀 How to Get Started  
+## How to Get Started  
 
 1. **Clone the Repository**:
   
@@ -97,11 +93,11 @@ For instance, newbies and beginners from any career field can share their newly 
 6. **Build for Production**:  
    ```bash  
    npm run build
-## 💡 Inspiration
+## Inspiration
 
 LitLibrary (Literature Library) was inspired by the need for a positive, supportive platform where users can freely share experiences and knowledge while learning from others. It’s designed to create connections and foster personal and collective growth.
 
-## 🧑‍💻 Contributing
+## Contributing
 Contributions are welcome! Follow these steps to contribute:
 1. Fork the repository.
 2. Create a new branch for your feature:
