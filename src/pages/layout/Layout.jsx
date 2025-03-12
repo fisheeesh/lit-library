@@ -1,12 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../../components/navbar/Navbar";
 import './layout.css'
-
+import { Toaster } from "react-hot-toast";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useEffect, useRef, useState } from "react";
 import useTheme from "../../hooks/useTheme";
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import LoadingBar from "react-top-loading-bar";
 
 export default function Layout() {
@@ -16,6 +14,7 @@ export default function Layout() {
     const [progress, setProgress] = useState(0);
 
     const { isDark } = useTheme()
+    const customColor = !isDark ? "#4555d2" : "#cc2973"
 
     useEffect(() => {
         if (isDark) {
@@ -39,12 +38,21 @@ export default function Layout() {
             <SwitchTransition>
                 <CSSTransition nodeRef={nodeRef} timeout={200} classNames="fade" key={location.pathname}>
                     <div ref={nodeRef} className="w-full pt-3 mt-16">
-                        <LoadingBar color="#cc2973" progress={progress} onLoaderFinished={() => setProgress(0)} />
+                        <LoadingBar color={customColor} progress={progress} onLoaderFinished={() => setProgress(0)} />
                         <Outlet />
                     </div>
                 </CSSTransition>
             </SwitchTransition>
-            <ToastContainer />
+            <Toaster position="top-center" toastOptions={{
+                duration: 3000,
+                removeDelay: 1000,
+                style: {
+                    background: isDark ? '#333' : "#ffffff",
+                    color: isDark ? "#ffffff" : "#333",
+                    padding: "12px",
+                    borderRadius: "8px",
+                },
+            }} />
         </div>
     )
 }

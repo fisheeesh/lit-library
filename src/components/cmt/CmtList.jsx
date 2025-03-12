@@ -19,7 +19,7 @@ export default function CmtList({ bookId }) {
 
     return (
         <>
-            <div className="flex items-center gap-2 my-3">
+            <div className="flex items-center gap-2 my-5">
                 <h6 className="font-bold text-md sm:text-lg md:text-xl text-primary">Comments</h6>
                 <h5 className="md:px-3.5 md:py-1 text-xs px-2 py-0.5 md:text-sm text-center text-white rounded-full bg-primary">{comments.length}</h5>
             </div>

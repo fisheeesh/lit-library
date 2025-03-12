@@ -1,15 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
 import defaultProfile from '../../assets/default_profile.jpg'
 import useAuth from '../../hooks/useAuth'
 import useTheme from '../../hooks/useTheme'
-import LogOutBtn from '../btns/LogOutBtn'
-import LogoutModal from './LogoutModal'
 
-export default function UserInfo({ userData, currnetUser, onLogOut }) {
+export default function UserInfo({ userData, currnetUser}) {
     const { isDark } = useTheme()
     const { DEVELOPER_UID } = useAuth()
-    const [showModal, setShowModal] = useState(false);
 
     return (
         <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
@@ -48,12 +44,6 @@ export default function UserInfo({ userData, currnetUser, onLogOut }) {
                         <span>{userData?.created_at?.toDate()?.toDateString() || 'N/A'}</span>
                     </div>
                 </div>
-
-                {/* Logout button for the current user */}
-                {currnetUser &&
-                    (<LogOutBtn userData={userData} onLogOut={() => setShowModal(true)} />)
-                }
-                {showModal && <LogoutModal setShowModal={setShowModal} onHandleLogout={onLogOut} />}
             </div>
         </div>
     )

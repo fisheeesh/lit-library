@@ -65,21 +65,23 @@ export default function TestimonialSection() {
                             <SwiperSlide key={index} className='h-full py-4 md:py-12'>
                                 <div className={cn('flex flex-col h-full p-1.5 text-center rounded-2xl  group transition-colors duration-700',
                                     isDark ? 'hover:bg-black bg-dark' : 'hover:bg-secondary bg-gray-100')}>
-                                    <div className={cn('h-[160px] p-4  text-start rounded-custom',
+                                    <div className={cn('h-[165px] p-4  text-start rounded-custom',
                                         isDark ? ' bg-indigo-900 text-light' : 'bg-white text-dark')}>
                                         <div className='flex gap-1 mb-3'>
                                             {[...Array(Math.round(review.star))].map((_, startIndex) => (
                                                 <span key={startIndex} className='text-yellow-500 '>★</span>
                                             ))}
                                         </div>
-                                        {review.experience}
+                                        <span className='text-[15px] md:text-base'>
+                                            {review.experience}
+                                        </span>
                                     </div>
                                     <div className="flex items-center gap-4 p-4">
                                         <img src={review.reviewerImage} alt="user_profile" className='w-12 h-12 rounded-full' />
                                         <div className='flex flex-col items-start justify-center'>
-                                            <h4 className={cn('font-semibold ',
+                                            <h4 className={cn('font-semibold text-sm md:text-base',
                                                 isDark ? '' : 'text-dark group-hover:text-light')}>{review.reviewer}</h4>
-                                            <h5 className={cn('text-sm ',
+                                            <h5 className={cn('text-xs md:text-sm ',
                                                 isDark ? '' : 'text-gray-500 group-hover:text-light')}>{moment(review.created_at.seconds * 1000).format('LLL')}</h5>
                                         </div>
                                     </div>

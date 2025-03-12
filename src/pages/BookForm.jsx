@@ -6,7 +6,8 @@ import { booksCollectionRef } from "../firebase/config"
 import useFirestore from "../hooks/useFirestore"
 import useAuth from "../hooks/useAuth"
 import useStorage from "../hooks/useStorage"
-import { toast } from "react-toastify"
+// import { toast } from "react-toastify"
+import toast from "react-hot-toast";
 
 export default function BookForm() {
   /**
@@ -86,23 +87,14 @@ export default function BookForm() {
 
     //$ Validate required fields
     if (title.trim() === '' || author.trim() === '' || description.trim() === '') {
-      toast.warn('All fields are required!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: isDark ? "dark" : "light",
-      })
+      toast.error('All fields are required!')
       setLoading(false);
       return;
     }
 
     let bookCoverName;
     //? Default to existing preview (current cover)
-    let url = preview; 
+    let url = preview;
 
     //? If a new file is selected, upload it
     if (file) {
@@ -120,7 +112,7 @@ export default function BookForm() {
       categories: categories,
       cover: url,
       //? Retain existing name if no new file
-      bookCoverName: bookCoverName || null, 
+      bookCoverName: bookCoverName || null,
       userProfile: user.photoURL,
       userName: user.displayName,
       likes_count
@@ -130,18 +122,9 @@ export default function BookForm() {
     try {
       if (isEdit) {
         if (bookOwner === user.uid) {
-          await updateDocument('books', id, updatedBook);
+          await updateDocument('books', id, updatedBook, false);
         } else {
-          toast.error('You are not allowed to edit this book!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          toast.error('You are not allowed to edit this book!');
           navigate('/');
           return;
         }
@@ -153,16 +136,7 @@ export default function BookForm() {
     } finally {
       setLoading(false);
       navigate('/');
-      toast.success(isEdit ? 'Book updated successfully!' : 'Book added successfully!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      })
+      toast.success(isEdit ? 'Book updated successfully!' : 'Book added successfully!')
     }
   };
 
@@ -254,13 +228,13 @@ export default function BookForm() {
           </label>
           <div className="flex items-center gap-3">
             <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setNewCategory(e.target.value)} value={newCategory} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full px-4 py-3 transition-colors duration-300 leading-tight text-gray-700 border rounded appearance-none focus:outline-none placeholder:italic`} id="book-cate" type="text" placeholder="5 categoires per blog." />
-            <button disabled={categories.length >= maxCate} onClick={addCategory} type="button" className={`p-1 mb-3 rounded-full bg-primary ${categories.length >= maxCate ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+            <button disabled={categories.length >= maxCate} onClick={addCategory} type="button" className={`p-1 mt-3 mb-3 rounded-full bg-primary ${categories.length >= maxCate ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="text-white size-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
             </button>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-2">
             {
               categories.map((cate, index) => (<span key={index} className={`px-3 py-2.5 border rounded-md border-primary ${isDark ? 'text-white' : ''}`}>{cate}<span className="cursor-pointer ms-3" onClick={() => deleteCategory(cate)}>&#10006;</span></span>))
             }
@@ -287,7 +261,7 @@ export default function BookForm() {
             {/* Custom Display for File Input */}
             <label
               htmlFor="book-cover"
-              className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-gray-300' : 'bg-gray-200 border border-gray-300 hover:bg-gray-300'} flex items-center justify-between px-4 py-2 text-gray-700  rounded cursor-pointer  focus:outline-none`}
+              className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-slate-400' : 'bg-gray-200 border border-gray-300 hover:bg-gray-300'} flex items-center justify-between px-4 py-2 text-gray-700  rounded cursor-pointer  focus:outline-none`}
             >
               {file?.name || (preview ? "Current cover image used" : "Choose a file")}
               <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

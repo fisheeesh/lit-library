@@ -5,7 +5,7 @@ import { db } from "../firebase/config"
 
 export default function useFirestore() {
 
-    const getAllDocuments = (collectionName, _q = null, search = null, order = 'created_at') => {
+    const getAllDocuments = (collectionName, _q = null, search = null, field = 'created_at', order = 'desc') => {
         const [data, setData] = useState([]);
         const [error, setError] = useState(null);
         const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ export default function useFirestore() {
             if (qRef) {
                 queries.push(where(...qRef));
             }
-            queries.push(orderBy(order, 'desc'));
+            queries.push(orderBy(field, order));
             let q = query(ref, ...queries);
 
             const unsubscribe = onSnapshot(
@@ -71,7 +71,7 @@ export default function useFirestore() {
             );
 
             return () => unsubscribe();
-        }, [collectionName, qRef, search?.field, search?.value, search?.filter, order]);
+        }, [collectionName, qRef, search?.field, search?.value, search?.filter, field, order]);
 
         return { data, error, loading };
     };

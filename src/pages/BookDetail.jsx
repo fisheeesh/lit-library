@@ -9,8 +9,9 @@ import CmtList from "../components/cmt/CmtList"
 import moment from "moment"
 import { BeatLoader } from "react-spinners"
 import useKey from "../hooks/useKey"
-import { toast } from "react-toastify"
 import ScrollTopBtn from "../components/btns/ScrollTopBtn"
+import toast from "react-hot-toast"
+import NotFound from "./error/NotFound"
 
 export default function BookDetail() {
     const location = useLocation()
@@ -62,16 +63,15 @@ export default function BookDetail() {
         }
 
         if (user.uid === book.uid) {
-            toast.info('You cannot like your own book!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            })
+            toast("You cannot like your own book!", {
+                duration: 3000,
+                removeDelay: 1000,
+                position: "top-center",
+                style: {
+                    background: "#3B82F6",
+                    color: "#FFFFFF",
+                },
+            });
             return
         }
 
@@ -106,10 +106,13 @@ export default function BookDetail() {
 
     useKey('Escape', () => navigate(-1))
 
+    const minutesOfRead = Math.ceil(book?.description.split(' ').length / 200)
+    console.log(minutesOfRead)
+
     return (
         <>
             {
-                error && <h3 className="my-5 text-xl font-bold text-center text-red-600">{error}</h3>
+                error && <NotFound custom={true} />
             }
             {
                 loading && <div className={`my-56 flex items-center justify-center`}>
@@ -164,7 +167,7 @@ export default function BookDetail() {
                                     </button>
                                 </div>
                                 {/* Title */}
-                                <h2 className={`text-base sm:text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title}</h2>
+                                <h2 className={`text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title} <span className={`text-xs md:text-sm mb-1 font-normal italic text-gray-500`}>({minutesOfRead}-minute{minutesOfRead !== 1 && 's' } read)</span></h2>
                                 {/* Categoreis */}
                                 <div className="flex flex-wrap gap-2">
                                     {
@@ -186,7 +189,7 @@ export default function BookDetail() {
                         {/* Heading */}
                         <h1 className="mb-2 text-lg font-bold sm:text-xl md:text-2xl text-secondary">Say something...</h1>
                         {/* Cmt List/Form */}
-                        <div id="comments" className={`pt-7 px-6 pb-5 mb-3 rounded-2xl ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`}>
+                        <div id="comments" className={`pt-7 px-6 pb-5 mb-3 rounded-3xl drop-shadow-lg ${isDark ? 'bg-dbg shadow-custom-white' : 'bg-light'}`}>
                             {user ? <CmtForm user={user} book={book} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />
                         </div>

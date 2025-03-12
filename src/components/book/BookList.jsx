@@ -5,7 +5,7 @@ import useTheme from "../../hooks/useTheme";
 import SingleBook from "./SingleBook";
 import { useLocation } from "react-router-dom";
 
-export default function BookList({ limit = null, query = null }) {
+export default function BookList({ limit = null, query = null, field = 'created_at', order = 'desc' }) {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const searchValue = params.get('search');
@@ -21,7 +21,9 @@ export default function BookList({ limit = null, query = null }) {
             field: 'title',
             value: searchValue,
             filter: filterValue
-        }
+        },
+        field,
+        order
     );
 
     const { isDark } = useTheme();

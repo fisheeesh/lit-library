@@ -42,7 +42,7 @@ export default function Profile() {
     const query = ["uid", "==", id];
 
     return (
-        <div className="max-w-screen-xl pb-3 mx-auto mt-2 overflow-x-hidden px-7">
+        <section className="max-w-screen-xl pb-3 mx-auto mt-2 overflow-x-hidden px-7">
             {/* Profile Header */}
             <ProfileHeader uId={id} filter={filter} setFilter={setFilter} />
 
@@ -58,6 +58,6 @@ export default function Profile() {
             {filter === "saved" && (
                 <BookCollection books={userSavBooks} emptyMessage={'No Saved Blog(s)'} />
             )}
-        </div>
+        </section>
     );
 }

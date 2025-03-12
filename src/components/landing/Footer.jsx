@@ -21,7 +21,7 @@ export default function Footer() {
                             <span className="ml-1 text-xl font-bold">LitLibrary</span>
                         </div>
                         <p className="mb-6 md:w-3/4">
-                            Your gateway to a world of books. Discover, explore, and share your reading journey.
+                            Your gateway to a world of blogs. Discover, explore, and share your reading journey.
                         </p>
                         <div className="flex items-center gap-4">
                             <a target="_blank" className={cn('flex items-center justify-center w-10 h-10  rounded-full ',

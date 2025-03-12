@@ -21,7 +21,7 @@ export default function AllBooks() {
     const [isOpen, setIsOpen] = useState(false);
 
     const { getAllDocuments } = useFirestore();
-    const { data: books } = getAllDocuments('books', null, null, 'created_at');
+    const { data: books } = getAllDocuments('books');
 
     //? Extract unique categories from books
     const uniqueCategories = useMemo(() => {
@@ -69,7 +69,7 @@ export default function AllBooks() {
                 <DropDownBtn selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} isOpen={isOpen} setIsOpen={setIsOpen} uniqueCategories={uniqueCategories} updateURL={updateURL} search={search} />
             </div>
             {/* BookList */}
-            <BookList />
+            <BookList order="asc" field="title" />
             {/* Scroll to Top Button */}
             <ScrollTopBtn />
         </div>

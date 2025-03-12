@@ -3,6 +3,7 @@ import useTheme from "../../hooks/useTheme";
 import useAuth from "../../hooks/useAuth";
 import useFirestore from "../../hooks/useFirestore";
 import useStorage from "../../hooks/useStorage";
+import toast from "react-hot-toast";
 
 /* eslint-disable react/prop-types */
 export default function SingleBook({ book }) {
@@ -17,13 +18,11 @@ export default function SingleBook({ book }) {
 
     const deleteBook = async (e, id) => {
         e.preventDefault();
-        const confirmDelete = window.confirm('Are you sure you want to delete this book?');
 
-        if (!confirmDelete) return;
         await deleteDocument('books', id);
+        toast.success("Success! Your action was completed.");
         if (book.bookCoverName) {
             await deleteFileFromStorage(`/covers/${user.uid}/${book.bookCoverName}`);
-            console.log('good')
         }
     };
 

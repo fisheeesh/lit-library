@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        'custom-white': '0px 3px 8px rgba(255,255,255,0.08), 0px -3px 8px rgba(255,255,255,0.08), 3px 0px 8px rgba(255,255,255,0.08), -3px 0px 8px rgba(255,255,255,0.08)',
+      },
       colors: {
         primary: "#4555d2",
         secondary: "#cc2973",

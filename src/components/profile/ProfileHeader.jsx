@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom"
-import useSignOut from "../../hooks/useSignOut"
 import useFirestore from "../../hooks/useFirestore"
 import useTheme from "../../hooks/useTheme"
 import useAuth from "../../hooks/useAuth"
@@ -10,9 +8,6 @@ import UserActivity from "./UserActivity"
 import Title from "./Title"
 
 export default function ProfileHeader({ uId, filter, setFilter }) {
-    const navigate = useNavigate()
-
-    const { logOut } = useSignOut()
     const { getDocumentById, getAllDocuments } = useFirestore()
 
     const { user } = useAuth()
@@ -22,16 +17,12 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
     const { data: books } = getAllDocuments('books', ['uid', '==', uId])
     const currnetUser = user?.uid === userData?.uid
 
-    const logOutUser = async () => {
-        await logOut();
-        navigate('/auth', { replace: true });
-    };
 
     return (
         <div className="max-w-screen-xl mx-auto">
             <div className="grid grid-cols-3 gap-4">
                 {/* User profile information */}
-                <UserInfo currnetUser={currnetUser} userData={userData} onLogOut={logOutUser} />
+                <UserInfo currnetUser={currnetUser} userData={userData} />
 
                 {/* User's uploaded books count */}
                 <UserActivity books={books} />

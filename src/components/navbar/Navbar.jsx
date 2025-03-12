@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
 import useFirestore from "../../hooks/useFirestore";
@@ -10,6 +10,7 @@ import Avatar from "./Avatar";
 import NotiBtn from "../btns/NotiBtn";
 import GetStarted from "./GetStarted";
 import ToggleTheme from "./ToggleTheme";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 export default function Navbar() {
     const { isDark } = useTheme();
@@ -19,9 +20,13 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [hasNewNoti, setHasNewNoti] = useState(false);
 
+    const modalRef = useRef(null)
+
     const { getAllDocuments } = useFirestore();
     const customColor = !isDark ? "#4555d2" : "#cc2973";
     const { data: notis, loading } = getAllDocuments("notifications");
+
+    useClickOutside([modalRef], () => setIsOpen(false));
 
     //? Filter notifications specific to the current user
     useEffect(() => {
@@ -41,8 +46,8 @@ export default function Navbar() {
 
     //? Handle notification click event
     const handleNotiClick = () => {
-        // Toggle notification dropdown?
-        setIsOpen(prev => !prev);
+        //? Toggle notification dropdown
+        setIsOpen(true);
 
         //? If notifications are opened and there are unread notifications, mark them as read
         if (!isOpen && userNoti.length > 0) {
@@ -103,8 +108,8 @@ export default function Navbar() {
 
             {/* Notifications Dropdown */}
             {isOpen && (
-                <div className={`fixed top-20 right-5 w-[350px] h-[400px] overflow-y-scroll rounded-lg shadow-xl z-50 
-                    ${isDark ? "bg-gray-800 text-white" : "bg-white text-gray-900"}
+                <div ref={modalRef} className={`fixed top-20 right-5 w-[350px] h-[400px] overflow-y-scroll rounded-lg z-50 
+                    ${isDark ? "bg-dbg text-white shadow-custom-white" : "bg-white drop-shadow-lg text-gray-900"}
                 `}>
                     <div className="flex items-center justify-between px-3 mt-3">
                         <h3 className="text-lg font-bold">Notifications</h3>

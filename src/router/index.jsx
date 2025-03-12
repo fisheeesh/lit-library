@@ -9,7 +9,7 @@ import BookForm from '../pages/BookForm'
 import BookDetail from '../pages/BookDetail'
 import AllBooks from '../pages/AllBooks'
 import Profile from '../pages/Profile'
-import NotFound from '../pages/NotFound'
+import NotFound from '../pages/error/NotFound'
 import Welcome from '../pages/Welcome'
 import useAuth from "../hooks/useAuth";
 import Test from "../pages/Test";

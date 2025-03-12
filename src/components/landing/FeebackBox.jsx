@@ -5,19 +5,22 @@ import useAuth from '../../hooks/useAuth'
 import useFirestore from "../../hooks/useFirestore";
 import { cn } from "../../utils/cn";
 import useTheme from "../../hooks/useTheme";
+import ConfettiCelebration from "../confetti/ConfettiCelebration";
 
 const maxCharacters = 150
 
 export default function FeebackBox() {
-
     const { user } = useAuth()
     const { isDark } = useTheme()
+
+    const [animate, setAnimate] = useState(false);
     const [userRating, setUserRating] = useState('')
     const [userExp, setUserExp] = useState('')
     const [current, setCurrent] = useState(0)
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const { addDocument, updateDocument, getDocumentById } = useFirestore()
+    const [reviewCompleted, setReviewCompleted] = useState(false);
 
+    const { addDocument, updateDocument, getDocumentById } = useFirestore()
     const { data: currentUser } = getDocumentById('users', user?.uid)
 
     const onUserType = (e) => {
@@ -38,35 +41,39 @@ export default function FeebackBox() {
                 experience: userExp
             }
             await addDocument('reviews', newReview)
+            setReviewCompleted(true)
+            setAnimate(true);
             await updateDocument('users', currentUser?.uid, { hasReview: true }, false)
-            console.log(newReview)
+            setUserExp('')
         }
         catch (err) {
             console.log('Error: ', err.message)
         }
         finally {
             setIsSubmitting(false)
+            setTimeout(() => setAnimate(false), 1000);
         }
     }
 
     return (
         <section className="container px-4 pb-16 mx-auto sm:px-6 lg:px-8">
-            <div className={cn('overflow-hidden  rounded-2xl',
+            <div className={cn('overflow-hidden relative rounded-2xl',
                 isDark ? 'bg-indigo-900' : 'bg-blue-600')}>
+                {reviewCompleted && <ConfettiCelebration trigger={reviewCompleted} duration={6000} />}
                 {<div className="relative px-6 py-16 md:px-16">
                     {/* gradient bg */}
-                    <div className={cn('absolute top-0 right-0 hidden w-1/2 h-full  clip-path-slant md:block',
+                    <div className={cn('absolute top-0 right-0 hidden w-1/2 h-full clip-path-slant md:block',
                         isDark ? 'bg-dark' : 'bg-blue-700')}></div>
 
                     {
                         currentUser?.hasReview ?
                             (
                                 <div className="flex flex-col items-center justify-center text-center text-light">
-                                    <span className="text-[54px] text-green-500 material-symbols-outlined mb-4">
+                                    <span className={`text-[54px] text-green-500 material-symbols-outlined mb-4 ${animate ? "ping-once" : ""}`}>
                                         check_circle
                                     </span>
                                     <h1 className="z-10 text-xl font-semibold">
-                                        Thanks for your feedback! <br />
+                                        Thanks for your feedback! 🎉<br />
                                         Your voice helps shape a better LitLibrary for all readers and writers.
                                     </h1>
                                 </div>
@@ -115,6 +122,6 @@ export default function FeebackBox() {
                 </div>
                 }
             </div>
-        </section >
+        </section>
     )
 }
