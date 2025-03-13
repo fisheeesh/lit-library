@@ -10,7 +10,7 @@ export default function Welcome() {
     const [showLogIn, setShowLogIn] = useState(true)
     const { isDark } = useTheme()
     const navigate = useNavigate()
-    const { signInWithGoogle, error } = useGoogle()
+    const { signInWithGoogle } = useGoogle()
 
     const handleGoogleLogIn = async () => {
         let user = await signInWithGoogle()
@@ -22,7 +22,7 @@ export default function Welcome() {
     }
 
     return (
-        <>
+        <div className="pb-3">
             {
                 showLogIn && <LogIn />
             }
@@ -47,9 +47,8 @@ export default function Welcome() {
                             </div>
                         </div>
                     </div >
-                    {!!error && <p className="mt-3 text-center text-red-500">hi</p>}
                 </div>
             )}
-        </>
+        </div>
     )
 }

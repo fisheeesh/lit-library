@@ -12,6 +12,7 @@ import useKey from "../hooks/useKey"
 import ScrollTopBtn from "../components/btns/ScrollTopBtn"
 import toast from "react-hot-toast"
 import NotFound from "./error/NotFound"
+import defaultProfile from '../assets/default_profile.jpg'
 
 export default function BookDetail() {
     const location = useLocation()
@@ -63,7 +64,7 @@ export default function BookDetail() {
         }
 
         if (user.uid === book.uid) {
-            toast("You cannot like your own book!", {
+            toast("No matter how hard is your life. Do not try to like your own post 😉", {
                 duration: 3000,
                 removeDelay: 1000,
                 position: "top-center",
@@ -131,11 +132,11 @@ export default function BookDetail() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         {/* Profile */}
-                                        <img src={book.userProfile} alt="user_profile" className="rounded-full h-14 w-14" />
+                                        <img src={book.userProfile || defaultProfile} alt="user_profile" className="rounded-full h-14 w-14" />
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
                                                 {/* Username */}
-                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName}</Link>
+                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName || 'User'}</Link>
 
                                                 {/* Privilege */}
                                                 {book.uid === DEVELOPER_UID && <div className="relative mt-1 group">
@@ -167,7 +168,7 @@ export default function BookDetail() {
                                     </button>
                                 </div>
                                 {/* Title */}
-                                <h2 className={`text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title} <span className={`text-xs md:text-sm mb-1 font-normal italic text-gray-500`}>({minutesOfRead}-minute{minutesOfRead !== 1 && 's' } read)</span></h2>
+                                <h2 className={`text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title} <span className={`text-xs md:text-sm mb-1 font-normal italic text-gray-500`}>({minutesOfRead}-minute{minutesOfRead !== 1 && 's'} read)</span></h2>
                                 {/* Categoreis */}
                                 <div className="flex flex-wrap gap-2">
                                     {

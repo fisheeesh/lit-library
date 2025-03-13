@@ -2,24 +2,27 @@ import { useEffect, useState } from "react"
 import useSignUp from "../../hooks/useSignUp"
 import { useNavigate } from "react-router-dom"
 import useTheme from "../../hooks/useTheme"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { cn } from "../../utils/cn"
+import { RegisterFormFieldsSchema } from "../../utils/zSchema"
 
 export default function Register() {
-    const { createAccount, error, loading } = useSignUp()
     const navigate = useNavigate()
-
     const { isDark } = useTheme()
 
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: zodResolver(RegisterFormFieldsSchema)
+    })
     const [pVisible, setPVisible] = useState(false)
-    const [userName, setUserName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [pPic, setPPic] = useState('')
     const [pPreview, setPPreview] = useState('')
 
-    const signUpUser = async (e) => {
-        e.preventDefault()
+    const { createAccount, loading } = useSignUp()
 
-        let user = await createAccount(userName, email, password, pPic)
+    const signUpUser = async (data) => {
+        console.log(data)
+        let user = await createAccount(data.username, data.email, data.password, pPic)
 
         // $ redirect to home page after signup
         if (user) {
@@ -53,7 +56,7 @@ export default function Register() {
 
     return (
         <div className="w-full max-w-lg px-5 mx-auto mt-16 md:px-0">
-            <form className={`px-8 pt-6 pb-8 mb-4 rounded  ${isDark ? 'bg-dbg shadow-custom-white' : 'bg-white drop-shadow-lg'}`} onSubmit={signUpUser}>
+            <form onSubmit={handleSubmit(signUpUser)} className={`px-8 pt-6 pb-8 mb-4 rounded  ${isDark ? 'bg-dbg shadow-custom-white' : 'bg-white drop-shadow-lg'}`}>
                 <div className="flex items-center gap-2">
                     <span className="text-3xl material-symbols-outlined text-primary">
                         how_to_reg
@@ -64,24 +67,48 @@ export default function Register() {
                 </div>
                 <div className="mb-4">
                     <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="username">
-                        Username
+                        Username <span className="text-red-600">*</span>
                     </label>
-                    <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={userName} onChange={(e) => setUserName(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username" />
+                    <input {...register('username')} className={cn(errors.username && 'border-red-600 placeholder:text-red-500', "w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline")} id="username" type="text" placeholder="Username" />
+                    {errors.username &&
+                        <div className="flex items-center gap-1 mt-1">
+                            <span className="text-[16px] text-red-600 material-symbols-outlined">
+                                error
+                            </span>
+                            <span className="text-sm text-red-600">{errors.username.message}</span>
+                        </div>
+                    }
                 </div>
                 <div className="mb-4">
                     <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="email">
-                        Email
+                        Email <span className="text-red-600">*</span>
                     </label>
-                    <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={email} onChange={e => setEmail(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email" />
+                    <input {...register('email')} className={cn(errors.email && 'border-red-600 placeholder:text-red-500', "w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline")} id="email" type="email" placeholder="Email" />
+                    {errors.email &&
+                        <div className="flex items-center gap-1 mt-1">
+                            <span className="text-[16px] text-red-600 material-symbols-outlined">
+                                error
+                            </span>
+                            <span className="text-sm text-red-600">{errors.email.message}</span>
+                        </div>
+                    }
                 </div>
                 <div className="relative mb-4">
                     <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="password">
-                        Password
+                        Password <span className="text-red-600">*</span>
                     </label>
-                    <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} value={password} onChange={e => setPassword(e.target.value)} className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
+                    <input {...register('password')} className={cn(errors.password && 'border-red-600 placeholder:text-red-500', "w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline")} id="password" type={`${pVisible ? 'text' : 'password'}`} placeholder="Password" />
                     <span onClick={() => setPVisible(prevState => !prevState)} className="absolute text-gray-400 cursor-pointer material-symbols-outlined right-5 top-9">
                         {pVisible ? 'visibility' : 'visibility_off'}
                     </span>
+                    {errors.password &&
+                        <div className="flex items-center gap-1 mt-1">
+                            <span className="text-[16px] text-red-600 material-symbols-outlined">
+                                error
+                            </span>
+                            <span className="text-sm text-red-600">{errors.password.message}</span>
+                        </div>
+                    }
                 </div>
                 <div className="mb-3">
                     <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="username">
@@ -92,9 +119,6 @@ export default function Register() {
                         {!!pPreview && <img src={pPreview} className="rounded-full h-7 w-7" alt="" />}
                     </div>
                 </div>
-                {
-                    !!error && <p className="mb-2 text-xs italic text-red-500">{error}</p>
-                }
                 <div className="flex items-center justify-between mt-5">
                     <button disabled={loading} className="flex items-center gap-1 px-4 py-2 font-bold text-white transition duration-500 ease-in-out rounded bg-primary hover:bg-blue-700 focus:outline-none focus:shadow-outline" type="submit">
                         {loading && <svg className="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

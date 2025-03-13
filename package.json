@@ -11,6 +11,7 @@
     "api": "json-server --watch src/database/db.json --port 3001"
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.1.3",
     "@lottiefiles/dotlottie-react": "^0.13.2",
     "clsx": "^2.1.1",
     "firebase": "^11.1.0",
@@ -20,6 +21,7 @@
     "react": "^18.3.1",
     "react-confetti": "^6.4.0",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
     "react-linkify": "^1.0.0-alpha",
@@ -28,7 +30,8 @@
     "react-top-loading-bar": "^3.0.2",
     "react-transition-group": "^4.4.5",
     "swiper": "^11.2.5",
-    "tailwind-merge": "^3.0.2"
+    "tailwind-merge": "^3.0.2",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

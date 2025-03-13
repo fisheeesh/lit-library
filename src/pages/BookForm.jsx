@@ -49,6 +49,8 @@ export default function BookForm() {
 
   const { uploadFileToStorage } = useStorage()
 
+  console.log(user)
+
   useEffect(() => {
     if (id) document.title = "Edit Book"
     else document.title = "Create Book"
@@ -136,7 +138,7 @@ export default function BookForm() {
     } finally {
       setLoading(false);
       navigate('/');
-      toast.success(isEdit ? 'Book updated successfully!' : 'Book added successfully!')
+      toast.success(isEdit ? 'Book updated successfully!' : 'Book created successfully!')
     }
   };
 

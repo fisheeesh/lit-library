@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
+// import { PenBoxIcon } from 'lucide-react'
 import defaultProfile from '../../assets/default_profile.jpg'
 import useAuth from '../../hooks/useAuth'
 import useTheme from '../../hooks/useTheme'
+// import { useState } from 'react'
+// import UserProfileEditModal from '../modal/UserProfileEditModal'
+// import Modal from '../modal/Modal'
 
-export default function UserInfo({ userData, currnetUser}) {
+export default function UserInfo({ userData, currnetUser }) {
     const { isDark } = useTheme()
     const { DEVELOPER_UID } = useAuth()
+
+    // const [showEditForm, setShowEditForm] = useState(false)
 
     return (
         <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
@@ -27,6 +33,7 @@ export default function UserInfo({ userData, currnetUser}) {
                             </span>
                         </div>
                     )}
+                    {/* {currnetUser && <PenBoxIcon onClick={() => setShowEditForm(true)} className='cursor-pointer' color='#4555d2' />} */}
                 </div>
                 {/* Email */}
                 {currnetUser && <div className="flex items-center gap-2 mt-1">
@@ -45,6 +52,8 @@ export default function UserInfo({ userData, currnetUser}) {
                     </div>
                 </div>
             </div>
+            {/* {showEditForm && <UserProfileEditModal setShowModal={setShowEditForm} />} */}
+            {/* {showEditForm && <Modal setShowModal={setShowEditForm} />} */}
         </div>
     )
 }
