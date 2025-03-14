@@ -14,7 +14,6 @@ const useSignUp = () => {
         try {
             setLoading(true)
             let res = await createUserWithEmailAndPassword(auth, email, password)
-            console.log('a', res.user)
             if (!res) throw new Error('Something went wrong. Please try again.!')
 
             // $ upload profile pic

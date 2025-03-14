@@ -27,7 +27,6 @@ export default function AuthContextProvider({ children }) {
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
-            console.log('b', user)
             dispatch({ type: "AUTH_READY", payload: true })
             if (user) {
                 dispatch({ type: "LOGIN", payload: user })

@@ -4,6 +4,7 @@ import ProfileHeader from "../components/profile/ProfileHeader";
 import { useEffect, useState } from "react";
 import useFirestore from "../hooks/useFirestore";
 import BookCollection from "../components/book/BookCollection";
+import ScrollTopBtn from "../components/btns/ScrollTopBtn";
 
 export default function Profile() {
     const { id } = useParams();
@@ -58,6 +59,7 @@ export default function Profile() {
             {filter === "saved" && (
                 <BookCollection books={userSavBooks} emptyMessage={'No Saved Blog(s)'} />
             )}
+            <ScrollTopBtn />
         </section>
     );
 }

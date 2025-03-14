@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
-// import { PenBoxIcon } from 'lucide-react'
+import { PenBoxIcon } from 'lucide-react'
 import defaultProfile from '../../assets/default_profile.jpg'
 import useAuth from '../../hooks/useAuth'
 import useTheme from '../../hooks/useTheme'
-// import { useState } from 'react'
-// import UserProfileEditModal from '../modal/UserProfileEditModal'
-// import Modal from '../modal/Modal'
+import { useState } from 'react'
+import UserProfileEditModal from '../modal/UserProfileEditModal'
+import { cn } from '../../utils/cn'
+import { FaFacebookF, FaInstagram } from 'react-icons/fa'
+import moment from 'moment'
 
 export default function UserInfo({ userData, currnetUser }) {
     const { isDark } = useTheme()
     const { DEVELOPER_UID } = useAuth()
 
-    // const [showEditForm, setShowEditForm] = useState(false)
+    const [showEditForm, setShowEditForm] = useState(false)
 
     return (
         <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
@@ -23,7 +25,7 @@ export default function UserInfo({ userData, currnetUser }) {
             <div className="mt-1 md:mt-0">
                 <div className="flex items-center gap-1">
                     {/* User name */}
-                    <h2 className="text-lg font-bold md:text-2xl text-primary user-name">{userData?.displayName || 'User'}</h2>
+                    <h2 className="flex items-center gap-1 text-lg font-bold md:text-2xl text-primary user-name">{userData?.displayName || 'User'}{userData?.role && <span className='text-sm italic font-normal text-gray-400'>({userData?.role || ''})</span>}</h2>
                     {/* Show developer badge if the user is the developer */}
                     {userData?.uid === DEVELOPER_UID && (
                         <div className="relative mt-1 md:mt-2 group">
@@ -33,7 +35,7 @@ export default function UserInfo({ userData, currnetUser }) {
                             </span>
                         </div>
                     )}
-                    {/* {currnetUser && <PenBoxIcon onClick={() => setShowEditForm(true)} className='cursor-pointer' color='#4555d2' />} */}
+                    {currnetUser && <PenBoxIcon onClick={() => setShowEditForm(true)} className='cursor-pointer' color='#4555d2' />}
                 </div>
                 {/* Email */}
                 {currnetUser && <div className="flex items-center gap-2 mt-1">
@@ -44,16 +46,37 @@ export default function UserInfo({ userData, currnetUser }) {
                     </div>
                 </div>}
                 {/* Joined date */}
-                <div className="flex items-center gap-2 mt-1">
+                {!currnetUser && <div className="flex items-center gap-2 mt-1">
                     <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>Schedule</span>
                     <div className={`flex items-center gap-1 md:text-base text-xs ${isDark ? 'text-white' : ''}`}>
                         <span className="display_text">Joined at: </span>
                         <span>{userData?.created_at?.toDate()?.toDateString() || 'N/A'}</span>
                     </div>
+                </div>}
+                <div className="flex items-center gap-2 mt-1">
+                    <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>location_on</span>
+                    <div className={`flex items-center gap-1 md:text-base text-xs ${isDark ? 'text-white' : ''}`}>
+                        <span className="display_text">From: </span>
+                        <span>{userData?.location || 'N/A'}</span>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                    <span className={`material-symbols-outlined md:text-xl text-[18px] ${isDark ? 'text-white' : ''}`}>cake</span>
+                    <div className={`flex items-center gap-1 md:text-base text-xs ${isDark ? 'text-white' : ''}`}>
+                        <span className="display_text">Born on: </span>
+                        <span>{moment(new Date(userData?.birthday)).format('LL') || 'N/A'}</span>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2 mt-2">
+                    {userData?.facebookURL && <a target="_blank" className={cn('flex items-center justify-center w-8 h-8  rounded-full ',
+                        isDark ? 'hover:bg-blue-600 bg-slate-500' : 'bg-gray-200 hover:bg-blue-600 hover:text-white'
+                    )} href={userData?.facebookURL}><FaFacebookF className="size-4" /></a>}
+                    {userData?.instagramURL && <a target="_blank" className={cn('flex items-center justify-center w-8 h-8  rounded-full ',
+                        isDark ? 'hover:bg-pink-500 bg-slate-500' : 'bg-gray-200 hover:bg-pink-500 hover:text-white'
+                    )} href={userData?.instagramURL}><FaInstagram className="size-4" /></a>}
                 </div>
             </div>
-            {/* {showEditForm && <UserProfileEditModal setShowModal={setShowEditForm} />} */}
-            {/* {showEditForm && <Modal setShowModal={setShowEditForm} />} */}
+            {showEditForm && <UserProfileEditModal setShowModal={setShowEditForm} />}
         </div>
     )
 }

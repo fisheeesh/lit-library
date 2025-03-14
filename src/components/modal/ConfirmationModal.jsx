@@ -13,11 +13,13 @@ export default function ConfirmationModal({ title, setShowModal, onAction }) {
                 <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
                 <div className="flex justify-end gap-3 mt-4">
                     <button
+                        type="button"
                         onClick={() => setShowModal(false)}
                         className="px-4 py-2 text-gray-600 transition-all duration-200 bg-gray-200 rounded-md hover:bg-gray-300">
                         Cancel
                     </button>
                     <button
+                        type="button"
                         onClick={onAction}
                         className="px-4 py-2 text-white transition-all duration-200 bg-red-600 rounded-md hover:bg-red-700">
                         Yes

@@ -21,7 +21,6 @@ export default function Register() {
     const { createAccount, loading } = useSignUp()
 
     const signUpUser = async (data) => {
-        console.log(data)
         let user = await createAccount(data.username, data.email, data.password, pPic)
 
         // $ redirect to home page after signup

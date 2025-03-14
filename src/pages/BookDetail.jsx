@@ -28,6 +28,7 @@ export default function BookDetail() {
 
     //$ If there is no user, then userData will be null. So we all fetch the data if only the user is logged in
     const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null }
+    
 
     //? Check if there is scrollTo as params in URL, if so then scroll to comments
     useEffect(() => {
@@ -49,7 +50,7 @@ export default function BookDetail() {
     }, [error, navigate, setData])
 
     const componentDecorator = (href, text, key) => (
-        <a href={href} key={key} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+        <a href={href} key={key} target="_blank" rel="noopener_noreferrer" className="text-blue-500 underline">
             {text}
         </a>
     )
@@ -108,7 +109,6 @@ export default function BookDetail() {
     useKey('Escape', () => navigate(-1))
 
     const minutesOfRead = Math.ceil(book?.description.split(' ').length / 200)
-    console.log(minutesOfRead)
 
     return (
         <>

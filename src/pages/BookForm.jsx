@@ -8,7 +8,7 @@ import useAuth from "../hooks/useAuth"
 import useStorage from "../hooks/useStorage"
 // import { toast } from "react-toastify"
 import toast from "react-hot-toast";
-
+const maxCate = 5
 export default function BookForm() {
   /**
    * @TODO: with json-server
@@ -23,8 +23,6 @@ export default function BookForm() {
    * ? }, [newBook])    
    * ? })
    */
-
-  const maxCate = 5
   const { isDark } = useTheme()
   const { user } = useAuth()
 

@@ -38,15 +38,17 @@ For instance, newbies and beginners from any career field can share their newly 
   - View your own blogs.  
   - Access blogs you've liked and saved for later reading.  
   - Filter by uploaded blogs, liked blogs, and read-later lists.  
+  - Edit your profile, including your display name, profile picture, and social links.
+  - Delete your account permanently from the platform.
 
 ### Upcoming Features  
 - **Infinite Scroll**: Effortless browsing with infinite scrolling in the "All Blogs" page.  (Implemented ✅ – however, this feature is disabled in the app as it interferes with the search functionality. You can still check it out in /test.)
 - **Notifications**: Receive a notification alert whenever someone likes or comments on your blog. (Manually implemented ✅ – not using Firebase Notifications.)
-- **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary.
-- **ModiyUI** - Improve Blog Form page design.
+- **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary. (Implemented ✅)
+- **ModiyUI** - Improve Blog Form page design. (Imporved ✅)
 - **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary (Implemented ✅).
 - ModifyUI - Improve Blog Form page design. (Modified ✅ )
-- Progress bar - Add react-top-loading-bar for smooth page transitions(Implemented ✅)
+- Progress bar - Add react-top-loading-bar for smooth page transitions. (Implemented ✅)
 
 ## Tech Stack  
 

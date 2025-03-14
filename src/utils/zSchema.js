@@ -23,3 +23,18 @@ export const RegisterFormFieldsSchema = z.object({
                 "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
         })
 })
+
+export const ProfileFormFieldsSchema = z.object({
+    username: z.string()
+        .min(1, { message: 'Username is required' }),
+
+    fbUrl: z.string()
+        .regex(/^https:\/\/www\.facebook\.com\/.+$/, { message: "Invalid URL format." })
+        .optional()
+        .or(z.literal('')),
+
+    igUrl: z.string()
+        .regex(/^https:\/\/www\.instagram\.com\/.+$/, { message: "Invalid URL format." })
+        .optional()
+        .or(z.literal('')),
+});
