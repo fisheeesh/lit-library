@@ -47,7 +47,7 @@ export default function Layout() {
                 duration: 3000,
                 removeDelay: 1000,
                 style: {
-                    alignContent: "center",
+                    textAlign: 'center',
                     background: isDark ? '#333' : "#ffffff",
                     color: isDark ? "#ffffff" : "#333",
                     padding: "12px",

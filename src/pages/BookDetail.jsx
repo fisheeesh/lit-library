@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import useTheme from "../hooks/useTheme"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import useFirestore from "../hooks/useFirestore"
 import ReactLinkify from "react-linkify"
 import CmtForm from "../components/cmt/CmtForm"
@@ -13,6 +13,7 @@ import ScrollTopBtn from "../components/btns/ScrollTopBtn"
 import toast from "react-hot-toast"
 import NotFound from "./error/NotFound"
 import defaultProfile from '../assets/default_profile.jpg'
+import { Check, Copy } from "lucide-react"
 
 export default function BookDetail() {
     const location = useLocation()
@@ -22,13 +23,15 @@ export default function BookDetail() {
     const { user, DEVELOPER_UID } = useAuth()
     const navigate = useNavigate()
 
+    const [copied, setCopied] = useState(false);
+
     const { getDocumentById, updateDocument, addDocument } = useFirestore()
 
     const { data: book, setData, error, loading } = getDocumentById('books', id)
 
     //$ If there is no user, then userData will be null. So we all fetch the data if only the user is logged in
     const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null }
-    
+
 
     //? Check if there is scrollTo as params in URL, if so then scroll to comments
     useEffect(() => {
@@ -65,7 +68,7 @@ export default function BookDetail() {
         }
 
         if (user.uid === book.uid) {
-            toast("No matter how hard is your life. Do not try to like your own post 😉", {
+            toast("No matter how hard your life is. Do not try to react on your own post 😉", {
                 duration: 3000,
                 removeDelay: 1000,
                 position: "top-center",
@@ -110,6 +113,21 @@ export default function BookDetail() {
 
     const minutesOfRead = Math.ceil(book?.description.split(' ').length / 200)
 
+    const bookUrl = `${window.location.origin}/blogs/${id}`;
+
+    const handleCopyLink = async () => {
+        try {
+            await navigator.clipboard.writeText(bookUrl);
+            setCopied(true);
+            toast.success("Blog link copied!");
+            setTimeout(() => setCopied(false), 2000);
+
+        } catch (error) {
+            toast.error("Failed to copy link");
+            console.error("Error copying link:", error);
+        }
+    };
+
     return (
         <>
             {
@@ -150,22 +168,28 @@ export default function BookDetail() {
                                             <span className="text-sm text-gray-400">{moment(book.created_at.seconds * 1000).format('LLL')}</span>
                                         </div>
                                     </div>
-                                    {/* Like Button */}
-                                    <button
-                                        onClick={() => toggleFavorite(book.id)}
-                                        type="button"
-                                        className={`px-3.5 py-2 border ${userData?.favorites?.includes(book.id) ? 'border-red-600' : 'border-gray-400'} text-sm rounded-full cursor-pointer flex items-center space-x-2`}
-                                    >
-                                        {userData?.favorites?.includes(book.id) ?
-                                            (<svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="size-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                            </svg>) :
-                                            (<svg xmlns="http://www.w3.org/2000/svg" fill={isDark ? 'white' : 'none'} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                            </svg>)
-                                        }
-                                        <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
-                                    </button>
+                                    <div className="flex items-center gap-3">
+                                        <button type="button" onClick={handleCopyLink} className={`${isDark ? 'text-light' : ''} flex items-center gap-2 p-2 px-3 border-gray-400 transition-colors duration-300 border rounded-md hover:border-primary hover:text-primary`}>
+                                            {copied ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
+                                            <span className="hidden md:block">{copied ? 'Copied' : 'CopyLink'}</span>
+                                        </button>
+                                        {/* Like Button */}
+                                        <button
+                                            onClick={() => toggleFavorite(book.id)}
+                                            type="button"
+                                            className={`px-3.5 py-2 border ${userData?.favorites?.includes(book.id) ? 'border-red-600' : 'border-gray-400'} text-sm rounded-full cursor-pointer flex items-center space-x-2 hover:border-red-600`}
+                                        >
+                                            {userData?.favorites?.includes(book.id) ?
+                                                (<svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="size-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                </svg>) :
+                                                (<svg xmlns="http://www.w3.org/2000/svg" fill={isDark ? 'white' : 'none'} viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                                </svg>)
+                                            }
+                                            <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
+                                        </button>
+                                    </div>
                                 </div>
                                 {/* Title */}
                                 <h2 className={`text-lg md:text-xl font-bold ${isDark ? 'text-white' : ''}`}>{book.title} <span className={`text-xs md:text-sm mb-1 font-normal italic text-gray-500`}>({minutesOfRead}-minute{minutesOfRead !== 1 && 's'} read)</span></h2>
