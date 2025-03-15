@@ -25,12 +25,19 @@ const useGoogle = () => {
             setDoc(docRef, {
                 uid: user.uid,
                 displayName: user.displayName,
+                fullName: '',
+                role: '',
                 email: user.email,
                 photoURL: user.photoURL,
                 created_at: serverTimestamp(),
-                hasReview: false,   
+                hasReview: false,
+                birthday: '',
+                location: '',
+                facebookURL: '',
+                instagramURL: '',
                 saved: [],
-                favorites: []
+                favorites: [],
+                photoName: ''
             })
 
             return user

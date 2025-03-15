@@ -152,7 +152,7 @@ export default function BookDetail() {
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
                                                 {/* Username */}
-                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{ownerData?.displayName || 'User'}</Link>
+                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl text-lg font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{ownerData?.displayName || 'User'}</Link>
 
                                                 {/* Privilege */}
                                                 {book.uid === DEVELOPER_UID && <div className="relative mt-1 group">
@@ -163,11 +163,12 @@ export default function BookDetail() {
                                                 </div>}
 
                                             </div>
-                                            <span className="text-sm text-gray-400">{moment(book.created_at.seconds * 1000).format('LLL')}</span>
+                                            <span className="hidden text-sm text-gray-400 md:inline">{moment(book.created_at.seconds * 1000).format('LLL')}</span>
+                                            <span className="text-sm text-gray-400 md:hidden">{moment(book.created_at.seconds * 1000).format('LL')}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <button type="button" onClick={handleCopyLink} className={`${isDark ? 'text-light' : ''} flex items-center gap-2 p-2 px-3 border-gray-400 transition-colors duration-300 border rounded-lg hover:border-primary hover:text-primary`}>
+                                        <button type="button" onClick={handleCopyLink} className={`${isDark ? 'text-light hover:border-gray-100 hover:text-gray-100' : 'hover:border-black hover:text-black'} flex items-center gap-2 py-1.5 px-2.5 md:py-2 md:px-3 border-gray-400 transition-colors duration-300 border rounded-lg `}>
                                             {copied ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
                                             <span className="hidden md:block">{copied ? 'Copied' : 'CopyLink'}</span>
                                         </button>
@@ -175,7 +176,7 @@ export default function BookDetail() {
                                         <button
                                             onClick={() => toggleFavorite(book.id)}
                                             type="button"
-                                            className={`px-3.5 py-2 border ${userData?.favorites?.includes(book.id) ? 'border-red-600' : 'border-gray-400'} text-sm rounded-full cursor-pointer flex items-center space-x-2 hover:border-red-600`}
+                                            className={`px-2.5 py-1 md:px-3 md:py-2 border ${userData?.favorites?.includes(book.id) ? 'border-red-600' : 'border-gray-400'} text-sm rounded-full cursor-pointer flex items-center space-x-2`}
                                         >
                                             {userData?.favorites?.includes(book.id) ?
                                                 (<svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth={0} stroke="currentColor" className="size-6">
@@ -185,7 +186,7 @@ export default function BookDetail() {
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                                 </svg>)
                                             }
-                                            <span className={`text-[16px] ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
+                                            <span className={`text-[16px] hidden md:inline-block ${isDark ? 'text-white' : ''}`}>{book.likes_count}</span>
                                         </button>
                                     </div>
                                 </div>

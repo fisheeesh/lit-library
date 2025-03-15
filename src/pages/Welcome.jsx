@@ -40,13 +40,13 @@ export default function Welcome() {
                         <div className="flex-1 border-t-2 border-gray-300"></div>
                     </div>
                     <div className="flex items-center justify-center">
-                        <div className="p-3 transition duration-500 ease-in-out bg-white border rounded-lg shadow-xl cursor-pointer hover:scale-105">
-                            <div className="flex items-center px-3 py-2" onClick={handleGoogleLogIn}>
+                        <div onClick={handleGoogleLogIn} className="p-3 transition duration-500 ease-in-out bg-white border rounded-lg shadow-xl cursor-pointer hover:scale-105">
+                            <div className="flex items-center px-3 py-2" >
                                 <img src={Google} width="30" alt="Google" className="img-fluid" />
                                 <span className="ml-3 font-bold text-gray-700">Continue with Google</span>
                             </div>
                         </div>
-                    </div >
+                    </div >d
                 </div>
             )}
         </div>

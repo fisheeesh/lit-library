@@ -23,17 +23,24 @@ const useSignUp = () => {
                 await updateProfile(res.user, { photoURL: url })
             }
             await updateProfile(res.user, { displayName })
-            
+
             let docRef = doc(db, 'users', res.user.uid)
             await setDoc(docRef, {
                 uid: res.user.uid,
                 displayName,
+                fullName: '',
+                role: '',
                 email,
                 photoURL: res.user.photoURL,
                 created_at: serverTimestamp(),
                 hasReview: false,
+                birthday: '',
+                location: '',
+                facebookURL: '',
+                instagramURL: '',
                 saved: [],
-                favorites: []
+                favorites: [],
+                photoName: ''
             })
 
             return res
