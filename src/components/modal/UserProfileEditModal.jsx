@@ -199,7 +199,7 @@ export default function UserProfileEditModal({ setShowModal }) {
 
     return (
         <div className="fixed z-[100] inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fadeIn p-4 sm:p-8 md:p-12">
-            <form onSubmit={handleSubmit(onUpdateUserProfile)} ref={modalRef} className={`${isDark ? "bg-dark text-light shadow-custom-white" : "bg-white drop-shadow-lg text-gray-900"} rounded-lg mx-1 shadow-lg w-full max-w-[600px] max-h-[90vh] overflow-y-auto animate-slideUp p-6`}>
+            <form onSubmit={handleSubmit(onUpdateUserProfile)} ref={modalRef} className={`${isDark ? "bg-dark text-light shadow-custom-white" : "bg-white drop-shadow-lg text-gray-900"} text-sm md:text-base  rounded-lg mx-1 shadow-lg w-full max-w-[600px] max-h-[90vh] overflow-y-auto animate-slideUp p-6`}>
                 <h2 className="mb-4 text-xl font-semibold">Edit your profile</h2>
                 <div className={`p-6  rounded-lg ${isDark ? 'bg-indigo-900' : 'bg-gray-100'}`}>
                     <div className="flex items-center gap-4">
@@ -259,7 +259,17 @@ export default function UserProfileEditModal({ setShowModal }) {
                     <div className="relative mt-4">
                         <label className="text-sm font-medium">Location</label>
                         <input value={location} onChange={e => setLocation(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="location" />
-                        <button type="button" onClick={onGetCurrentLocation} className={`absolute justify-center flex items-center gap-1 px-4 py-1 text-xs border border-gray-500 rounded-full right-1 top-[33px] transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light text-dark' : 'hover:border-black hover:bg-black hover:text-light'}`}>
+                        <button type="button" onClick={onGetCurrentLocation} className={`absolute justify-center hidden md:flex items-center gap-1 px-4 py-1 text-xs border border-gray-500 rounded-full right-1 top-[32.5px] transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light text-dark' : 'hover:border-black hover:bg-black hover:text-light'}`}>
+                            {
+                                isLoading ?
+                                    <svg className="w-[12px] h-[12px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg> :
+                                    <span className="">Choose Your Location</span>
+                            }
+                        </button>
+                        <button type="button" onClick={onGetCurrentLocation} className={`justify-center flex md:hidden items-center gap-1 px-4 py-1 text-xs border border-gray-500 rounded-full mt-2 transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light text-dark' : 'hover:border-black hover:bg-black hover:text-light'}`}>
                             {
                                 isLoading ?
                                     <svg className="w-[12px] h-[12px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -305,18 +315,18 @@ export default function UserProfileEditModal({ setShowModal }) {
                 </div>
                 <div className="flex items-center justify-between gap-2 mt-4">
                     <div>
-                        <button disabled={isUpdating} onClick={onHandleDeleteAccount} type="button" className={cn(isUpdating && 'cursor-not-allowed', 'px-4 py-2 text-white transition-colors duration-300 bg-red-600 rounded hover:bg-red-700')}>Delete your account</button>
+                        <button disabled={isUpdating} onClick={onHandleDeleteAccount} type="button" className={cn(isUpdating && 'cursor-not-allowed', 'px-4 py-2 text-white transition-colors md:text-base duration-300 bg-red-600 rounded hover:bg-red-700')}>Delete account</button>
                     </div>
                     <div className="flex items-center gap-2">
-                        <button disabled={isUpdating} type="button" className={cn(isDark && 'text-light border-gray-400', isUpdating && 'cursor-not-allowed', 'px-4 py-2 hover:bg-black hover:text-light hover:border-black  transition-colors duration-300 border rounded')} onClick={() => setShowModal(false)}>Close</button>
-                        <button disabled={isUpdating} type="submit" className={cn(isUpdating && 'cursor-not-allowed', 'flex items-center gap-2 px-4 py-2 text-base text-white transition-colors duration-300 rounded bg-primary hover:bg-indigo-700')}>
+                        <button disabled={isUpdating} type="button" className={cn(isDark && 'text-light border-gray-400', isUpdating && 'cursor-not-allowed', 'px-4 py-2 md:text-base hover:bg-black hover:text-light hover:border-black  transition-colors duration-300 border rounded')} onClick={() => setShowModal(false)}>Close</button>
+                        <button disabled={isUpdating} type="submit" className={cn(isUpdating && 'cursor-not-allowed', 'flex items-center gap-2 px-4 py-2 md:text-base text-white transition-colors duration-300 rounded bg-primary hover:bg-indigo-700')}>
                             {
                                 isUpdating ?
                                     <svg className="w-[24px] h-[24px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                     </svg> :
-                                    <span>Save changes</span>
+                                    <span>Save</span>
                             }
                         </button>
                     </div>

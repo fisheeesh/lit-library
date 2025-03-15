@@ -4,7 +4,7 @@ import useTheme from "../../hooks/useTheme"
 export default function NotiBtn({ onNotiClick, hasNewNoti }) {
     const { isDark } = useTheme()
     return (
-        <div onClick={onNotiClick} className="relative flex items-center p-2 border rounded-full cursor-pointer">
+        <div onClick={onNotiClick} className="relative flex items-center p-[5px] md:p-2 border rounded-full cursor-pointer">
             <span className={`material-symbols-outlined ${isDark ? "text-white" : "text-gray-800"}`}>
                 notifications
             </span>

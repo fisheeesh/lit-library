@@ -34,7 +34,7 @@ export default function Avatar() {
             <img
                 src={user?.photoURL || defaultProfile}
                 alt="Profile"
-                className="w-[42px] h-[42px] rounded-full cursor-pointer md:h-11 md:w-11"
+                className="w-[36px] h-[36px] rounded-full cursor-pointer md:h-11 md:w-11"
                 onClick={() => setOpenModal((prev) => !prev)}
             />
 

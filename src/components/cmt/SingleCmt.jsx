@@ -52,7 +52,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                 <div className={`${isDark ? 'bg-slate-900' : 'bg-[#eceef2]'} flex flex-col items-start justify-center p-4 w-fit rounded-2xl`}>
                     <div className="flex items-center gap-3">
                         <div className="flex items-center">
-                            <Link to={`/profile/${cmt.uid}`} className={`md:text-lg text-[13px] font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
+                            <Link to={`/profile/${cmt.uid}`} className={`md:text-lg text-[16px] font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
                                 {ownerData?.displayName}
                             </Link>
 
@@ -77,7 +77,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                     <div className="w-full mt-2">
                         {editCmt?.id !== cmt.id ? (
                             <div ref={textRef} className={`${isDark ? 'text-white' : ''} gap-3`}>
-                                <span className="text-xs md:text-base">{cmt.cmtContent}</span>
+                                <span className="text-sm md:text-base">{cmt.cmtContent}</span>
                                 {cmt.isEdited && <span className="text-xs italic text-blue-500 md:text-sm"> (Edited)</span>}
                             </div>
                         ) : (
@@ -88,7 +88,6 @@ export default function SingleCmt({ cmt, deleteComment }) {
             </div>
             <div className="flex items-center gap-3 ml-12 md:hidden">
                 <h5 className="text-[10px] text-gray-400 md:text-sm ">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
-                {renderEditDelete()}
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ export default function CreateBtn() {
     return (
         <Link
             to="/create"
-            className="p-[9px] md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
+            className="p-[5px] md:px-5 md:py-2.5 text-white rounded-full bg-primary flex items-center gap-2 transition hover:bg-indigo-700 duration-500 ease-in-out"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
