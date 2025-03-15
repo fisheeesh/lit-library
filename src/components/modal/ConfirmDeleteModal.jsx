@@ -1,11 +1,14 @@
+import useTheme from "../../hooks/useTheme"
+
 /* eslint-disable react/prop-types */
 export default function ConfirmDeleteModal({ password, setPassword, onAction, setIsModalOpen }) {
-    
+    const { isDark } = useTheme()
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="p-6 mx-4 bg-white rounded-lg shadow-lg w-96">
-                <h2 className="text-xl font-semibold text-gray-800">Confirm Account Deletion: This action CANNOT be undone. 😰</h2>
-                <p className="mt-2 text-gray-600">Please enter your password to confirm deletion:</p>
+            <div className={`${isDark ? 'bg-indigo-900 text-light' : 'bg-gray-100 text-black'} p-6 mx-5  rounded-lg shadow-lg w-96`}>
+                <h2 className="text-xl font-semibold ">Confirm Account Deletion: This action CANNOT be undone. 😰</h2>
+                <p className={`${isDark ? 'text-light' : 'text-gray-500'} mt-2`}>Please enter your password to confirm deletion:</p>
                 <input
                     type="password"
                     value={password}

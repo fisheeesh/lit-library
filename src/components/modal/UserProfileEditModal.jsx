@@ -249,7 +249,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                             <label className="text-sm font-medium">Role</label>
                             <input value={role} onChange={e => setRole(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="role" />
                         </div>
-                        <div>
+                        <div className="flex flex-col">
                             <label className="text-sm font-medium">Birthday</label>
                             <input value={birthday} onChange={e => setBirthday(e.target.value)} type="date" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="" />
                             <span className="text-[8px] italic text-gray-400">Birthday persons will have special activities in the future.</span>
@@ -269,7 +269,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                                     <span className="">Choose Your Location</span>
                             }
                         </button>
-                        <button type="button" onClick={onGetCurrentLocation} className={`justify-center flex md:hidden items-center gap-1 px-4 py-1 text-xs border border-gray-500 rounded-full mt-2 transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light text-dark' : 'hover:border-black hover:bg-black hover:text-light'}`}>
+                        <button type="button" onClick={onGetCurrentLocation} className={`justify-center flex md:hidden items-center gap-1 px-4 py-1 text-xs border rounded-full mt-2 transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light border-light text-light' : 'hover:border-black border-black hover:bg-black hover:text-light'}`}>
                             {
                                 isLoading ?
                                     <svg className="w-[12px] h-[12px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
