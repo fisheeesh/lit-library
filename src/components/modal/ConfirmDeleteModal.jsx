@@ -7,7 +7,7 @@ export default function ConfirmDeleteModal({ password, setPassword, onAction, se
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className={`${isDark ? 'bg-indigo-900 text-light' : 'bg-gray-100 text-black'} p-6 mx-5  rounded-lg shadow-lg w-96`}>
-                <h2 className="text-xl font-semibold ">Confirm Account Deletion: This action CANNOT be undone. 😰</h2>
+                <h2 className="text-lg font-semibold ">Confirm Account Deletion: This action CANNOT be undone. 😰</h2>
                 <p className={`${isDark ? 'text-light' : 'text-gray-500'} mt-2`}>Please enter your password to confirm deletion:</p>
                 <input
                     type="password"
