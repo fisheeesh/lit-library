@@ -20,6 +20,7 @@ export default function BookDetail() {
     const { id } = useParams()
 
     const { isDark } = useTheme()
+    const customColor = !isDark ? "#4555d2" : "#cc2973"
     const { user, DEVELOPER_UID } = useAuth()
     const navigate = useNavigate()
 
@@ -30,8 +31,8 @@ export default function BookDetail() {
     const { data: book, setData, error, loading } = getDocumentById('books', id)
 
     //$ If there is no user, then userData will be null. So we all fetch the data if only the user is logged in
-    const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null }
-
+    const { data: userData } = getDocumentById('users', user?.uid || 'default-fallback-uid');
+    const { data: ownerData } = getDocumentById('users', book?.uid || "default-fallback-uid");
 
     //? Check if there is scrollTo as params in URL, if so then scroll to comments
     useEffect(() => {
@@ -46,11 +47,8 @@ export default function BookDetail() {
     useEffect(() => {
         if (error) {
             setData(null)
-            setTimeout(() => {
-                navigate('/')
-            }, 2000)
         }
-    }, [error, navigate, setData])
+    }, [error, setData])
 
     const componentDecorator = (href, text, key) => (
         <a href={href} key={key} target="_blank" rel="noopener_noreferrer" className="text-blue-500 underline">
@@ -58,7 +56,7 @@ export default function BookDetail() {
         </a>
     )
 
-    const customColor = !isDark ? "#4555d2" : "#cc2973"
+    
 
     const toggleFavorite = async (bookId) => {
         if (!user) {
@@ -111,7 +109,7 @@ export default function BookDetail() {
 
     useKey('Escape', () => navigate(-1))
 
-    const minutesOfRead = Math.ceil(book?.description.split(' ').length / 200)
+    const minutesOfRead = Math.ceil(book?.description.split(' ')?.length / 200)
 
     const bookUrl = `${window.location.origin}/blogs/${id}`;
 
@@ -150,11 +148,11 @@ export default function BookDetail() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         {/* Profile */}
-                                        <img src={book.userProfile || defaultProfile} alt="user_profile" className="rounded-full h-14 w-14" />
+                                        <img src={ownerData?.photoURL || defaultProfile} alt="user_profile" className="rounded-full h-14 w-14" />
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
                                                 {/* Username */}
-                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{book.userName || 'User'}</Link>
+                                                <Link to={`/profile/${book.uid}`} className={`md:text-xl font-bold ${isDark ? 'text-white' : ''} cus-btn cursor-pointer`}>{ownerData?.displayName || 'User'}</Link>
 
                                                 {/* Privilege */}
                                                 {book.uid === DEVELOPER_UID && <div className="relative mt-1 group">
@@ -169,7 +167,7 @@ export default function BookDetail() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-3">
-                                        <button type="button" onClick={handleCopyLink} className={`${isDark ? 'text-light' : ''} flex items-center gap-2 p-2 px-3 border-gray-400 transition-colors duration-300 border rounded-md hover:border-primary hover:text-primary`}>
+                                        <button type="button" onClick={handleCopyLink} className={`${isDark ? 'text-light' : ''} flex items-center gap-2 p-2 px-3 border-gray-400 transition-colors duration-300 border rounded-lg hover:border-primary hover:text-primary`}>
                                             {copied ? <Check size={18} className="text-green-600" /> : <Copy size={18} />}
                                             <span className="hidden md:block">{copied ? 'Copied' : 'CopyLink'}</span>
                                         </button>

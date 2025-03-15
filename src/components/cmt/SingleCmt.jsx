@@ -5,14 +5,19 @@ import { Link } from "react-router-dom";
 import CmtForm from "./CmtForm";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
+import useFirestore from "../../hooks/useFirestore";
 
 export default function SingleCmt({ cmt, deleteComment }) {
     const { isDark } = useTheme();
     const { user, DEVELOPER_UID } = useAuth();
 
+    const { getDocumentById } = useFirestore()
+
     const [editCmt, setEditCmt] = useState(null);
     const textRef = useRef(null);
     const [textWidth, setTextWidth] = useState("auto");
+
+    const { data: ownerData } = getDocumentById('users', cmt?.uid || "default-fallback-uid");
 
     useEffect(() => {
         if (textRef.current) {
@@ -41,13 +46,13 @@ export default function SingleCmt({ cmt, deleteComment }) {
     return (
         <div className="flex my-5 space-x-2 rounded-2xl">
             <div>
-                <img src={cmt?.photoURL} className="w-10 h-10 rounded-full md:w-11 md:h-11" alt="" />
+                <img src={ownerData?.photoURL} className="w-10 h-10 rounded-full md:w-11 md:h-11" alt="" />
             </div>
             <div className={`${isDark ? 'bg-slate-900' : 'bg-[#eceef2]'} flex flex-col items-start justify-center p-4 w-fit rounded-3xl`}>
                 <div className="flex items-center gap-3">
                     <div className="flex items-center">
                         <Link to={`/profile/${cmt.uid}`} className={`md:text-lg text-[13px] font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
-                            {cmt.sender}
+                            {ownerData?.displayName}
                         </Link>
 
                         {cmt.uid === DEVELOPER_UID && (

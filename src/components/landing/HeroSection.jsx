@@ -27,7 +27,7 @@ export default function HeroSection() {
 
     return (
         <>
-            <header className="relative mt-12 overflow-hidden text-center transition-all duration-300 lg:text-left" id='home'>
+            <header className="relative mt-12 mb-24 overflow-hidden text-center transition-all duration-300 lg:text-left" id='home'>
                 {/* Decoration Stars */}
                 <img
                     src={decorationStar}

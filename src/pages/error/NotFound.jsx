@@ -11,8 +11,17 @@ export default function NotFound({ custom }) {
     useEffect(() => {
         setTimeout(() => {
             navigate('/')
-        }, 2000)
+        }, 3000)
     }, [navigate])
+
+    useEffect(() => {
+        document.title = '404 : Not Found';
+
+        return () => {
+            document.title = 'LitLibrary';
+        };
+    }, []);
+
     return (
         <div className={`${isDark ? 'bg-dbg text-light' : 'bg-white text-dark'} ${custom ? 'items-center' : 'items-center justify-center'} min-h-screen flex flex-col `}>
             <DotLottieReact

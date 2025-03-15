@@ -1,10 +1,7 @@
 /* eslint-disable react/prop-types */
-import { PenBoxIcon } from 'lucide-react'
 import defaultProfile from '../../assets/default_profile.jpg'
 import useAuth from '../../hooks/useAuth'
 import useTheme from '../../hooks/useTheme'
-import { useState } from 'react'
-import UserProfileEditModal from '../modal/UserProfileEditModal'
 import { cn } from '../../utils/cn'
 import { FaFacebookF, FaInstagram } from 'react-icons/fa'
 import moment from 'moment'
@@ -12,8 +9,6 @@ import moment from 'moment'
 export default function UserInfo({ userData, currnetUser }) {
     const { isDark } = useTheme()
     const { DEVELOPER_UID } = useAuth()
-
-    const [showEditForm, setShowEditForm] = useState(false)
 
     return (
         <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
@@ -25,17 +20,16 @@ export default function UserInfo({ userData, currnetUser }) {
             <div className="mt-1 md:mt-0">
                 <div className="flex items-center gap-1">
                     {/* User name */}
-                    <h2 className="flex items-center gap-1 text-lg font-bold md:text-2xl text-primary user-name">{userData?.displayName || 'User'}{userData?.role && <span className='text-sm italic font-normal text-gray-400'>({userData?.role || ''})</span>}</h2>
+                    <h2 className="flex items-center gap-1 text-lg font-bold md:text-2xl text-primary user-name">{userData?.displayName || 'User'}{userData?.role && <span className='hidden text-sm italic font-normal text-gray-400 md:inline'>({userData?.role || ''})</span>}</h2>
                     {/* Show developer badge if the user is the developer */}
                     {userData?.uid === DEVELOPER_UID && (
                         <div className="relative mt-1 md:mt-2 group">
                             <span className="text-xs md:text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
-                            <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                            <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-[130px] md:-left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
                                 Developer of LitLibrary
                             </span>
                         </div>
                     )}
-                    {currnetUser && <PenBoxIcon onClick={() => setShowEditForm(true)} className='cursor-pointer' color='#4555d2' />}
                 </div>
                 {/* Email */}
                 {currnetUser && <div className="flex items-center gap-2 mt-1">
@@ -68,15 +62,14 @@ export default function UserInfo({ userData, currnetUser }) {
                     </div>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                    {userData?.facebookURL && <a target="_blank" className={cn('flex items-center justify-center w-8 h-8  rounded-full ',
-                        isDark ? 'hover:bg-blue-600 bg-slate-500' : 'bg-gray-200 hover:bg-blue-600 hover:text-white'
+                    {userData?.facebookURL && <a target="_blank" className={cn('flex items-center justify-center w-8 h-8 hover:text-white  rounded-full ',
+                        isDark ? 'hover:bg-blue-600 bg-slate-500' : 'bg-gray-200 hover:bg-blue-600'
                     )} href={userData?.facebookURL}><FaFacebookF className="size-4" /></a>}
-                    {userData?.instagramURL && <a target="_blank" className={cn('flex items-center justify-center w-8 h-8  rounded-full ',
-                        isDark ? 'hover:bg-pink-500 bg-slate-500' : 'bg-gray-200 hover:bg-pink-500 hover:text-white'
+                    {userData?.instagramURL && <a target="_blank" className={cn('flex items-center justify-center w-8 h-8 hover:text-white  rounded-full ',
+                        isDark ? 'hover:bg-pink-500 bg-slate-500' : 'bg-gray-200 hover:bg-pink-500'
                     )} href={userData?.instagramURL}><FaInstagram className="size-4" /></a>}
                 </div>
             </div>
-            {showEditForm && <UserProfileEditModal setShowModal={setShowEditForm} />}
         </div>
     )
 }

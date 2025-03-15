@@ -17,7 +17,6 @@ export default function ProfileHeader({ uId, filter, setFilter }) {
     const { data: books } = getAllDocuments('books', ['uid', '==', uId])
     const currnetUser = user?.uid === userData?.uid
 
-
     return (
         <div className="max-w-screen-xl mx-auto">
             <div className="grid grid-cols-3 gap-4">

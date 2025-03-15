@@ -1,7 +1,7 @@
 import useTheme from "../../hooks/useTheme";
 import HeroSection from "./HeroSection";
 import Intro from "./Intro";
-import Stats from "./Stats";
+// import Stats from "./Stats";
 import WhyJoin from "./WhyJoin";
 
 export default function Header() {
@@ -10,11 +10,8 @@ export default function Header() {
         <>
             {/* Hero Section */}
             <HeroSection />
-            {/* Stats Section */}
-            <Stats />
             {/* Introduction Section */}
             <Intro />
-            
             {/* Persude to create a blog */}
             <WhyJoin />
 

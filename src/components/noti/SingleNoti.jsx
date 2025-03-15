@@ -22,7 +22,7 @@ export default function SingleNoti({ noti, setIsOpen }) {
 
             <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-sm`}>
                 <span className='font-bold text-md'>{noti.senderName}</span>
-                {noti.isComment ? <span> commented &apos;{noti.content}&apos; on your blog.</span> : <span> liked your blog.</span>}
+                {noti.isComment ? <span> commented &ldquo;<span className="italic">{noti.content.length > 20 ? noti.content.slice(0, 20) + '...' : noti.content}</span>&ldquo; on your blog.</span> : <span> liked your blog.</span>}
                 <span className='text-xs italic text-gray-500 ms-3'>({moment(noti.created_at.seconds * 1000).fromNow()})</span>
             </h3>
         </div>

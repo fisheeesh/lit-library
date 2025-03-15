@@ -16,13 +16,16 @@ import { deleteUser, EmailAuthProvider, reauthenticateWithCredential, updateProf
 import useStorage from "../../hooks/useStorage";
 import useTheme from "../../hooks/useTheme";
 import { useNavigate } from "react-router-dom";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
 
 export default function UserProfileEditModal({ setShowModal }) {
     const { user } = useAuth()
     const { isDark } = useTheme()
     const modalRef = useRef(null);
+    const confirmModalRef = useRef(null);
     const navigate = useNavigate()
-    useClickOutside([modalRef], () => setShowModal(false));
+
+    useClickOutside([modalRef, confirmModalRef], () => setShowModal(false));
 
     const { isLoading, position: { lat, lng }, error, getPosition } = useGeoLocation()
     const { getDocumentById, updateDocument } = useFirestore()
@@ -31,6 +34,8 @@ export default function UserProfileEditModal({ setShowModal }) {
     const { data: userData } = getDocumentById('users', user?.uid)
 
     const [isUpdating, setIsUpdating] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [password, setPassword] = useState('');
 
     //? form fields
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -159,29 +164,35 @@ export default function UserProfileEditModal({ setShowModal }) {
         }
     }, [pPic])
 
-    const onDeleteAccount = async () => {
+    const onHandleDeleteAccount = () => {
         if (!user) {
-            console.error("User not found");
-            toast.error('User not found. Please try again.');
+            toast.error("User not found. Please try again.");
             return;
         }
+        setIsModalOpen(true);
+        // setShowModal(false);
+    };
 
+    const confirmDeletion = async () => {
         try {
-            // Prompt user to re-enter password (for email/password authentication)
-            const password = prompt("Please enter your password to confirm deletion:");
-            if (!password) return;
+            if (!password) {
+                toast.error("Please enter your password.");
+                return;
+            }
 
             const credential = EmailAuthProvider.credential(user.email, password);
             await reauthenticateWithCredential(user, credential);
 
-            // Now delete the user
             await deleteUser(user);
 
             toast.success("Account deleted successfully!");
             navigate("/", { replace: true });
         } catch (error) {
-            console.error("Error deleting account:", error.message);
             toast.error("Error deleting account. Please try again.");
+            console.error("Error deleting account:", error.message);
+        } finally {
+            setIsModalOpen(false);
+            setPassword("");
         }
     };
 
@@ -241,6 +252,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                         <div>
                             <label className="text-sm font-medium">Birthday</label>
                             <input value={birthday} onChange={e => setBirthday(e.target.value)} type="date" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="" />
+                            <span className="text-[8px] italic text-gray-400">Birthday persons will have special activities in the future.</span>
                         </div>
                     </div>
 
@@ -292,10 +304,12 @@ export default function UserProfileEditModal({ setShowModal }) {
 
                 </div>
                 <div className="flex items-center justify-between gap-2 mt-4">
-                    <button disabled={isUpdating} onClick={onDeleteAccount} type="button" className="px-4 py-2 mt-2 text-white transition-colors duration-300 bg-red-600 rounded hover:bg-red-700">Delete your account</button>
+                    <div>
+                        <button disabled={isUpdating} onClick={onHandleDeleteAccount} type="button" className={cn(isUpdating && 'cursor-not-allowed', 'px-4 py-2 text-white transition-colors duration-300 bg-red-600 rounded hover:bg-red-700')}>Delete your account</button>
+                    </div>
                     <div className="flex items-center gap-2">
-                        <button disabled={isUpdating} type="button" className="px-4 py-2 transition-colors duration-300 border rounded hover:bg-black hover:text-light hover:border-black" onClick={() => setShowModal(false)}>Close</button>
-                        <button disabled={isUpdating} type="submit" className="flex items-center gap-2 px-4 py-2 text-base text-white transition-colors duration-300 rounded bg-primary hover:bg-indigo-700">
+                        <button disabled={isUpdating} type="button" className={cn(isDark && 'text-light border-gray-400', isUpdating && 'cursor-not-allowed', 'px-4 py-2 hover:bg-black hover:text-light hover:border-black  transition-colors duration-300 border rounded')} onClick={() => setShowModal(false)}>Close</button>
+                        <button disabled={isUpdating} type="submit" className={cn(isUpdating && 'cursor-not-allowed', 'flex items-center gap-2 px-4 py-2 text-base text-white transition-colors duration-300 rounded bg-primary hover:bg-indigo-700')}>
                             {
                                 isUpdating ?
                                     <svg className="w-[24px] h-[24px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -308,6 +322,11 @@ export default function UserProfileEditModal({ setShowModal }) {
                     </div>
                 </div>
             </form>
+            {isModalOpen &&
+                <div ref={confirmModalRef}>
+                    <ConfirmDeleteModal password={password} setPassword={setPassword} onAction={confirmDeletion} setIsModalOpen={setIsModalOpen} />
+                </div>
+            }
         </div>
     );
 }

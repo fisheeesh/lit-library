@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { onAuthStateChanged } from "firebase/auth"
-import { createContext, useEffect, useReducer } from "react"
+import { createContext, useEffect, useMemo, useReducer } from "react"
 import { auth } from "../firebase/config"
 
 export const AuthContext = createContext()
@@ -10,7 +10,8 @@ const AuthReducer = (state, action) => {
         case "LOGIN":
             return { ...state, user: action.payload }
         case "LOGOUT":
-            return { ...state, user: action.payload }
+            if (!state.user) return state;
+            return { ...state, user: null }
         case "AUTH_READY":
             return { ...state, authReady: action.payload }
         default:
@@ -26,21 +27,24 @@ export default function AuthContextProvider({ children }) {
     })
 
     useEffect(() => {
-        onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             dispatch({ type: "AUTH_READY", payload: true })
             if (user) {
                 dispatch({ type: "LOGIN", payload: user })
-            }
-            else {
+            } else {
                 dispatch({ type: "LOGOUT", payload: null })
             }
         })
+
+        return () => unsubscribe();
     }, [])
 
     const DEVELOPER_UID = '1Ojc7pA10tVCpAo5bHxXVu5PHRA2';
 
+    const value = useMemo(() => ({ ...state, DEVELOPER_UID }), [state]);
+
     return (
-        <AuthContext.Provider value={{ ...state, DEVELOPER_UID }}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     )

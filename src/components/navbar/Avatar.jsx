@@ -6,6 +6,8 @@ import useTheme from "../../hooks/useTheme";
 import { useClickOutside } from "../../hooks/useClickOutside"
 import ConfirmationModal from "../modal/ConfirmationModal";
 import useSignOut from "../../hooks/useSignOut";
+import UserProfileEditModal from "../modal/UserProfileEditModal";
+import { LogOut, Settings, UserCircle } from "lucide-react";
 
 export default function Avatar() {
     const navigate = useNavigate();
@@ -14,6 +16,7 @@ export default function Avatar() {
 
     const [openModal, setOpenModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const [showEditForm, setShowEditForm] = useState(false)
     const modalRef = useRef(null)
 
     useClickOutside([modalRef], () => setOpenModal(false));
@@ -47,21 +50,30 @@ export default function Avatar() {
                             navigate(`/profile/${user.uid}`);
                             setOpenModal(false);
                         }}
-                        className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} w-full px-4 py-2 text-left transition-colors duration-300 rounded-tl-xl rounded-tr-xl `}
+                        className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} w-full flex items-center px-4 py-2 text-left transition-colors duration-300 rounded-tl-xl rounded-tr-xl `}
                     >
-                        Profile
+                        <UserCircle className="mr-2" /> <span>Profile</span>
+                    </button>
+
+                    <button
+                        onClick={() => setShowEditForm(true)}
+                        type="button"
+                        className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} flex items-center w-full px-4 py-2 text-left transition-colors duration-300`}
+                    >
+                        <Settings className="mr-2"/> Edit Profile
                     </button>
 
                     {/* Logout Button */}
                     <button
                         onClick={() => setShowModal(true)}
-                        className="w-full px-4 py-2 text-left text-red-600 transition-colors duration-300 rounded-bl-xl rounded-br-xl hover:bg-red-600 hover:text-white"
+                        className="flex items-center w-full px-4 py-2 text-left text-red-600 transition-colors duration-300 rounded-bl-xl rounded-br-xl hover:bg-red-600 hover:text-white"
                     >
-                        Logout
+                        <LogOut className="mr-2"/> Logout
                     </button>
                 </div>
             )}
             {showModal && <ConfirmationModal title={'Are you sure you want to log out?'} setShowModal={setShowModal} onAction={onLogOut} />}
+            {showEditForm && <UserProfileEditModal setShowModal={setShowEditForm} />}
         </div>
     );
 }
