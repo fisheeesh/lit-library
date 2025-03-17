@@ -56,7 +56,7 @@ export default function FeebackBox() {
     }
 
     return (
-        <section className="max-w-screen-xl pb-16 mx-auto px-7 sm:px-6 lg:px-8">
+        <section className="max-w-screen-xl pb-16 mx-auto px-7">
             <div className={cn('overflow-hidden relative rounded-2xl',
                 isDark ? 'bg-indigo-900' : 'bg-blue-600')}>
                 {reviewCompleted && <ConfettiCelebration trigger={reviewCompleted} duration={6000} />}

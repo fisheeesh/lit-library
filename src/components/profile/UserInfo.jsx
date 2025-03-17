@@ -10,6 +10,13 @@ export default function UserInfo({ userData, currnetUser }) {
     const { isDark } = useTheme()
     const { DEVELOPER_UID } = useAuth()
 
+    const badges = {
+        [DEVELOPER_UID]: "Developer of LitLibrary",
+        "0YqTtVfsHtZa6TIaxh8FabqkQhe2": "The Official Account of LitLibrary"
+    };
+
+    const badgeText = badges[userData?.uid];
+
     return (
         <div className="flex justify-start col-span-3 gap-4 md:col-span-2">
             <img
@@ -22,22 +29,14 @@ export default function UserInfo({ userData, currnetUser }) {
                     {/* User name */}
                     <h2 className="flex items-center gap-1 text-lg font-bold md:text-2xl text-primary user-name">{userData?.displayName || 'User'}{userData?.role && <span className='hidden text-sm italic font-normal text-gray-400 md:inline'>({userData?.role || ''})</span>}</h2>
                     {/* Show developer badge if the user is the developer */}
-                    {userData?.uid === DEVELOPER_UID && (
+                    {badgeText ? (
                         <div className="relative mt-1 md:mt-2 group">
                             <span className="text-xs md:text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
                             <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-[130px] md:-left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
-                                Developer of LitLibrary
+                                {badgeText}
                             </span>
                         </div>
-                    )}
-                    {userData?.uid === 'b8YXrGHYqjQZEBZq4aZupraVkA73' && (
-                        <div className="relative mt-1 md:mt-2 group">
-                            <span className="text-xs md:text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
-                            <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-[130px] md:-left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
-                                The Official Account of LitLibrary
-                            </span>
-                        </div>
-                    )}
+                    ) : null}
                 </div>
                 {/* Email */}
                 {currnetUser && <div className="flex items-center gap-2 mt-1">

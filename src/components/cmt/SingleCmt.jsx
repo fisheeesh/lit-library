@@ -68,7 +68,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                                     </div>
                                 </div>
                             )}
-                            {cmt.uid === 'b8YXrGHYqjQZEBZq4aZupraVkA73' && (
+                            {cmt.uid === '0YqTtVfsHtZa6TIaxh8FabqkQhe2' && (
                                 <div className="flex items-center gap-1 ml-1">
                                     <div className="relative group">
                                         <span className="text-xs md:mt-1.5 md:text-[14px] cursor-pointer text-secondary material-symbols-outlined">

@@ -166,7 +166,7 @@ export default function BookDetail() {
                                                         Developer of LitLibrary
                                                     </span>
                                                 </div>}
-                                                {book.uid === 'b8YXrGHYqjQZEBZq4aZupraVkA73' && <div className="relative mt-1 group">
+                                                {book.uid === '0YqTtVfsHtZa6TIaxh8FabqkQhe2' && <div className="relative mt-1 group">
                                                     <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
                                                     <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
                                                         The Official Account of LitLibrary

@@ -32,7 +32,7 @@ export default function Navbar() {
     useEffect(() => {
         if (notis && user) {
             //? Retrieve notifications that belong to the logged-in user
-            const userNotifications = notis.filter(noti => noti.uid === user.uid);
+            const userNotifications = notis.filter(noti => noti.uid === user.uid || noti.isAnnouncement);
             setUserNoti(userNotifications);
 
             //? Retrieve read notifications from local storage

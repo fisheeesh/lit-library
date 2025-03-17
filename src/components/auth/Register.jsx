@@ -82,7 +82,7 @@ export default function Register() {
                     <label className={`block mb-2 text-sm font-bold ${isDark ? 'text-white' : 'text-gray-700'}`} htmlFor="email">
                         Email <span className="text-red-600">*</span>
                     </label>
-                    <input {...register('email')} className={cn(errors.email && 'border-red-600 placeholder:text-red-500', "w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline")} id="email" type="email" placeholder="Email" />
+                    <input {...register('email')} className={cn(errors.email && 'border-red-600 placeholder:text-red-500', "w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline")} id="email" type="text" placeholder="Email" />
                     {errors.email &&
                         <div className="flex items-center gap-1 mt-1">
                             <span className="text-[16px] text-red-600 material-symbols-outlined">

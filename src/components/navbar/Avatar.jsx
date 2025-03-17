@@ -8,18 +8,26 @@ import ConfirmationModal from "../modal/ConfirmationModal";
 import useSignOut from "../../hooks/useSignOut";
 import UserProfileEditModal from "../modal/UserProfileEditModal";
 import { LogOut, Settings, UserCircle } from "lucide-react";
+import { GrAnnounce } from "react-icons/gr";
+import ConfirmDeleteModal from "../modal/ConfirmDeleteModal";
+import useFirestore from "../../hooks/useFirestore";
+import toast from "react-hot-toast";
 
 export default function Avatar() {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, DEVELOPER_UID } = useAuth();
     const { isDark } = useTheme()
 
     const [openModal, setOpenModal] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [showEditForm, setShowEditForm] = useState(false)
+    const [announceModal, setAnnounceModal] = useState(false)
+    const [announcement, setAnnouncement] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     const modalRef = useRef(null)
 
     useClickOutside([modalRef], () => setOpenModal(false));
+    const { addDocument } = useFirestore()
 
     const { logOut } = useSignOut()
 
@@ -27,6 +35,39 @@ export default function Avatar() {
         await logOut();
         navigate('/auth', { replace: true });
     };
+
+    const badges = {
+        [DEVELOPER_UID]: "Developer of LitLibrary",
+        "0YqTtVfsHtZa6TIaxh8FabqkQhe2": "The Official Account of LitLibrary"
+    };
+
+    const badgeText = badges[user?.uid];
+
+    const onHandleAnnouncement = async () => {
+        try {
+            setIsLoading(true)
+            const newNoti = {
+                uid: user?.uid,
+                senderPhotoURL: user?.photoURL,
+                senderName: user?.displayName,
+                content: announcement,
+                bookId: 'newAnnouncement',
+                isComment: false,
+                isAnnouncement: true,
+            };
+            await addDocument('notifications', newNoti)
+            toast.success("Annoucement made successfully!");
+        }
+        catch (err) {
+            console.log(err.message)
+            toast.error('Something went wrong. Please try again.')
+        }
+        finally {
+            setIsLoading(false)
+            setAnnounceModal(false)
+            setAnnouncement('')
+        }
+    }
 
     return (
         <div className="relative">
@@ -55,12 +96,20 @@ export default function Avatar() {
                         <UserCircle className="mr-2" /> <span>Profile</span>
                     </button>
 
+                    {/* Anncouncement Button */}
+                    {badgeText && <button
+                        onClick={() => setAnnounceModal(true)}
+                        className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} w-full flex items-center px-4 py-2 text-left transition-colors duration-300 `}
+                    >
+                        <GrAnnounce className="mr-2" /> <span>Announcement</span>
+                    </button>}
+
                     <button
                         onClick={() => setShowEditForm(true)}
                         type="button"
                         className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} flex items-center w-full px-4 py-2 text-left transition-colors duration-300`}
                     >
-                        <Settings className="mr-2"/> Edit Profile
+                        <Settings className="mr-2" /> Edit Profile
                     </button>
 
                     {/* Logout Button */}
@@ -68,12 +117,13 @@ export default function Avatar() {
                         onClick={() => setShowModal(true)}
                         className="flex items-center w-full px-4 py-2 text-left text-red-600 transition-colors duration-300 rounded-bl-xl rounded-br-xl hover:bg-red-600 hover:text-white"
                     >
-                        <LogOut className="mr-2"/> Logout
+                        <LogOut className="mr-2" /> Logout
                     </button>
                 </div>
             )}
             {showModal && <ConfirmationModal title={'Are you sure you want to log out?'} setShowModal={setShowModal} onAction={onLogOut} />}
             {showEditForm && <UserProfileEditModal setShowModal={setShowEditForm} />}
+            {announceModal && <ConfirmDeleteModal isLoading={isLoading} title={'Announcement to all members of LitLibrary 🥳'} subTitle="Once you confirmed it, this will be sent to all the members of LiLibray as notification." placeholder="What's is on your mind?" state={announcement} setState={setAnnouncement} onAction={onHandleAnnouncement} setIsModalOpen={setAnnounceModal} />}
         </div>
     );
 }

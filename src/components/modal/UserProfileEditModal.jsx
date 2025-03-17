@@ -35,6 +35,7 @@ export default function UserProfileEditModal({ setShowModal }) {
 
     const [isUpdating, setIsUpdating] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleting, setDeleting] = useState(false);
     const [password, setPassword] = useState('');
 
     //? form fields
@@ -180,6 +181,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                 return;
             }
 
+            setDeleting(true);
             const credential = EmailAuthProvider.credential(user.email, password);
             await reauthenticateWithCredential(user, credential);
 
@@ -191,6 +193,7 @@ export default function UserProfileEditModal({ setShowModal }) {
             toast.error("Error deleting account. Please try again.");
             console.error("Error deleting account:", error.message);
         } finally {
+            setDeleting(false);
             setIsModalOpen(false);
             setPassword("");
         }
@@ -334,7 +337,7 @@ export default function UserProfileEditModal({ setShowModal }) {
             </form>
             {isModalOpen &&
                 <div ref={confirmModalRef}>
-                    <ConfirmDeleteModal password={password} setPassword={setPassword} onAction={confirmDeletion} setIsModalOpen={setIsModalOpen} />
+                    <ConfirmDeleteModal isLoading={isDeleting} title={'Confirm Account Deletion: This action CANNOT be undone. 😰'} isPassword={true} subTitle={'Please enter your password to confirm deletion:'} placeholder={'Enter your password'} state={password} setState={setPassword} onAction={confirmDeletion} setIsModalOpen={setIsModalOpen} />
                 </div>
             }
         </div>
