@@ -16,6 +16,7 @@ const AllBooks = lazy(() => import('../pages/AllBooks'))
 const Profile = lazy(() => import('../pages/Profile'))
 const NotFound = lazy(() => import('../pages/error/NotFound'))
 const Welcome = lazy(() => import('../pages/Welcome'))
+const ComingSoon = lazy(() => import('../pages/ComingSoon'))
 const Test = lazy(() => import('../pages/Test'))
 
 export default function Router() {
@@ -66,9 +67,14 @@ export default function Router() {
             ]
         },
         {
+            path: '/coming-soon',
+            element: <ComingSoon />
+        },
+        {
             path: '*',
             element: <NotFound />
-        }
+        },
+
     ]);
     return (
         authReady &&

@@ -68,6 +68,18 @@ export default function SingleCmt({ cmt, deleteComment }) {
                                     </div>
                                 </div>
                             )}
+                            {cmt.uid === 'b8YXrGHYqjQZEBZq4aZupraVkA73' && (
+                                <div className="flex items-center gap-1 ml-1">
+                                    <div className="relative group">
+                                        <span className="text-xs md:mt-1.5 md:text-[14px] cursor-pointer text-secondary material-symbols-outlined">
+                                            check_circle
+                                        </span>
+                                        <span className="absolute px-3 py-1 text-xs text-white transition-all rounded-md opacity-0 pointer-events-none md:text-base -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                            The Official Account of LitLibrary
+                                        </span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                         <div className="items-center hidden gap-3 md:flex">
                             <h5 className="text-[10px] text-gray-400 md:text-sm ">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>

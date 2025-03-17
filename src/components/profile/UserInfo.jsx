@@ -30,6 +30,14 @@ export default function UserInfo({ userData, currnetUser }) {
                             </span>
                         </div>
                     )}
+                    {userData?.uid === 'b8YXrGHYqjQZEBZq4aZupraVkA73' && (
+                        <div className="relative mt-1 md:mt-2 group">
+                            <span className="text-xs md:text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
+                            <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-[130px] md:-left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                The Official Account of LitLibrary
+                            </span>
+                        </div>
+                    )}
                 </div>
                 {/* Email */}
                 {currnetUser && <div className="flex items-center gap-2 mt-1">

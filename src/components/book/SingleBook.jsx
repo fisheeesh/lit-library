@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useFirestore from "../../hooks/useFirestore";
 import useStorage from "../../hooks/useStorage";
 import toast from "react-hot-toast";
+import { ImageMinus } from "lucide-react";
 
 /* eslint-disable react/prop-types */
 export default function SingleBook({ book }) {
@@ -39,7 +40,12 @@ export default function SingleBook({ book }) {
 
     return (
         <Link to={`/blogs/${book.id}`} className={`p-4 space-y-3 relative border rounded-md transition ease-in-out duration-700 hover:shadow-lg ${isDark ? 'border-primary hover:shadow-primary shadow' : ''}`}>
-            <img src={book.cover} alt={book.title} className="w-full rounded-md h-[270px]" />
+            {
+                book.cover ? <img src={book.cover} alt={book.title} className="w-full rounded-md h-[270px]" /> :
+                    <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center h-[270px]  rounded-md p-24 md:p-0`}>
+                        <ImageMinus className="w-12 h-12 text-gray-400" />
+                    </div>
+            }
             <div className="flex items-center justify-between">
                 <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>
                     {book?.title?.length > 15 ? `${book?.title.slice(0, 15)}...` : book?.title}

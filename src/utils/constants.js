@@ -64,17 +64,17 @@ export const footerLinks = {
         { name: 'Testimonials', href: '#testimonials' },
     ],
     getHelp: [
-        { name: 'Support Carrer', href: '#home' },
-        { name: '24h Service', href: '#home' },
-        { name: 'Quick Chat', href: '#home' },
+        { name: 'Support Carrer', to: '/support' },
+        { name: '24h Service', to: '/service' },
+        { name: 'Quick Chat', to: '/chat' },
     ],
     support: [
-        { name: 'FAQ', href: '#home' },
-        { name: 'Policy', href: '#home' },
-        { name: 'Business', href: '#home' },
+        { name: 'FAQ', to: '/coming-soon' },
+        { name: 'Privacy Policy', to: '/coming-soon' },
+        { name: 'Terms of Service', to: '/coming-soon' },
     ],
     contact: [
-        { name: 'WhatsApp', href: '#home' },
-        { name: 'Support 24', href: '#home' },
+        { name: 'WhatsApp', to: '/contact' },
+        { name: 'Support 24', to: '/contact' },
     ],
 }

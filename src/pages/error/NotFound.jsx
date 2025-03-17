@@ -15,7 +15,7 @@ export default function NotFound({ custom }) {
     }, [navigate])
 
     useEffect(() => {
-        document.title = '404 : Not Found';
+        document.title = 'LitLibrary | 404 : Not Found';
 
         return () => {
             document.title = 'LitLibrary';

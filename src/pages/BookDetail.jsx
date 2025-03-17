@@ -13,7 +13,7 @@ import ScrollTopBtn from "../components/btns/ScrollTopBtn"
 import toast from "react-hot-toast"
 import NotFound from "./error/NotFound"
 import defaultProfile from '../assets/default_profile.jpg'
-import { Check, Copy } from "lucide-react"
+import { Check, Copy, ImageMinus } from "lucide-react"
 
 export default function BookDetail() {
     const location = useLocation()
@@ -56,7 +56,7 @@ export default function BookDetail() {
         </a>
     )
 
-    
+
 
     const toggleFavorite = async (bookId) => {
         if (!user) {
@@ -142,7 +142,12 @@ export default function BookDetail() {
                         <div className="grid grid-cols-3 gap-4 mt-2">
                             <div className="col-span-3 md:mb-0 md:col-span-1">
                                 {/* Cover */}
-                                <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} />
+                                {
+                                    book.cover ? <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} /> :
+                                        <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center w-full h-full  rounded-lg p-24 md:p-0`}>
+                                            <ImageMinus className="w-12 h-12 text-gray-400" />
+                                        </div>
+                                }
                             </div>
                             <div className="col-span-3 space-y-3 md:col-span-2">
                                 <div className="flex items-center justify-between">
@@ -159,6 +164,12 @@ export default function BookDetail() {
                                                     <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
                                                     <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
                                                         Developer of LitLibrary
+                                                    </span>
+                                                </div>}
+                                                {book.uid === 'b8YXrGHYqjQZEBZq4aZupraVkA73' && <div className="relative mt-1 group">
+                                                    <span className="text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
+                                                    <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                                                        The Official Account of LitLibrary
                                                     </span>
                                                 </div>}
 

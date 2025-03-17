@@ -4,11 +4,11 @@ import logo from "../../assets/favicon.png";
 import useTheme from "../../hooks/useTheme";
 import { cn } from '../../utils/cn'
 import { footerLinks } from '../../utils/constants'
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
-
     const { isDark } = useTheme()
-
+    const navigate = useNavigate()
 
     return (
         <footer className={`${isDark ? 'bg-dark text-light' : 'bg-light text-dark'}`}>
@@ -47,12 +47,19 @@ export default function Footer() {
                                     <h3 className="mb-4 text-lg font-medium uppercase">{category}</h3>
                                     <ul className="space-y-3">
                                         {links.map((link, index) => (
-                                            <li key={index} className="">
-                                                <span
+                                            <li key={index}>
+                                                {link.href && <span
                                                     onClick={() => {
                                                         document.querySelector(`${link.href}`).scrollIntoView({ behavior: 'smooth' });
                                                     }}
-                                                    className={`hover:underline cursor-pointer hover:decoration-dotted`}>{link.name}</span>
+                                                    className={`hover:underline cursor-pointer hover:decoration-dashed`}>{link.name}</span>}
+                                                {link.to &&
+                                                    <span
+                                                        onClick={() => {
+                                                            navigate(link.to)
+                                                        }}
+                                                        className={`hover:underline cursor-pointer hover:decoration-dashed`}>{link.name}</span>
+                                                }
                                             </li>
                                         ))}
                                     </ul>

@@ -202,13 +202,13 @@ export default function BookForm() {
       <div className="flex flex-wrap mb-6 -mx-3">
         <div className="w-full px-3 md:w-1/2">
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-title">
-            Title
+            Title <span className="text-red-600">*</span>
           </label>
           <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} autoComplete="off" onChange={e => setTitle(e.target.value)} value={title} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full transition-colors duration-300 px-4 py-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none`} id="book-title" type="text" placeholder="Title" />
         </div>
         <div className="w-full px-3 mt-4 md:w-1/2 md:mt-0">
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-author">
-            Author
+            Author <span className="text-red-600">*</span>
           </label>
           <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setAuthor(e.target.value)} autoCapitalize="off" value={author} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full transition-colors duration-300 px-4 py-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none`} id="book-author" type="text" placeholder="Author" />
         </div>
@@ -216,7 +216,7 @@ export default function BookForm() {
       <div className="flex flex-wrap mb-3 -mx-3">
         <div className="w-full px-3">
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-des">
-            Description
+            Description <span className="text-red-600">*</span>
           </label>
           <textarea onChange={e => setDescription(e.target.value)} value={description} rows={30} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block resize-none w-full px-4 py-3 leading-tight text-gray-700 border transition-colors duration-300 rounded appearance-none focus:outline-none`} id="book-des" type="text" placeholder="Description"></textarea>
         </div>
@@ -224,7 +224,7 @@ export default function BookForm() {
       <div className="flex flex-wrap mb-3 -mx-3">
         <div className="w-full px-3">
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-cate">
-            Categories
+            Categories <span className="text-red-600">*</span>
           </label>
           <div className="flex items-center gap-3">
             <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setNewCategory(e.target.value)} value={newCategory} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full px-4 py-3 transition-colors duration-300 leading-tight text-gray-700 border rounded appearance-none focus:outline-none placeholder:italic`} id="book-cate" type="text" placeholder="5 categoires per blog." />
@@ -247,7 +247,7 @@ export default function BookForm() {
             className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`}
             htmlFor="book-cover"
           >
-            Cover
+            Cover <span className="text-red-600">*</span>
           </label>
           <div className="relative">
             {/* Hidden File Input */}
