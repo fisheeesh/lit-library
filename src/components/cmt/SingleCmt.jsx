@@ -6,6 +6,7 @@ import CmtForm from "./CmtForm";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
 import useFirestore from "../../hooks/useFirestore";
+import defaultProfile from '../../assets/default_profile.jpg'
 
 export default function SingleCmt({ cmt, deleteComment }) {
     const { isDark } = useTheme();
@@ -47,13 +48,13 @@ export default function SingleCmt({ cmt, deleteComment }) {
         <div className="flex flex-col my-5 space-y-1">
             <div className="flex space-x-2">
                 <div>
-                    <img src={ownerData?.photoURL} className="h-8 rounded-full w-9 md:w-11 md:h-11" alt="" />
+                    <img src={ownerData?.photoURL || defaultProfile} className="h-8 rounded-full w-9 md:w-11 md:h-11" alt="" />
                 </div>
                 <div className={`${isDark ? 'bg-slate-900' : 'bg-[#eceef2]'} flex flex-col items-start justify-center p-4 w-fit rounded-2xl`}>
                     <div className="flex items-center gap-3">
                         <div className="flex items-center">
                             <Link to={`/profile/${cmt.uid}`} className={`md:text-lg text-[16px] font-bold ${isDark ? 'text-white' : ''} cus-btn`}>
-                                {ownerData?.displayName}
+                                {ownerData?.displayName || 'User'}
                             </Link>
 
                             {cmt.uid === DEVELOPER_UID && (

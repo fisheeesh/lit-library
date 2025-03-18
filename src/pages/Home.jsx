@@ -18,7 +18,6 @@ function App() {
       <SeeMoreBtn />
       <FutureUpdates />
       <ScrollTopBtn />
-      {/* Testimonials */}
       <TestimonialSection />
       {user && <FeebackBox />}
       <Footer />

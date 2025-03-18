@@ -46,7 +46,7 @@ export default function Welcome() {
                                 <span className="ml-3 font-bold text-gray-700">Continue with Google</span>
                             </div>
                         </div>
-                    </div >d
+                    </div>
                 </div>
             )}
         </div>

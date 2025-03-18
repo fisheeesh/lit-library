@@ -108,8 +108,8 @@ export default function Navbar() {
 
             {/* Notifications Dropdown */}
             {isOpen && (
-                <div ref={modalRef} className={`fixed top-20 right-5 w-[350px] h-[400px] overflow-y-scroll rounded-lg z-50 
-                    ${isDark ? "bg-dbg text-white shadow-custom-white" : "bg-white drop-shadow-lg text-gray-900"}
+                <div ref={modalRef} className={`fixed top-20 right-1 md:right-5 w-[380px] md:w-[430px] h-[400px] overflow-y-scroll rounded-lg z-50 
+                    ${isDark ? "bg-dbg text-white shadow-custom-white" : "bg-light drop-shadow-lg text-gray-900"}
                 `}>
                     <div className="flex items-center justify-between px-3 mt-3">
                         <h3 className="text-lg font-bold">Notifications</h3>
