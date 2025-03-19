@@ -18,6 +18,7 @@ const NotFound = lazy(() => import('../pages/error/NotFound'))
 const Welcome = lazy(() => import('../pages/Welcome'))
 const ComingSoon = lazy(() => import('../pages/ComingSoon'))
 const Test = lazy(() => import('../pages/Test'))
+const ErorrElement = lazy(() => import('../pages/error/ErorrElement'))
 
 export default function Router() {
     const { authReady, user } = useAuth()
@@ -31,6 +32,7 @@ export default function Router() {
         {
             path: "/",
             element: <Layout />,
+            errorElement: <ErorrElement />,
             children: [
                 {
                     path: '',
@@ -73,8 +75,7 @@ export default function Router() {
         {
             path: '*',
             element: <NotFound />
-        },
-
+        }
     ]);
     return (
         authReady &&

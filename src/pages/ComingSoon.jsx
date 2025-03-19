@@ -9,7 +9,7 @@ export default function ComingSoon() {
 
     useEffect(() => {
         setTimeout(() => {
-            navigate('/')
+            navigate('/', { replace: true })
         }, 3000)
     }, [navigate])
 
@@ -28,7 +28,7 @@ export default function ComingSoon() {
                 src={isDark ? 'https://lottie.host/3cdd9496-a1dd-4e2b-85bf-4b47f3ac72db/Fdk7a37xTT.lottie' : 'https://lottie.host/839b9a44-c3b4-428f-a60d-c7064c6436e4/6mbaPtP12J.lottie'}
                 loop
                 autoplay
-                
+
             />
             <div className="text-center">
                 <p className="text-lg md:text-xl">

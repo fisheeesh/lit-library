@@ -10,8 +10,8 @@ export default function NotFound({ custom }) {
 
     useEffect(() => {
         setTimeout(() => {
-            navigate('/')
-        }, 3000)
+            navigate('/', { replace: true })
+        }, 4000)
     }, [navigate])
 
     useEffect(() => {
