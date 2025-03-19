@@ -32,7 +32,7 @@ export default function UserInfo({ userData, currnetUser }) {
                     {badgeText ? (
                         <div className="relative mt-1 md:mt-2 group">
                             <span className="text-xs md:text-[16px] cursor-pointer text-secondary material-symbols-outlined">check_circle</span>
-                            <span className="absolute px-3 py-1 text-white transition-all rounded-md opacity-0 pointer-events-none -left-[130px] md:-left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
+                            <span className="absolute px-3 py-1 text-xs md:text-base text-white transition-all rounded-md opacity-0 pointer-events-none -left-[120px] md:-left-20 bg-dark top-full group-hover:opacity-100 group-hover:translate-y-2 whitespace-nowrap">
                                 {badgeText}
                             </span>
                         </div>
