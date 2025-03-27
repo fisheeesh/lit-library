@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import useTheme from "../../hooks/useTheme"
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useNavigate } from "react-router-dom";
+import errorAnimation from '../../assets/animations/errorElement.lottie'
 
 export default function ErorrElement() {
     const { isDark } = useTheme()
@@ -10,7 +11,7 @@ export default function ErorrElement() {
     useEffect(() => {
         setTimeout(() => {
             navigate('/', { replace: true })
-        }, 5000)
+        }, 4000)
     }, [navigate])
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export default function ErorrElement() {
         <div className={`${isDark ? 'bg-dbg text-light' : 'bg-white text-dark'} 'items-center justify-center min-h-screen flex flex-col `}>
             <div className="flex items-center justify-center w-full">
                 <DotLottieReact
-                    src="https://lottie.host/59f8a598-fd33-4f9d-9b76-85c59172cce0/WqDhg9vJXd.lottie"
+                    src={errorAnimation}
                     loop
                     autoplay
                     style={{ width: "300px", height: "300px" }}
