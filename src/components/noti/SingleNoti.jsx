@@ -13,7 +13,7 @@ export default function SingleNoti({ noti, setIsOpen }) {
         <div onClick={() => {
             noti.isComment ? navigate(`/blogs/${noti.bookId}?scrollTo=comments`) : navigate(`/blogs/${noti.bookId}`)
             setIsOpen(false)
-        }} className={`relative flex items-center gap-4 p-3 my-2 cursor-pointer ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-200'}`}>
+        }} className={`relative flex items-center gap-[18px] p-3 my-2 cursor-pointer ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-200'}`}>
             <img src={noti.senderPhotoURL || defaultProfile} alt="Profile" className='rounded-full w-11 h-11 md:h-12 md:w-12' />
             {noti.isAnnouncement ? <div className="absolute flex items-center justify-center w-5 h-5 bg-yellow-500 rounded-full left-10 md:left-12 top-10">
                 <TfiAnnouncement className="text-white size-3 " />

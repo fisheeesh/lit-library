@@ -3,7 +3,6 @@ import BookList from "../components/book/BookList";
 import { useLocation, useNavigate } from "react-router-dom";
 import useFirestore from "../hooks/useFirestore";
 import useKey from "../hooks/useKey";
-import ScrollTopBtn from "../components/btns/ScrollTopBtn";
 import SearchBar from "../components/searchBar/SearchBar";
 import DropDownBtn from "../components/btns/DropDownBtn";
 import Heading from "../components/heading/Heading";
@@ -70,8 +69,6 @@ export default function AllBooks() {
             </div>
             {/* BookList */}
             <BookList order="asc" field="title" />
-            {/* Scroll to Top Button */}
-            <ScrollTopBtn />
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import BookList from "../components/book/BookList"
 import Header from "../components/landing/Header"
-import ScrollTopBtn from "../components/btns/ScrollTopBtn"
 import SeeMoreBtn from "../components/btns/SeeMoreBtn"
 import TestimonialSection from "../components/landing/Testimonials"
 import Footer from "../components/landing/Footer"
@@ -17,7 +16,6 @@ function App() {
       <BookList limit={4} />
       <SeeMoreBtn />
       <FutureUpdates />
-      <ScrollTopBtn />
       <TestimonialSection />
       {user && <FeebackBox />}
       <Footer />

@@ -6,6 +6,7 @@ import { SwitchTransition, CSSTransition } from "react-transition-group";
 import { useEffect, useRef, useState } from "react";
 import useTheme from "../../hooks/useTheme";
 import LoadingBar from "react-top-loading-bar";
+import ScrollTopBtn from "../../components/btns/ScrollTopBtn";
 
 export default function Layout() {
     const location = useLocation()
@@ -54,6 +55,7 @@ export default function Layout() {
                     borderRadius: "8px",
                 },
             }} />
+            <ScrollTopBtn />
         </div>
     )
 }

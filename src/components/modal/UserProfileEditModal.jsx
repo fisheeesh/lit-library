@@ -247,14 +247,14 @@ export default function UserProfileEditModal({ setShowModal }) {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-4 mt-4">
                         <div>
                             <label className="text-sm font-medium">Role</label>
                             <input value={role} onChange={e => setRole(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="role" />
                         </div>
                         <div className="flex flex-col">
                             <label className="text-sm font-medium">Birthday</label>
-                            <input value={birthday} onChange={e => setBirthday(e.target.value)} type="date" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="" />
+                            <input value={birthday} onChange={e => setBirthday(e.target.value)} type="date" className="w-full p-[7px] text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="" />
                             <span className="text-[8px] italic text-gray-400">Birthday persons will have special activities in the future.</span>
                         </div>
                     </div>

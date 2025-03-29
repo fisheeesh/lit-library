@@ -6,7 +6,7 @@ export default function ConfirmDeleteModal({ title, subTitle = '', isPassword = 
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className={`${isDark ? 'bg-indigo-900 text-light' : 'bg-gray-100 text-black'} p-6 mx-5  rounded-lg shadow-lg w-96`}>
+            <div className={`${isDark ? 'bg-indigo-900 text-light' : 'bg-gray-100 text-black'} p-6 mx-5  rounded-lg shadow-lg w-[580px]`}>
                 <h2 className="text-lg font-semibold ">{title}</h2>
                 <p className={`${isDark ? 'text-light' : 'text-gray-500'} mt-2`}>{subTitle}</p>
                 <input

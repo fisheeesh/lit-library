@@ -9,7 +9,6 @@ import CmtList from "../components/cmt/CmtList"
 import moment from "moment"
 import { BeatLoader } from "react-spinners"
 import useKey from "../hooks/useKey"
-import ScrollTopBtn from "../components/btns/ScrollTopBtn"
 import toast from "react-hot-toast"
 import NotFound from "./error/NotFound"
 import defaultProfile from '../assets/default_profile.jpg'
@@ -228,7 +227,6 @@ export default function BookDetail() {
                             {user ? <CmtForm user={user} book={book} /> : <h3 className={`${isDark ? 'text-light' : 'text-dark'} text-center my-5 text-sm md:text-lg`}>If you want to say something, please <span onClick={() => navigate('/auth')} className="font-bold cursor-pointer text-primary cus-btn">Join</span> us to contribute 📣 ✨</h3>}
                             <CmtList bookId={id} />
                         </div>
-                        <ScrollTopBtn />
                     </div>
                 )
             }
