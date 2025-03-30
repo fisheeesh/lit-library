@@ -18,7 +18,7 @@ export default function WhyJoin() {
 
     return (
         <section
-            id="whyjoin"
+            id="whyJoin"
             className="relative py-32 overflow-hidden"
         >
             <img
@@ -45,7 +45,7 @@ export default function WhyJoin() {
                                     check
                                 </span>
                                 <p className={`text-md tracking-wide ${isDark ? 'text-light' : 'text-dark'}`}>
-                                    At LitLibrary, every book, blog, and discussion reflects unique ideas and creativity.
+                                    At LitLibrary, every blog, and discussion reflects unique ideas and creativity.
                                 </p>
                             </li>
                             <li className="flex items-start gap-3">

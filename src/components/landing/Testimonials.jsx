@@ -30,7 +30,7 @@ export default function TestimonialSection() {
                     What Our Community Says
                 </h2>
                 <p className="">
-                    Discover why LitLibrary is the perfect place to explore, read, and share your love for books!
+                    Discover why LitLibrary is the perfect place to explore, read, and share your love for blogs!
                 </p>
             </div>
 

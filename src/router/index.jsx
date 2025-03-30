@@ -52,7 +52,8 @@ export default function Router() {
                 },
                 {
                     path: '/blogs/:id',
-                    element: <BookDetail />
+                    element: <BookDetail />,
+                    ErorrElement: <errorElement />
                 },
                 {
                     path: '/blogs',

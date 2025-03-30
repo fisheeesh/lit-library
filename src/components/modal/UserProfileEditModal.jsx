@@ -318,11 +318,11 @@ export default function UserProfileEditModal({ setShowModal }) {
                 </div>
                 <div className="flex items-center justify-between gap-2 mt-4">
                     <div>
-                        <button disabled={isUpdating} onClick={onHandleDeleteAccount} type="button" className={cn(isUpdating && 'cursor-not-allowed', 'px-4 py-2 text-white transition-colors md:text-base duration-300 bg-red-600 rounded hover:bg-red-700')}>Delete account</button>
+                        <button disabled={isUpdating} onClick={onHandleDeleteAccount} type="button" className={cn(isUpdating && 'cursor-not-allowed', 'px-4 py-2 text-white transition-colors md:text-base duration-300 bg-red-600 border border-red-600 rounded hover:bg-red-700')}>Delete account</button>
                     </div>
                     <div className="flex items-center gap-2">
-                        <button disabled={isUpdating} type="button" className={cn(isDark && 'text-light border-gray-400', isUpdating && 'cursor-not-allowed', 'px-4 py-2 md:text-base hover:bg-black hover:text-light hover:border-black  transition-colors duration-300 border rounded')} onClick={() => setShowModal(false)}>Close</button>
-                        <button disabled={isUpdating} type="submit" className={cn(isUpdating && 'cursor-not-allowed', 'flex items-center gap-2 px-4 py-2 md:text-base text-white transition-colors duration-300 rounded bg-primary hover:bg-indigo-700')}>
+                        <button disabled={isUpdating} type="button" className={cn(isDark && 'text-light border-gray-400', isUpdating && 'cursor-not-allowed', 'px-4 py-2 text-sm md:text-base hover:bg-black hover:text-light hover:border-black  transition-colors duration-300 border rounded')} onClick={() => setShowModal(false)}>Close</button>
+                        <button disabled={isUpdating} type="submit" className={cn(isUpdating && 'cursor-not-allowed', 'flex items-center gap-2 px-4 py-2 md:text-base text-sm text-white transition-colors duration-300 rounded border border-primary bg-primary hover:bg-indigo-700')}>
                             {
                                 isUpdating ?
                                     <svg className="w-[24px] h-[24px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

@@ -24,7 +24,7 @@ export default function ComingSoon() {
     }, []);
 
     return (
-        <div className={`${isDark ? 'bg-dbg text-light' : 'bg-white text-dark'} items-center justify-center min-h-screen flex flex-col`}>
+        <div className={`${isDark ? 'bg-dbg text-light' : 'bg-white text-dark'} items-center justify-center min-h-screen flex flex-col overflow-y-hidden`}>
             <DotLottieReact
                 className="h-96 w-96"
                 src={isDark ? comingSoonDarkAnimation : comingSoonLightAnimation}

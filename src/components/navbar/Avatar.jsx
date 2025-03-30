@@ -8,7 +8,7 @@ import ConfirmationModal from "../modal/ConfirmationModal";
 import useSignOut from "../../hooks/useSignOut";
 import UserProfileEditModal from "../modal/UserProfileEditModal";
 import { LogOut, Settings, UserCircle } from "lucide-react";
-import { GrAnnounce } from "react-icons/gr";
+import { GrAnnounce, GrDocumentUpload } from "react-icons/gr";
 import ConfirmDeleteModal from "../modal/ConfirmDeleteModal";
 import useFirestore from "../../hooks/useFirestore";
 import toast from "react-hot-toast";
@@ -96,12 +96,23 @@ export default function Avatar() {
                         <UserCircle className="mr-2" /> <span>Profile</span>
                     </button>
 
+                    {/* Create Button */}
+                    <button
+                        onClick={() => {
+                            navigate(`/create`);
+                            setOpenModal(false);
+                        }}
+                        className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} w-full flex md:hidden items-center px-4 py-2 text-left transition-colors duration-300 `}
+                    >
+                        <GrDocumentUpload className="mr-2 size-5" /> <span>Create</span>
+                    </button>
+
                     {/* Anncouncement Button */}
                     {badgeText && <button
                         onClick={() => setAnnounceModal(true)}
                         className={`${isDark ? 'text-white hover:bg-black' : 'text-dark hover:bg-gray-200'} w-full flex items-center px-4 py-2 text-left transition-colors duration-300 `}
                     >
-                        <GrAnnounce className="mr-2" /> <span>Announcement</span>
+                        <GrAnnounce className="mr-2 size-5" /> <span>Announcement</span>
                     </button>}
 
                     <button

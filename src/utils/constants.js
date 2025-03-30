@@ -59,7 +59,7 @@ export const footerLinks = {
     menu: [
         { name: 'Home', href: '#home' },
         { name: 'About', href: '#about' },
-        { name: 'Features', href: '#features' },
+        { name: 'WhyJoin', href: '#whyJoin' },
         { name: 'Upcomings', href: '#upcomings' },
         { name: 'Testimonials', href: '#testimonials' },
     ],
