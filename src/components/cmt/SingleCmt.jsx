@@ -48,7 +48,11 @@ export default function SingleCmt({ cmt, deleteComment }) {
         <div className="flex flex-col my-5 space-y-1">
             <div className="flex space-x-2">
                 <div>
-                    <img src={ownerData?.photoURL || defaultProfile} className="h-8 rounded-full w-9 md:w-11 md:h-11" alt="" />
+                    <img
+                        src={ownerData?.photoURL || defaultProfile}
+                        className="object-cover w-8 h-8 rounded-full md:w-11 md:h-11"
+                        alt=""
+                    />
                 </div>
                 <div className={`${isDark ? 'bg-slate-900' : 'bg-[#eceef2]'} flex flex-col items-start justify-center p-4 w-fit rounded-2xl`}>
                     <div className="flex items-center gap-3">
