@@ -18,7 +18,7 @@ export default function SingleNoti({ noti, setIsOpen }) {
                 <img
                     src={noti.senderPhotoURL || defaultProfile}
                     alt="Profile"
-                    className="object-cover w-full h-full rounded-full"
+                    className="object-fill w-full h-full rounded-full"
                 />
             </div>
             {noti.isAnnouncement ? <div className="absolute flex items-center justify-center w-5 h-5 bg-yellow-500 rounded-full left-10 md:left-12 top-10">

@@ -50,7 +50,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                 <div>
                     <img
                         src={ownerData?.photoURL || defaultProfile}
-                        className="object-cover w-8 h-8 rounded-full md:w-11 md:h-11"
+                        className="w-8 h-8 rounded-full md:w-11 md:h-11"
                         alt=""
                     />
                 </div>
