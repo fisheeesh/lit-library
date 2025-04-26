@@ -11,10 +11,11 @@ import NotiBtn from "../btns/NotiBtn";
 import GetStarted from "./GetStarted";
 import ToggleTheme from "./ToggleTheme";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import emptyAnimation from '../../assets/animations/empty.lottie'
 
 export default function Navbar() {
 
-    console.log('hi')
     const { isDark } = useTheme();
     const { user } = useAuth();
     const [isSticky, setIsSticky] = useState(false);
@@ -128,7 +129,15 @@ export default function Navbar() {
                                 <SingleNoti key={index} noti={noti} setIsOpen={setIsOpen} />
                             ))
                         ) : (
-                            <h3 className="mt-24 text-center">You have no notifications.</h3>
+                            <div className="flex flex-col items-center justify-center mt-16">
+                                <DotLottieReact
+                                    src={emptyAnimation}
+                                    loop
+                                    autoplay
+                                    style={{ width: "100px", height: "100px" }}
+                                />
+                                <h3 className="">You have no notifications.</h3>
+                            </div>
                         )}
 
                         {/* Loading State */}

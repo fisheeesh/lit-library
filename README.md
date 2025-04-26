@@ -28,6 +28,7 @@ For instance, newbies and beginners from any career field can share their newly 
 - **Post Blogs**: Share blogs about personal growth, life experiences, advice, or knowledge sharing.  
 - **Edit & Delete**: Manage your own blogs seamlessly.  
 - **Comments**: Leave comments, advice, or feedback on blogs to connect with others.  
+- **Upvote**: Show appreciation and keep the discussion active by upvoting comments.
 - **Like & Save Blogs**: Like blogs you enjoy and save them for later reading.  
 
 ### User Experience  
@@ -49,6 +50,7 @@ For instance, newbies and beginners from any career field can share their newly 
 - **Feed Back System**: Allow users to share their feedback and experiences with LitLibrary (Implemented ✅).
 - ModifyUI - Improve Blog Form page design. (Modified ✅ )
 - Progress bar - Add react-top-loading-bar for smooth page transitions. (Implemented ✅)
+- Upvote comments - Users can able to upvote to others comments to show appreciation and get notifications for it (Implemented ✅)
 
 ## Tech Stack  
 

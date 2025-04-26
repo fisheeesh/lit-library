@@ -40,6 +40,7 @@ const useSignUp = () => {
                 instagramURL: '',
                 saved: [],
                 favorites: [],
+                upvoteCmts: [],
                 photoName: ''
             })
 

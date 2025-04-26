@@ -4,6 +4,8 @@ import useFirestore from "../../hooks/useFirestore";
 import useTheme from "../../hooks/useTheme";
 import SingleBook from "./SingleBook";
 import { useLocation } from "react-router-dom";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import oopsAnimation from '../../assets/animations/oops.lottie'
 
 export default function BookList({ limit = null, query = null, field = 'created_at', order = 'desc' }) {
     const location = useLocation();
@@ -44,7 +46,17 @@ export default function BookList({ limit = null, query = null, field = 'created_
     }
 
     if (!books?.length) {
-        return <h3 className="my-24 text-xl font-bold text-center text-gray-500">Oops. No Blog(s) Found.</h3>;
+        return (
+            <div className="flex flex-col items-center justify-center mt-16">
+                <DotLottieReact
+                    src={oopsAnimation}
+                    loop
+                    autoplay
+                    style={{ width: "200px", height: "200px" }}
+                />
+                <h3 className="text-xl font-bold text-center text-gray-500">Oops. No Blog(s) Found.</h3>
+            </div>
+        )
     }
 
     // Determine books to display

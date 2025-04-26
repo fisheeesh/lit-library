@@ -58,7 +58,7 @@ export default function CmtForm({ user, book, type = 'create', setEditCmt, editC
             <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                placeholder="💭 Your notes..."
+                placeholder="Your notes...💭"
                 rows={6}
                 className={`py-4 px-5 border bg-gray-50 w-full transition duration-700 ease-in-out outline-none resize-none rounded-2xl ${isDark ? 'bg-slate-900 text-white border-primary' : 'border-gray-200'
                     }`}

@@ -1,24 +1,31 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState, useEffect } from "react";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CmtForm from "./CmtForm";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
 import useFirestore from "../../hooks/useFirestore";
 import defaultProfile from '../../assets/default_profile.jpg'
+import { ArrowUpCircleIcon as ArrowUpCircleOutline } from '@heroicons/react/24/outline';
+import { ArrowUpCircleIcon as ArrowUpCircleSolid } from '@heroicons/react/24/solid';
+import { arrayRemove, arrayUnion } from "firebase/firestore";
+import toast from "react-hot-toast";
 
 export default function SingleCmt({ cmt, deleteComment }) {
     const { isDark } = useTheme();
+    const { id } = useParams()
+    console.log(id)
     const { user, DEVELOPER_UID } = useAuth();
 
-    const { getDocumentById } = useFirestore()
+    const { getDocumentById, updateDocument, addDocument } = useFirestore()
 
     const [editCmt, setEditCmt] = useState(null);
     const textRef = useRef(null);
     const [textWidth, setTextWidth] = useState("auto");
 
     const { data: ownerData } = getDocumentById('users', cmt?.uid || "default-fallback-uid");
+    const { data: userData } = getDocumentById('users', user?.uid || "default-fallback-uid");
 
     useEffect(() => {
         if (textRef.current) {
@@ -43,6 +50,39 @@ export default function SingleCmt({ cmt, deleteComment }) {
             );
         }
     };
+
+    const handleUpvote = async () => {
+        if (cmt?.uid === userData?.uid) {
+            toast("C'mon! You can't upvote your own comment 😉", {
+                duration: 3000,
+                removeDelay: 1000,
+                position: "top-center",
+                style: {
+                    background: "#3B82F6",
+                    color: "#FFFFFF",
+                },
+            });
+            return
+        }
+        if (userData?.upvotedCmts?.includes(cmt?.id)) {
+            cmt.like_count -= 1
+            await updateDocument('users', user?.uid, { upvotedCmts: arrayRemove(cmt.id) }, false)
+            await updateDocument('comments', cmt?.id, { like_count: cmt.like_count }, false)
+        }
+        else {
+            const newNoti = {
+                uid: cmt?.uid,
+                senderPhotoURL: user?.photoURL,
+                senderName: user?.displayName,
+                bookId: id,
+                upVote: true
+            }
+            cmt.like_count += 1
+            await updateDocument('users', user?.uid, { upvotedCmts: arrayUnion(cmt.id) }, false)
+            await updateDocument('comments', cmt?.id, { like_count: cmt.like_count }, false)
+            await addDocument('notifications', newNoti)
+        }
+    }
 
     return (
         <div className="flex flex-col my-5 space-y-1">
@@ -86,7 +126,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                                 </div>
                             )}
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="items-center hidden gap-3 md:flex">
                             <h5 className="text-[10px] text-gray-400 md:text-sm ">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
                             {renderEditDelete()}
                         </div>
@@ -102,10 +142,17 @@ export default function SingleCmt({ cmt, deleteComment }) {
                         )}
                     </div>
                 </div>
+                <div className="flex items-center justify-center gap-1">
+                    {userData?.upvotedCmts?.includes(cmt.id) ?
+                        <ArrowUpCircleSolid type="button" onClick={handleUpvote} className="w-6 h-6 cursor-pointer text-primary dark:text-secondary" /> :
+                        <ArrowUpCircleOutline type="button" onClick={handleUpvote} className="w-6 h-6 cursor-pointer dark:text-slate-100" />
+                    }
+                    <span className="dark:text-slate-50">{cmt?.like_count ?? 0}</span>
+                </div>
             </div>
-            {/* <div className="flex items-center gap-3 ml-12 md:hidden">
+            <div className="flex items-center gap-3 ml-12 md:hidden">
                 <h5 className="text-[10px] text-gray-400 md:text-sm ">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
-            </div> */}
+            </div>
         </div>
     );
 }

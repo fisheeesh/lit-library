@@ -21,7 +21,7 @@ const useGoogle = () => {
                 return user
             }
 
-            let docRef = doc(db, 'users', user.uid)
+            let docRef = doc(db, 'users', user?.uid)
             setDoc(docRef, {
                 uid: user.uid,
                 displayName: user.displayName,
@@ -37,6 +37,7 @@ const useGoogle = () => {
                 instagramURL: '',
                 saved: [],
                 favorites: [],
+                upvotedCmts: [],
                 photoName: ''
             })
 
