@@ -47,9 +47,14 @@ export default function SingleBook({ book }) {
                     </div>
             }
             <div className="flex items-center justify-between">
-                <h2 className={`text-xl font-bold ${isDark ? 'text-white' : ''}`}>
-                    {book?.title?.length > 15 ? `${book?.title.slice(0, 15)}...` : book?.title}
-                </h2>
+                <div className="relative transition-all duration-500 w-[300px] group">
+                    <h2 className={`text-xl font-bold truncate ${isDark ? 'text-white' : ''}`}>
+                        {book?.title?.length > 15 ? `${book?.title.slice(0, 15)}...` : book?.title}
+                    </h2>
+                    <span className="absolute left-0 z-10 hidden p-1 px-2 mt-1 transition-all duration-500 rounded-lg w-fit top-full group-hover:block bg-slate-200 dark:bg-slate-700 dark:text-slate-50">
+                        {book.title}
+                    </span>
+                </div>
                 {isOwner && (
                     <div className="flex items-center justify-center gap-1">
                         <span className="text-red-600 material-symbols-outlined text-md" onClick={(e) => deleteBook(e, book.id)}>

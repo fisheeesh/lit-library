@@ -13,6 +13,8 @@ import ToggleTheme from "./ToggleTheme";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
 export default function Navbar() {
+
+    console.log('hi')
     const { isDark } = useTheme();
     const { user } = useAuth();
     const [isSticky, setIsSticky] = useState(false);

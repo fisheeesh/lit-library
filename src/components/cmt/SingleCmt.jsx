@@ -32,7 +32,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
     const renderEditDelete = () => {
         if (cmt.uid === user?.uid) {
             return (
-                <div className="flex items-center gap-1">
+                <div className="items-center hidden gap-1 md:flex">
                     <span onClick={handleEditClick} className="text-[14px] md:text-lg text-blue-600 cursor-pointer material-symbols-outlined">
                         edit
                     </span>
@@ -86,7 +86,7 @@ export default function SingleCmt({ cmt, deleteComment }) {
                                 </div>
                             )}
                         </div>
-                        <div className="items-center hidden gap-3 md:flex">
+                        <div className="flex items-center gap-3">
                             <h5 className="text-[10px] text-gray-400 md:text-sm ">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
                             {renderEditDelete()}
                         </div>
@@ -103,9 +103,9 @@ export default function SingleCmt({ cmt, deleteComment }) {
                     </div>
                 </div>
             </div>
-            <div className="flex items-center gap-3 ml-12 md:hidden">
+            {/* <div className="flex items-center gap-3 ml-12 md:hidden">
                 <h5 className="text-[10px] text-gray-400 md:text-sm ">{moment(cmt.created_at.seconds * 1000).fromNow()}</h5>
-            </div>
+            </div> */}
         </div>
     );
 }

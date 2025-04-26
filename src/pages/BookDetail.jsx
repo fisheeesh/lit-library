@@ -13,6 +13,8 @@ import toast from "react-hot-toast"
 import NotFound from "./error/NotFound"
 import defaultProfile from '../assets/default_profile.jpg'
 import { Check, Copy, ImageMinus } from "lucide-react"
+import ImagePreview from "../components/book/ImagePreview"
+import Modal from "../components/modal/Modal"
 
 export default function BookDetail() {
     const location = useLocation()
@@ -139,20 +141,27 @@ export default function BookDetail() {
                 book && (
                     <div className="max-w-screen-xl mx-auto px-7">
                         <div className="grid grid-cols-3 gap-4 mt-2">
-                            <div className="col-span-3 md:mb-0 md:col-span-1">
-                                {/* Cover */}
-                                {
-                                    book.cover ? <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} /> :
-                                        <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center w-full h-full  rounded-lg p-24 md:p-0`}>
-                                            <ImageMinus className="w-12 h-12 text-gray-400" />
-                                        </div>
-                                }
-                            </div>
+                            <Modal>
+                                <Modal.Opens opens={'cover_preview'}>
+                                    <div className="col-span-3 cursor-pointer md:mb-0 md:col-span-1">
+                                        {/* Cover */}
+                                        {
+                                            book.cover ? <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} /> :
+                                                <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center w-full h-full  rounded-lg p-24 md:p-0`}>
+                                                    <ImageMinus className="w-12 h-12 text-gray-400" />
+                                                </div>
+                                        }
+                                    </div>
+                                </Modal.Opens>
+                                <Modal.Window name={'cover_preview'}>
+                                    <ImagePreview image={book.cover} />
+                                </Modal.Window>
+                            </Modal>
                             <div className="col-span-3 space-y-3 md:col-span-2">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         {/* Profile */}
-                                        <img src={ownerData?.photoURL || defaultProfile} alt="user_profile" className="rounded-full h-14 w-14" />
+                                        <img src={ownerData?.photoURL || defaultProfile} alt="user_profile" className="h-[52px] rounded-full w-[52px]" />
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
                                                 {/* Username */}

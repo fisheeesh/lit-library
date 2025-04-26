@@ -33,6 +33,16 @@ export default function ThemedContextProvider({ children }) {
         })
     }
 
+    useEffect(() => {
+        if (state.theme === 'dark') {
+            document.documentElement.classList.add('dark')
+            document.documentElement.classList.remove('light')
+        } else {
+            document.documentElement.classList.add('light')
+            document.documentElement.classList.remove('dark')
+        }
+    }, [state.theme])
+
     const isDark = state.theme === 'dark'
 
     const customColor = state.theme === 'light' ? "#4555d2" : "#cc2973";

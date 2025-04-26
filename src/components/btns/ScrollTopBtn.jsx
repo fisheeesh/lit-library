@@ -30,7 +30,7 @@ export default function ScrollTopBtn() {
             onClick={scrollToTop}
             type="button"
             id="to-top"
-            className={`${showBtn ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} w-[50px] h-[50px] hover:bg-black transition-all ease-in-out duration-1000 rounded-full border-none outline-none cursor-pointer flex fixed bottom-5 right-5 z-50 items-center justify-center to-top-btn ${isDark ? 'bg-gray-500' : 'bg-dark'}`}>
+            className={`${showBtn ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} w-[50px] h-[50px] hover:bg-black transition-all ease-in-out duration-1000 rounded-full border-none outline-none cursor-pointer flex fixed bottom-5 right-5 z-50 items-center justify-center to-top-btn ${isDark ? 'bg-secondary' : 'bg-primary'}`}>
             <img className="mb-1 w-[18px]" src={upArrow} alt="back-to-top" />
         </button>
     )

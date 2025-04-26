@@ -204,13 +204,13 @@ export default function BookForm() {
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-title">
             Title <span className="text-red-600">*</span>
           </label>
-          <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} autoComplete="off" onChange={e => setTitle(e.target.value)} value={title} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full transition-colors duration-300 px-4 py-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none`} id="book-title" type="text" placeholder="Title" />
+          <input disabled={loading} onKeyDown={e => e.key === 'Enter' && e.preventDefault()} autoComplete="off" onChange={e => setTitle(e.target.value)} value={title} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full disabled:cursor-not-allowed transition-colors duration-300 px-4 py-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none`} id="book-title" type="text" placeholder="Title" />
         </div>
         <div className="w-full px-3 mt-4 md:w-1/2 md:mt-0">
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-author">
             Author <span className="text-red-600">*</span>
           </label>
-          <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setAuthor(e.target.value)} autoCapitalize="off" value={author} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full transition-colors duration-300 px-4 py-3 leading-tight text-gray-700 border rounded appearance-none focus:outline-none`} id="book-author" type="text" placeholder="Author" />
+          <input disabled={loading} onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setAuthor(e.target.value)} autoCapitalize="off" value={author} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full transition-colors duration-300 px-4 py-3 leading-tight disabled:cursor-not-allowed text-gray-700 border rounded appearance-none focus:outline-none`} id="book-author" type="text" placeholder="Author" />
         </div>
       </div>
       <div className="flex flex-wrap mb-3 -mx-3">
@@ -218,7 +218,7 @@ export default function BookForm() {
           <label className={`block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase ${isDark ? 'text-white' : ''}`} htmlFor="book-des">
             Description <span className="text-red-600">*</span>
           </label>
-          <textarea onChange={e => setDescription(e.target.value)} value={description} rows={30} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block resize-none w-full px-4 py-3 leading-tight text-gray-700 border transition-colors duration-300 rounded appearance-none focus:outline-none`} id="book-des" type="text" placeholder="Description"></textarea>
+          <textarea disabled={loading} onChange={e => setDescription(e.target.value)} value={description} rows={30} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block resize-none w-full px-4 py-3 leading-tight text-gray-700 border disabled:cursor-not-allowed transition-colors duration-300 rounded appearance-none focus:outline-none`} id="book-des" type="text" placeholder="Description"></textarea>
         </div>
       </div>
       <div className="flex flex-wrap mb-3 -mx-3">
@@ -227,7 +227,7 @@ export default function BookForm() {
             Categories <span className="text-red-600">*</span>
           </label>
           <div className="flex items-center gap-3">
-            <input onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setNewCategory(e.target.value)} value={newCategory} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} block w-full px-4 py-3 transition-colors duration-300 leading-tight text-gray-700 border rounded appearance-none focus:outline-none placeholder:italic`} id="book-cate" type="text" placeholder="5 categoires per blog." />
+            <input disabled={loading} onKeyDown={e => e.key === 'Enter' && e.preventDefault()} onChange={e => setNewCategory(e.target.value)} value={newCategory} className={`${isDark ? 'bg-indigo-900 border-indigo-900 focus:bg-black text-white' : 'focus:bg-white focus:border-gray-500 border-gray-200 bg-gray-200'} disabled:cursor-not-allowed  block w-full px-4 py-3 transition-colors duration-300 leading-tight text-gray-700 border rounded appearance-none focus:outline-none placeholder:italic`} id="book-cate" type="text" placeholder="5 categoires per blog." />
             <button disabled={categories.length >= maxCate} onClick={addCategory} type="button" className={`p-1 mt-3 mb-3 rounded-full bg-primary ${categories.length >= maxCate ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="text-white size-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -252,6 +252,7 @@ export default function BookForm() {
           <div className="relative">
             {/* Hidden File Input */}
             <input
+              disabled={loading}
               type="file"
               id="book-cover"
               onChange={handleImageChange}
@@ -283,9 +284,10 @@ export default function BookForm() {
       </div>
       <div className="flex items-center gap-3 mx-auto md:max-w-md">
         <button
+          disabled={loading}
           onClick={onHandleCancel}
           type="button"
-          className={`${isDark ? 'text-white hover:text-black hover:bg-white' : 'border-black text-black hover:bg-black hover:text-white'} flex items-center justify-center w-full gap-3 p-3  transition duration-500 ease-in-out border  rounded-md `}>
+          className={`${isDark ? 'text-white disabled:cursor-not-allowed hover:text-black hover:bg-white' : 'border-black text-black hover:bg-black hover:text-white'} flex items-center justify-center w-full gap-3 p-3  transition duration-500 ease-in-out border  rounded-md `}>
           <span>Cancel</span>
         </button>
         {
@@ -293,7 +295,7 @@ export default function BookForm() {
             <button
               disabled={loading}
               type="submit"
-              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
+              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md cursor-not-allowedenter disabled: bg-primary hover:bg-indigo-700">
               {
                 loading &&
                 <svg className="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -310,7 +312,7 @@ export default function BookForm() {
             <button
               disabled={loading}
               type="submit"
-              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md bg-primary hover:bg-indigo-700">
+              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md cursor-not-allowedenter disabled: bg-primary hover:bg-indigo-700">
               {
                 loading &&
                 <svg className="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
