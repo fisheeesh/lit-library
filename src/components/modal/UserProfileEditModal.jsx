@@ -119,9 +119,8 @@ export default function UserProfileEditModal({ setShowModal }) {
             }
             await updateProfile(user, { displayName: data.username, photoURL: url })
             await updateDocument('users', user?.uid, updatedProfile, false)
-            console.log(updatedProfile)
-            console.log(user)
             toast.success('Profile updated successfully!')
+            setShowModal(false)
         }
         catch (err) {
             console.log(err.message)
@@ -212,7 +211,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                                 <img src={preview} className="w-16 h-16 rounded-full" alt="user_profile" />
                         }
                         <div className="flex flex-col gap-2">
-                            <button type="button" onClick={handleUploadClick} className="flex items-center gap-2 px-4 py-2 transition-colors duration-300 border rounded hover:border-gray-400">
+                            <button type="button" disabled={isUpdating} onClick={handleUploadClick} className="flex items-center gap-2 px-4 py-2 transition-colors duration-300 border rounded hover:border-gray-400">
                                 <Upload size={16} /> Upload photo
                             </button>
                             <button onClick={onHandleRemove} type="button" className="flex items-center gap-2 px-4 py-2 text-red-600 hover:text-red-700">
@@ -221,6 +220,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                         </div>
                     </div>
                     <input
+                        disabled={isUpdating}
                         type="file"
                         ref={fileInputRef}
                         onChange={handleFileChange}
@@ -231,11 +231,11 @@ export default function UserProfileEditModal({ setShowModal }) {
                     <div className="grid grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
                         <div>
                             <label className="text-sm font-medium">Full name</label>
-                            <input value={fullName} onChange={e => setFullName(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="name" />
+                            <input disabled={isUpdating} value={fullName} onChange={e => setFullName(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded disabled:cursor-not-allowed focus:outline-none focus:border-primary" placeholder="name" />
                         </div>
                         <div>
                             <label className="text-sm font-medium">Username <span className="text-red-600">*</span></label>
-                            <input {...register('username')} type="text" className={cn(errors.username && 'border-red-600 placeholder:text-red-500', "w-full text-black p-2 transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary")} placeholder="username" />
+                            <input disabled={isUpdating} {...register('username')} type="text" className={cn(errors.username && 'border-red-600 placeholder:text-red-500', "w-full text-black p-2 transition-colors disabled:cursor-not-allowed duration-300 ease-in-out border rounded focus:outline-none focus:border-primary")} placeholder="username" />
                             {errors.username &&
                                 <div className="flex items-center gap-1 mt-1">
                                     <span className="text-[16px] text-red-600 material-symbols-outlined">
@@ -250,18 +250,18 @@ export default function UserProfileEditModal({ setShowModal }) {
                     <div className="grid grid-cols-1 gap-4 mt-4">
                         <div>
                             <label className="text-sm font-medium">Role</label>
-                            <input value={role} onChange={e => setRole(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="role" />
+                            <input disabled={isUpdating} value={role} onChange={e => setRole(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded disabled:cursor-not-allowed focus:outline-none focus:border-primary" placeholder="role" />
                         </div>
                         <div className="flex flex-col">
                             <label className="text-sm font-medium">Birthday</label>
-                            <input value={birthday} onChange={e => setBirthday(e.target.value)} type="date" className="w-full p-[7px] text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="" />
+                            <input disabled={isUpdating} value={birthday} onChange={e => setBirthday(e.target.value)} type="date" className="w-full p-[7px] disabled:cursor-not-allowed text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="" />
                             <span className="text-[8px] italic text-gray-400">Birthday persons will have special activities in the future.</span>
                         </div>
                     </div>
 
                     <div className="relative mt-4">
                         <label className="text-sm font-medium">Location</label>
-                        <input value={location} onChange={e => setLocation(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary" placeholder="location" />
+                        <input disabled={isUpdating} value={location} onChange={e => setLocation(e.target.value)} type="text" className="w-full p-2 text-black transition-colors duration-300 ease-in-out border rounded disabled:cursor-not-allowed focus:outline-none focus:border-primary" placeholder="location" />
                         <button type="button" onClick={onGetCurrentLocation} className={`absolute justify-center hidden md:flex items-center gap-1 px-4 py-1 text-xs border border-gray-500 rounded-full right-1 top-[32.5px] transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light text-dark' : 'hover:border-black hover:bg-black hover:text-light'}`}>
                             {
                                 isLoading ?
@@ -272,7 +272,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                                     <span className="">Choose Your Location</span>
                             }
                         </button>
-                        <button type="button" onClick={onGetCurrentLocation} className={`justify-center flex md:hidden items-center gap-1 px-4 py-1 text-xs border rounded-full mt-2 transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light border-light text-light' : 'hover:border-black border-black hover:bg-black hover:text-light'}`}>
+                        <button disabled={isUpdating} type="button" onClick={onGetCurrentLocation} className={`justify-center flex md:hidden items-center gap-1 px-4 py-1 text-xs border disabled:cursor-not-allowed rounded-full mt-2 transition-colors t duration-500 ${isDark ? 'hover:border-black hover:bg-black hover:text-light border-light text-light' : 'hover:border-black border-black hover:bg-black hover:text-light'}`}>
                             {
                                 isLoading ?
                                     <svg className="w-[12px] h-[12px] animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -290,7 +290,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                         <div className="grid grid-cols-1 gap-4 mt-2 sm:grid-cols-2">
                             <div>
                                 <label className="text-sm font-medium">Facebook</label>
-                                <input {...register('fbUrl')} type="text" className={cn(errors.fbUrl && 'border-red-600 placeholder:text-red-500', "w-full text-black p-2 transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary")} placeholder="" />
+                                <input disabled={isUpdating} {...register('fbUrl')} type="text" className={cn(errors.fbUrl && 'border-red-600 placeholder:text-red-500', "w-full text-black p-2 transition-colors duration-300 ease-in-out border rounded disabled:cursor-not-allowed focus:outline-none focus:border-primary")} placeholder="" />
                                 {errors.fbUrl &&
                                     <div className="flex items-center gap-1 mt-1">
                                         <span className="text-[16px] text-red-600 material-symbols-outlined">
@@ -302,7 +302,7 @@ export default function UserProfileEditModal({ setShowModal }) {
                             </div>
                             <div className="relative">
                                 <label className="text-sm font-medium">Instagram</label>
-                                <input {...register('igUrl')} type='text' className={cn(errors.igUrl && 'border-red-600 placeholder:text-red-500', "w-full text-black p-2 transition-colors duration-300 ease-in-out border rounded focus:outline-none focus:border-primary")} placeholder="" />
+                                <input disabled={isUpdating} {...register('igUrl')} type='text' className={cn(errors.igUrl && 'border-red-600 placeholder:text-red-500', "w-full text-black p-2 transition-colors duration-300 ease-in-out border rounded disabled:cursor-not-allowed focus:outline-none focus:border-primary")} placeholder="" />
                                 {errors.igUrl &&
                                     <div className="flex items-center gap-1 mt-1">
                                         <span className="text-[16px] text-red-600 material-symbols-outlined">

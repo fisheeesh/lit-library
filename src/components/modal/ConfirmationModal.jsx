@@ -9,8 +9,8 @@ export default function ConfirmationModal({ title, setShowModal, onAction }) {
 
     return (
         <div className="fixed z-[100] inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-xs animate-fadeIn">
-            <div ref={modalRef} className="p-6 bg-white rounded-lg shadow-lg w-96 animate-slideUp">
-                <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+            <div ref={modalRef} className="p-6 bg-white rounded-lg shadow-lg dark:bg-indigo-900 w-96 animate-slideUp">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-light">{title}</h2>
                 <div className="flex justify-end gap-3 mt-4">
                     <button
                         type="button"

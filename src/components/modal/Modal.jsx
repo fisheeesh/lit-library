@@ -19,7 +19,12 @@ export default function Modal({ children }) {
 
 const Opens = ({ opens: openWindowName, children }) => {
     const { open } = useContext(ModalContext)
-    return cloneElement(children, { onClick: () => open(openWindowName) })
+    return cloneElement(children, {
+        onClick: (e) => {
+            e.preventDefault()
+            open(openWindowName)
+        }
+    })
 }
 
 const Window = ({ name, children }) => {

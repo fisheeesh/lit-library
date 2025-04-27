@@ -295,7 +295,7 @@ export default function BookForm() {
             <button
               disabled={loading}
               type="submit"
-              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md cursor-not-allowedenter disabled: bg-primary hover:bg-indigo-700">
+              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md disabled:cursor-not-allowed bg-primary hover:bg-indigo-700">
               {
                 loading &&
                 <svg className="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -312,7 +312,7 @@ export default function BookForm() {
             <button
               disabled={loading}
               type="submit"
-              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md cursor-not-allowedenter disabled: bg-primary hover:bg-indigo-700">
+              className="flex items-center justify-center w-full gap-3 p-3 text-white transition duration-500 ease-in-out rounded-md disabled:cursor-not-allowed bg-primary hover:bg-indigo-700">
               {
                 loading &&
                 <svg className="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
