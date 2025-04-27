@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { XIcon } from "lucide-react"
-import { BeatLoader } from "react-spinners" // or your preferred spinner
+import { BeatLoader } from "react-spinners"
 import useTheme from "../../hooks/useTheme"
 
 /* eslint-disable react/prop-types */
