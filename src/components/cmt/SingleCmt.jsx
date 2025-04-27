@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState, useEffect } from "react";
 import moment from "moment";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CmtForm from "./CmtForm";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
@@ -15,7 +15,7 @@ import toast from "react-hot-toast";
 export default function SingleCmt({ cmt, deleteComment }) {
     const { isDark } = useTheme();
     const { id } = useParams()
-    console.log(id)
+    const navigate = useNavigate()
     const { user, DEVELOPER_UID } = useAuth();
 
     const { getDocumentById, updateDocument, addDocument } = useFirestore()
@@ -52,6 +52,11 @@ export default function SingleCmt({ cmt, deleteComment }) {
     };
 
     const handleUpvote = async () => {
+        if (!user) {
+            navigate("/auth");
+            return;
+        }
+
         if (cmt?.uid === userData?.uid) {
             toast("C'mon! You can't upvote your own comment 😉", {
                 duration: 3000,

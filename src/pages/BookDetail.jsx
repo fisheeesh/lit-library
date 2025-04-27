@@ -133,8 +133,9 @@ export default function BookDetail() {
                 error && <NotFound custom={true} />
             }
             {
-                loading && <div className={`my-56 flex items-center justify-center`}>
+                loading && <div className={`my-56 flex gap-2 flex-col items-center justify-center`}>
                     <BeatLoader width={"100px"} height={"5px"} color={customColor} />
+                    <span className="text-lg dark:text-slate-50">Loading blog detials...</span>
                 </div>
             }
             {

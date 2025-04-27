@@ -80,8 +80,9 @@ export default function Router() {
     ]);
     return (
         authReady &&
-        <Suspense fallback={<div className={`my-56 flex items-center justify-center`}>
+        <Suspense fallback={<div className={`my-56 flex flex-col gap-1 items-center justify-center`}>
             <BeatLoader width={"100px"} height={"5px"} color={customColor} />
+            <span className="text-lg dark:text-slate-50">App Loading. Please wait...</span>
         </div>}>
             <RouterProvider router={router} />
         </Suspense>

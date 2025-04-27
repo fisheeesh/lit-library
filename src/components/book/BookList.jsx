@@ -30,7 +30,7 @@ export default function BookList({ limit = null, query = null, field = 'created_
 
     const { isDark } = useTheme();
     const customColor = !isDark ? "#4555d2" : "#cc2973";
-    const loaderClasses = "my-40 flex items-center justify-center";
+    const loaderClasses = "my-40 flex flex-col gap-2 items-center justify-center";
 
     // Handle loading, error, and no data cases
     if (erroR) {
@@ -41,6 +41,7 @@ export default function BookList({ limit = null, query = null, field = 'created_
         return (
             <div className={loaderClasses}>
                 <BeatLoader width={"100px"} height={"5px"} color={customColor} />
+                <span className="text-lg dark:text-slate-50">Loading blogs...</span>
             </div>
         );
     }

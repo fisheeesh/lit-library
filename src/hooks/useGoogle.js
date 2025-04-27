@@ -1,15 +1,9 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, db } from "../firebase/config";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
-import useFirestore from './useFirestore'
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 
 const useGoogle = () => {
-
-    const { getAllDocuments } = useFirestore()
-
-    const { data: users } = getAllDocuments('users')
-
     const signInWithGoogle = async () => {
         try {
             const provider = new GoogleAuthProvider()
@@ -17,11 +11,13 @@ const useGoogle = () => {
 
             const user = result.user;
 
-            if (users.find(u => u.uid === user.uid)) {
+            const docRef = doc(db, 'users', user.uid)
+            const userDoc = await getDoc(docRef)
+
+            if (userDoc.exists()) {
                 return user
             }
 
-            let docRef = doc(db, 'users', user?.uid)
             setDoc(docRef, {
                 uid: user.uid,
                 displayName: user.displayName,
@@ -39,7 +35,7 @@ const useGoogle = () => {
                 favorites: [],
                 upvotedCmts: [],
                 photoName: ''
-            })
+            }, { merge: true })
 
             return user
 
