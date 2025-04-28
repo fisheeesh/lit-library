@@ -125,7 +125,7 @@ export default function BookForm() {
           await updateDocument('books', id, updatedBook, false);
         } else {
           toast.error('You are not allowed to edit this book!');
-          navigate('/');
+          navigate(-1);
           return;
         }
       } else {
@@ -135,7 +135,7 @@ export default function BookForm() {
       console.error("Error saving book:", error);
     } finally {
       setLoading(false);
-      navigate('/');
+      navigate(-1);
       toast.success(isEdit ? 'Book updated successfully!' : 'Book created successfully!')
     }
   };
