@@ -117,7 +117,7 @@ Contributions are welcome! Follow these steps to contribute:
 6. Create a pull request.
 
 ## 🌐 Live Demo
-Check out the live version of LitLibrary: https://lit-library-iota.vercel.app
+Check out the live version of LitLibrary: https://litlibrary.blog
 
 ## License
 This project is licensed under the [MIT License](LICENSE.md).
