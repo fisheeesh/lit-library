@@ -83,7 +83,7 @@ For instance, newbies and beginners from any career field can share their newly 
 1. **Clone the Repository**:
   
    ```bash  
-   git clone https://github.com/fisheeesh/litlibrary.git  
+   git clone https://github.com/fisheeesh/lit-library.git  
 2. **Install Dependencies**:
    ```bash  
    npm install
