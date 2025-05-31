@@ -84,17 +84,17 @@ For instance, newbies and beginners from any career field can share their newly 
   
    ```bash  
    git clone https://github.com/fisheeesh/litlibrary.git  
-3. **Install Dependencies**:
+2. **Install Dependencies**:
    ```bash  
    npm install
-4. **Set Up Firebase**:  
+3. **Set Up Firebase**:  
    - Create a Firebase project.
    - Enable Firestore Database, Storage, and Authentication.
    - Configure the Firebase settings in your project.
-5. **Run the App Locally with Vite**:  
+4. **Run the App Locally with Vite**:  
    ```bash  
    npm run dev  
-6. **Build for Production**:  
+5. **Build for Production**:  
    ```bash  
    npm run build
 ## Inspiration
