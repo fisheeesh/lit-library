@@ -26,6 +26,8 @@ export default function BookDetail() {
     const navigate = useNavigate()
 
     const [copied, setCopied] = useState(false);
+    const [coverLoading, setCoverLoading] = useState(true);
+    const [coverError, setCoverError] = useState(false);
 
     const { getDocumentById, updateDocument, addDocument } = useFirestore()
 
@@ -51,13 +53,64 @@ export default function BookDetail() {
         }
     }, [error, setData])
 
+    // Reset loading states when book changes
+    useEffect(() => {
+        if (book?.cover) {
+            setCoverLoading(true);
+            setCoverError(false);
+        }
+    }, [book?.cover]);
+
     const componentDecorator = (href, text, key) => (
         <a href={href} key={key} target="_blank" rel="noopener_noreferrer" className="text-blue-500 underline">
             {text}
         </a>
     )
 
+    const handleCoverLoad = () => {
+        setCoverLoading(false);
+    };
 
+    const handleCoverError = () => {
+        setCoverLoading(false);
+        setCoverError(true);
+    };
+
+    const renderCoverImage = () => {
+        if (!book.cover || coverError) {
+            return (
+                <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center w-full h-full rounded-lg p-24 md:p-0`}>
+                    <ImageMinus className="w-12 h-12 text-gray-400" />
+                </div>
+            );
+        }
+
+        return (
+            <div className="relative w-full h-full">
+                {/* Cover skeleton */}
+                {coverLoading && (
+                    <div className={`absolute inset-0 rounded-lg animate-pulse ${isDark ? 'bg-gray-700' : 'bg-gray-300'}`}>
+                        <div className={`w-full h-full rounded-lg ${isDark ? 'bg-gray-600' : 'bg-gray-200'}`}></div>
+                    </div>
+                )}
+
+                {/* Actual cover image */}
+                <img
+                    src={book.cover}
+                    alt=""
+                    className={`blog_cover object-fill w-full h-full rounded-lg transition-opacity duration-300 ${coverLoading ? 'opacity-0' : 'opacity-100'} ${error ? 'hidden' : ''}`}
+                    onLoad={handleCoverLoad}
+                    onError={handleCoverError}
+                />
+            </div>
+        );
+    };
+
+    const renderProfileImage = () => {
+        return (
+            <img src={ownerData?.photoURL || defaultProfile} alt="user_profile" className="h-[52px] rounded-full w-[52px]" />
+        );
+    };
 
     const toggleFavorite = async (bookId) => {
         if (!user) {
@@ -146,12 +199,7 @@ export default function BookDetail() {
                                 <Modal.Opens opens={'cover_preview'}>
                                     <div className="col-span-3 cursor-pointer md:mb-0 md:col-span-1">
                                         {/* Cover */}
-                                        {
-                                            book.cover ? <img src={book.cover} alt="" className={`blog_cover object-fill w-full h-full rounded-lg ${error ? 'hidden' : ''}`} /> :
-                                                <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center w-full h-full  rounded-lg p-24 md:p-0`}>
-                                                    <ImageMinus className="w-12 h-12 text-gray-400" />
-                                                </div>
-                                        }
+                                        {renderCoverImage()}
                                     </div>
                                 </Modal.Opens>
                                 <Modal.Window name={'cover_preview'}>
@@ -162,7 +210,7 @@ export default function BookDetail() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         {/* Profile */}
-                                        <img src={ownerData?.photoURL || defaultProfile} alt="user_profile" className="h-[52px] rounded-full w-[52px]" />
+                                        {renderProfileImage()}
                                         <div className="flex flex-col">
                                             <div className="flex items-start gap-1">
                                                 {/* Username */}

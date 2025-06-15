@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import useTheme from "../../hooks/useTheme";
 import useAuth from "../../hooks/useAuth";
 import useFirestore from "../../hooks/useFirestore";
@@ -13,6 +14,8 @@ export default function SingleBook({ book }) {
     const { deleteDocument, getDocumentById, updateDocument } = useFirestore();
     const { deleteFileFromStorage } = useStorage();
     const navigate = useNavigate();
+    const [imageLoading, setImageLoading] = useState(true);
+    const [imageError, setImageError] = useState(false);
 
     const isOwner = user?.uid === book?.uid;
     const { data: userData } = user ? getDocumentById('users', user?.uid) : { data: null };
@@ -38,14 +41,49 @@ export default function SingleBook({ book }) {
 
     const savedIcon = userData?.saved.includes(book.id) ? 'bookmark_added' : 'bookmark_add';
 
+    const handleImageLoad = () => {
+        setImageLoading(false);
+    };
+
+    const handleImageError = () => {
+        setImageLoading(false);
+        setImageError(true);
+    };
+
+    const renderImage = () => {
+        if (!book.cover || imageError) {
+            return (
+                <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center h-[270px] rounded-md p-24 md:p-0`}>
+                    <ImageMinus className="w-12 h-12 text-gray-400" />
+                </div>
+            );
+        }
+
+        return (
+            <div className="relative">
+                {/* Skeleton loader */}
+                {imageLoading && (
+                    <div className={`absolute inset-0 h-[270px] rounded-md animate-pulse ${isDark ? 'bg-gray-700' : 'bg-gray-300'}`}>
+                        <div className={`w-full h-full rounded-md ${isDark ? 'bg-gray-600' : 'bg-gray-200'}`}></div>
+                    </div>
+                )}
+
+                {/* Actual image */}
+                <img
+                    src={book.cover}
+                    alt={book.title}
+                    className={`w-full rounded-md h-[270px] object-cover transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+                    onLoad={handleImageLoad}
+                    onError={handleImageError}
+                />
+            </div>
+        );
+    };
+
     return (
         <Link to={`/blogs/${book.id}`} className={`p-4 space-y-3 relative border rounded-md transition ease-in-out duration-700 hover:shadow-lg ${isDark ? 'border-primary hover:shadow-primary shadow' : ''}`}>
-            {
-                book.cover ? <img src={book.cover} alt={book.title} className="w-full rounded-md h-[270px]" /> :
-                    <div className={`${isDark ? 'bg-indigo-900' : 'bg-gray-200'} flex items-center justify-center h-[270px]  rounded-md p-24 md:p-0`}>
-                        <ImageMinus className="w-12 h-12 text-gray-400" />
-                    </div>
-            }
+            {renderImage()}
+
             <div className="flex items-center justify-between">
                 <div className="relative transition-all duration-500 w-[300px] group">
                     <h2 className={`text-xl font-bold truncate ${isDark ? 'text-white' : ''}`}>
