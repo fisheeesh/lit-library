@@ -24,6 +24,7 @@ export default function Avatar() {
     const [announceModal, setAnnounceModal] = useState(false)
     const [announcement, setAnnouncement] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isImageLoading, setIsImageLoading] = useState(true)
     const modalRef = useRef(null)
 
     useClickOutside([modalRef], () => setOpenModal(false));
@@ -72,12 +73,22 @@ export default function Avatar() {
     return (
         <div className="relative">
             {/* Profile Picture (Click to Open Modal) */}
-            <img
-                src={user?.photoURL || defaultProfile}
-                alt="Profile"
-                className="w-[36px] h-[36px] rounded-full cursor-pointer md:h-11 md:w-11"
-                onClick={() => setOpenModal((prev) => !prev)}
-            />
+            <div className="relative w-[36px] h-[36px] md:h-11 md:w-11 cursor-pointer" onClick={() => setOpenModal((prev) => !prev)}>
+                {/* Profile image skeleton - shown while image is loading */}
+                {isImageLoading && (
+                    <div className={`absolute inset-0 rounded-full animate-pulse ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`}></div>
+                )}
+                <img
+                    src={user?.photoURL || defaultProfile}
+                    alt="Profile"
+                    className={`w-full h-full rounded-full transition-opacity duration-200 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+                    onLoad={() => setIsImageLoading(false)}
+                    onError={(e) => {
+                        e.target.src = defaultProfile;
+                        setIsImageLoading(false);
+                    }}
+                />
+            </div>
 
             {/* Dropdown Modal */}
             {openModal && (

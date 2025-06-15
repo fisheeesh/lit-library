@@ -1,3 +1,4 @@
+import { useState } from "react"
 import moment from "moment"
 import useTheme from "../../hooks/useTheme"
 import { useNavigate } from "react-router-dom"
@@ -6,33 +7,12 @@ import defaultProfile from '../../assets/default_profile.jpg'
 import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
 
 /* eslint-disable react/prop-types */
-export default function SingleNoti({ noti, setIsOpen, isLoading = false }) {
+export default function SingleNoti({ noti, setIsOpen }) {
     const { isDark } = useTheme()
     const navigate = useNavigate()
+    const [isImageLoading, setIsImageLoading] = useState(true)
 
-    // Skeleton component
-    const NotificationSkeleton = () => (
-        <div className={`relative flex items-center gap-[24px] p-3 my-2 ${isDark ? 'bg-slate-900' : 'bg-slate-50'}`}>
-            {/* Profile image skeleton */}
-            <div className="flex-shrink-0 w-11 h-11 md:w-12 md:h-12">
-                <div className={`w-full h-full rounded-full animate-pulse ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`}></div>
-            </div>
-
-            {/* Icon skeleton */}
-            <div className={`absolute w-5 h-5 rounded-full left-10 md:left-12 top-10 animate-pulse ${isDark ? 'bg-slate-600' : 'bg-slate-400'}`}></div>
-
-            {/* Text content skeleton */}
-            <div className="flex-1 space-y-2">
-                <div className={`h-4 rounded animate-pulse ${isDark ? 'bg-slate-700' : 'bg-slate-300'} w-3/4`}></div>
-                <div className={`h-3 rounded animate-pulse ${isDark ? 'bg-slate-600' : 'bg-slate-400'} w-1/2`}></div>
-            </div>
-        </div>
-    )
-
-    // Show skeleton if loading or if essential data is missing
-    if (isLoading || !noti || !noti.senderName) {
-        return <NotificationSkeleton />
-    }
+    if (!noti) return null
 
     return (
         <div onClick={() => {
@@ -40,13 +20,19 @@ export default function SingleNoti({ noti, setIsOpen, isLoading = false }) {
                 noti.isComment ? navigate(`/blogs/${noti.bookId}?scrollTo=comments`) : navigate(`/blogs/${noti.bookId}`)
             setIsOpen(false)
         }} className={`relative flex items-center gap-[24px] p-3 my-2 cursor-pointer ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-200'}`}>
-            <div className="flex-shrink-0 w-11 h-11 md:w-12 md:h-12">
+            <div className="relative flex-shrink-0 w-11 h-11 md:w-12 md:h-12">
+                {/* Profile image skeleton - shown while image is loading */}
+                {isImageLoading && (
+                    <div className={`absolute inset-0 rounded-full animate-pulse ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`}></div>
+                )}
                 <img
                     src={noti.senderPhotoURL || defaultProfile}
                     alt="Profile"
-                    className="object-fill w-full h-full rounded-full"
+                    className={`object-fill w-full h-full rounded-full transition-opacity duration-200 ${isImageLoading ? 'opacity-0' : 'opacity-100'}`}
+                    onLoad={() => setIsImageLoading(false)}
                     onError={(e) => {
                         e.target.src = defaultProfile;
+                        setIsImageLoading(false);
                     }}
                 />
             </div>
