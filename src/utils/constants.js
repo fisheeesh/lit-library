@@ -70,8 +70,8 @@ export const footerLinks = {
     ],
     support: [
         { name: 'FAQ', to: '/coming-soon' },
-        { name: 'Privacy Policy', to: '/coming-soon' },
-        { name: 'Terms of Service', to: '/coming-soon' },
+        { name: 'Privacy Policy', to: '/privacy' },
+        { name: 'Legal Notice', to: '/legal-notice' },
     ],
     contact: [
         { name: 'WhatsApp', to: '/contact' },

@@ -19,6 +19,8 @@ const Welcome = lazy(() => import('../pages/Welcome'))
 const ComingSoon = lazy(() => import('../pages/ComingSoon'))
 const Test = lazy(() => import('../pages/Test'))
 const ErorrElement = lazy(() => import('../pages/error/ErorrElement'))
+const LegalNotice = lazy(() => import('../pages/LegalNotice'))
+const Privacy = lazy(() => import('../pages/Privacy'))
 
 export default function Router() {
     const { authReady, user } = useAuth()
@@ -66,7 +68,15 @@ export default function Router() {
                 {
                     path: '/test',
                     element: <Test />
-                }
+                },
+                {
+                    path: '/legal-notice',
+                    element: <LegalNotice />
+                },
+                {
+                    path: '/privacy',
+                    element: <Privacy />
+                },
             ]
         },
         {
@@ -82,7 +92,7 @@ export default function Router() {
         authReady &&
         <Suspense fallback={<div className={`my-56 flex flex-col gap-1 items-center justify-center`}>
             <BeatLoader width={"100px"} height={"5px"} color={customColor} />
-            <span className="text-lg dark:text-slate-50">App Loading. Please wait...</span>
+            <span className="text-lg">App Loading. Please wait...</span>
         </div>}>
             <RouterProvider router={router} />
         </Suspense>
