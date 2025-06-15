@@ -124,28 +124,27 @@ export default function Navbar() {
 
                     {/* Notification List */}
                     <div className="p-3">
-                        {userNoti.length > 0 ? (
-                            userNoti.map((noti, index) => (
-                                <SingleNoti key={index} noti={noti} setIsOpen={setIsOpen} />
-                            ))
-                        ) : (
-                            <div className="flex flex-col items-center justify-center mt-16">
-                                <DotLottieReact
-                                    src={emptyAnimation}
-                                    loop
-                                    autoplay
-                                    style={{ width: "100px", height: "100px" }}
-                                />
-                                <h3 className="">You have no notifications.</h3>
-                            </div>
-                        )}
-
-                        {/* Loading State */}
                         {loading && (
                             <div className="mt-24 text-center">
                                 <BeatLoader width={"100px"} height={"5px"} color={customColor} />
+                                Loading Notis...
                             </div>
                         )}
+                        {!loading && userNoti.length > 0 && (
+                            userNoti.map((noti, index) => (
+                                <SingleNoti key={index} noti={noti} setIsOpen={setIsOpen} />
+                            ))
+                        )}
+                        {!loading && userNoti.length === 0 && <div className="flex flex-col items-center justify-center mt-16">
+                            <DotLottieReact
+                                src={emptyAnimation}
+                                loop
+                                autoplay
+                                style={{ width: "100px", height: "100px" }}
+                            />
+                            <h3 className="">You have no notifications.</h3>
+                        </div>
+                        }
                     </div>
                 </div>
             )}

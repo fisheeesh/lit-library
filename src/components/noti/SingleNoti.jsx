@@ -6,9 +6,33 @@ import defaultProfile from '../../assets/default_profile.jpg'
 import { ArrowUpCircleIcon } from '@heroicons/react/24/solid';
 
 /* eslint-disable react/prop-types */
-export default function SingleNoti({ noti, setIsOpen }) {
+export default function SingleNoti({ noti, setIsOpen, isLoading = false }) {
     const { isDark } = useTheme()
     const navigate = useNavigate()
+
+    // Skeleton component
+    const NotificationSkeleton = () => (
+        <div className={`relative flex items-center gap-[24px] p-3 my-2 ${isDark ? 'bg-slate-900' : 'bg-slate-50'}`}>
+            {/* Profile image skeleton */}
+            <div className="flex-shrink-0 w-11 h-11 md:w-12 md:h-12">
+                <div className={`w-full h-full rounded-full animate-pulse ${isDark ? 'bg-slate-700' : 'bg-slate-300'}`}></div>
+            </div>
+
+            {/* Icon skeleton */}
+            <div className={`absolute w-5 h-5 rounded-full left-10 md:left-12 top-10 animate-pulse ${isDark ? 'bg-slate-600' : 'bg-slate-400'}`}></div>
+
+            {/* Text content skeleton */}
+            <div className="flex-1 space-y-2">
+                <div className={`h-4 rounded animate-pulse ${isDark ? 'bg-slate-700' : 'bg-slate-300'} w-3/4`}></div>
+                <div className={`h-3 rounded animate-pulse ${isDark ? 'bg-slate-600' : 'bg-slate-400'} w-1/2`}></div>
+            </div>
+        </div>
+    )
+
+    // Show skeleton if loading or if essential data is missing
+    if (isLoading || !noti || !noti.senderName) {
+        return <NotificationSkeleton />
+    }
 
     return (
         <div onClick={() => {
@@ -21,6 +45,9 @@ export default function SingleNoti({ noti, setIsOpen }) {
                     src={noti.senderPhotoURL || defaultProfile}
                     alt="Profile"
                     className="object-fill w-full h-full rounded-full"
+                    onError={(e) => {
+                        e.target.src = defaultProfile;
+                    }}
                 />
             </div>
             {
@@ -44,10 +71,14 @@ export default function SingleNoti({ noti, setIsOpen }) {
                 {
                     noti.isAnnouncement ? <span> made a new announcement: &ldquo;<span className="italic">{noti.content}</span>&ldquo;</span> :
                         noti.upVote ? <span> upvoted your comments. See if there are more replies.</span> :
-                            noti.isComment ? <span> commented &ldquo;<span className="italic">{noti.content.length > 20 ? noti.content.slice(0, 20) + '...' : noti.content}</span>&ldquo; on your blog.</span> :
+                            noti.isComment ? <span> commented &ldquo;<span className="italic">{noti.content?.length > 20 ? noti.content.slice(0, 20) + '...' : noti.content}</span>&ldquo; on your blog.</span> :
                                 <span> liked your blog.</span>
                 }
-                <span className='text-xs italic text-gray-500 ms-3'>({moment(noti.created_at.seconds * 1000).fromNow()})</span>
+                {noti.created_at && (
+                    <span className='text-xs italic text-gray-500 ms-3'>
+                        ({moment(noti.created_at.seconds * 1000).fromNow()})
+                    </span>
+                )}
             </h3>
         </div>
     )
