@@ -1,6 +1,7 @@
 import { useState } from "react"
 import LogIn from '../components/auth/LogIn'
 import Register from "../components/auth/Register"
+import BrowserWarningModal from '../components/modal/BrowserWarningModal'
 import useTheme from "../hooks/useTheme"
 import Google from '../assets/google.png'
 import useGoogle from "../hooks/useGoogle"
@@ -8,30 +9,79 @@ import { useNavigate } from "react-router-dom"
 
 export default function Welcome() {
     const [showLogIn, setShowLogIn] = useState(true)
+    const [showBrowserWarning, setShowBrowserWarning] = useState(false)
     const { isDark } = useTheme()
     const navigate = useNavigate()
     const { signInWithGoogle } = useGoogle()
 
-    const handleGoogleLogIn = async () => {
-        let user = await signInWithGoogle()
+    const isInAppBrowser = () => {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        // Enhanced detection for more in-app browsers
+        return /LinkedIn|FBAN|FBAV|Instagram|Twitter|Line|WeChat|Snapchat|TikTok/.test(ua) &&
+            /iPhone|iPod|iPad|Android/i.test(ua);
+    };
 
-        // $ redirect to home page after login
-        if (user) {
-            navigate('/')
+    const handleGoogleLogIn = async () => {
+        if (isInAppBrowser()) {
+            setShowBrowserWarning(true)
+            return;
         }
+
+        try {
+            let user = await signInWithGoogle()
+
+            // Redirect to home page after login
+            if (user) {
+                navigate('/')
+            }
+        } catch (error) {
+            console.error('Google sign-in failed:', error);
+            alert('Sign-in failed. Please try again.');
+        }
+    }
+
+    const openInExternalBrowser = () => {
+        const currentUrl = window.location.href;
+        // Try to open in external browser (works on some devices)
+        window.open(currentUrl, '_blank');
     }
 
     return (
         <div className="pb-3">
-            {
-                showLogIn && <LogIn />
-            }
-            {
-                !showLogIn && <Register />
-            }
+            {/* Browser Warning Modal */}
+            <BrowserWarningModal
+                isOpen={showBrowserWarning}
+                onClose={() => setShowBrowserWarning(false)}
+            />
+
+            {/* Show warning banner for in-app browsers */}
+            {isInAppBrowser() && (
+                <div className="p-3 mb-4 bg-yellow-100 border border-yellow-400 rounded-lg">
+                    <p className="text-sm text-yellow-800">
+                        <strong>Note:</strong> For the best experience, please open this page in your phone&apos;s browser (Chrome/Safari).
+                    </p>
+                    <button
+                        onClick={openInExternalBrowser}
+                        className="px-3 py-1 mt-2 text-sm text-white bg-yellow-600 rounded hover:bg-yellow-700"
+                    >
+                        Open in Browser
+                    </button>
+                </div>
+            )}
+
+            {showLogIn && <LogIn />}
+            {!showLogIn && <Register />}
+
             <div className={`text-lg text-center ${isDark ? 'text-white' : ''}`}>
-                {showLogIn ? 'Not a member yet? ' : 'Already have an account? '} <button onClick={() => setShowLogIn(prevState => !prevState)} className="text-secondary cus-btn">{showLogIn ? 'Create an account.' : 'LogIn.'}</button>
+                {showLogIn ? 'Not a member yet? ' : 'Already have an account? '}
+                <button
+                    onClick={() => setShowLogIn(prevState => !prevState)}
+                    className="text-secondary cus-btn"
+                >
+                    {showLogIn ? 'Create an account.' : 'LogIn.'}
+                </button>
             </div>
+
             {showLogIn && (
                 <div>
                     <div className="flex items-center justify-center w-[300px] mx-auto my-4">
@@ -40,10 +90,16 @@ export default function Welcome() {
                         <div className="flex-1 border-t-2 border-gray-300"></div>
                     </div>
                     <div className="flex items-center justify-center">
-                        <div onClick={handleGoogleLogIn} className="p-3 transition duration-500 ease-in-out bg-white border rounded-lg shadow-xl cursor-pointer hover:scale-105">
-                            <div className="flex items-center px-3 py-2" >
+                        <div
+                            onClick={handleGoogleLogIn}
+                            className={`p-3 transition duration-500 ease-in-out bg-white border rounded-lg shadow-xl cursor-pointer hover:scale-105 ${isInAppBrowser() ? 'opacity-50 cursor-not-allowed' : ''
+                                }`}
+                        >
+                            <div className="flex items-center px-3 py-2">
                                 <img src={Google} width="30" alt="Google" className="img-fluid" />
-                                <span className="ml-3 font-bold text-gray-700">Continue with Google</span>
+                                <span className="ml-3 font-bold text-gray-700">
+                                    {isInAppBrowser() ? 'Google Sign-In (Not Available)' : 'Continue with Google'}
+                                </span>
                             </div>
                         </div>
                     </div>
