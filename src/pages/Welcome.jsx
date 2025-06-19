@@ -6,6 +6,7 @@ import useTheme from "../hooks/useTheme"
 import Google from '../assets/google.png'
 import useGoogle from "../hooks/useGoogle"
 import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 export default function Welcome() {
     const [showLogIn, setShowLogIn] = useState(true)
@@ -40,10 +41,19 @@ export default function Welcome() {
         }
     }
 
-    const openInExternalBrowser = () => {
-        const currentUrl = window.location.href;
-        // Try to open in external browser (works on some devices)
-        window.open(currentUrl, '_blank');
+    const copyCurrentUrl = () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            toast.success('URL copied to clipboard!')
+        }).catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea')
+            textArea.value = window.location.href
+            document.body.appendChild(textArea)
+            textArea.select()
+            document.execCommand('copy')
+            document.body.removeChild(textArea)
+            toast.success('URL copied to clipboard!')
+        })
     }
 
     return (
@@ -58,13 +68,13 @@ export default function Welcome() {
             {isInAppBrowser() && (
                 <div className="p-3 mx-4 mb-4 bg-yellow-100 border border-yellow-400 rounded-lg">
                     <p className="text-sm text-yellow-800">
-                        <strong>Note:</strong> If you are accessing from LinkedIn mobile app, please open in external browser for full functionality.
+                        <strong>Note:</strong> If you are accessing from LinkedIn mobile app, please copy the URL and open in external browsers(Chrome or Safari) for full functionality.
                     </p>
                     <button
-                        onClick={openInExternalBrowser}
+                        onClick={copyCurrentUrl}
                         className="px-3 py-1 mt-2 text-sm text-white bg-yellow-600 rounded hover:bg-yellow-700"
                     >
-                        Open in Browser
+                        Copy URL
                     </button>
                 </div>
             )}
