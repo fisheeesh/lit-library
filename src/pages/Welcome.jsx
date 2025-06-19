@@ -56,9 +56,9 @@ export default function Welcome() {
 
             {/* Show warning banner for in-app browsers */}
             {isInAppBrowser() && (
-                <div className="p-3 mb-4 bg-yellow-100 border border-yellow-400 rounded-lg">
+                <div className="p-3 mx-4 mb-4 bg-yellow-100 border border-yellow-400 rounded-lg">
                     <p className="text-sm text-yellow-800">
-                        <strong>Note:</strong> For the best experience, please open this page in your phone&apos;s browser (Chrome/Safari).
+                        <strong>Note:</strong> If you are accessing from LinkedIn mobile app, please open in external browser for full functionality.
                     </p>
                     <button
                         onClick={openInExternalBrowser}

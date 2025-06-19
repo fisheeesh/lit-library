@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from 'react'
 import useTheme from '../../hooks/useTheme'
+import toast from 'react-hot-toast'
 
 export default function BrowserWarningModal({ isOpen, onClose }) {
     const { isDark } = useTheme()
@@ -29,7 +30,7 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
 
     const copyCurrentUrl = () => {
         navigator.clipboard.writeText(window.location.href).then(() => {
-            alert('URL copied to clipboard!')
+            toast.success('URL copied to clipboard!')
         }).catch(() => {
             // Fallback for older browsers
             const textArea = document.createElement('textarea')
@@ -38,14 +39,14 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
             textArea.select()
             document.execCommand('copy')
             document.body.removeChild(textArea)
-            alert('URL copied to clipboard!')
+            toast.success('URL copied to clipboard!')
         })
     }
 
-    const openInExternalBrowser = () => {
-        const currentUrl = window.location.href
-        window.open(currentUrl, '_blank')
-    }
+    // const openInExternalBrowser = () => {
+    //     const currentUrl = window.location.href
+    //     window.open(currentUrl, '_blank')
+    // }
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -90,11 +91,11 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
                     </p>
 
                     <ol className="mb-4 space-y-2">
-                        <li className="flex items-start">
+                        <li className="flex items-center">
                             <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">1</span>
                             <span>Copy this page&apos;s URL and open it in Chrome or Safari</span>
                         </li>
-                        <li className="flex items-start">
+                        <li className="flex items-center">
                             <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">2</span>
                             <span>Then try signing in with Google</span>
                         </li>
@@ -114,7 +115,7 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
                         📋 Copy URL
                     </button>
 
-                    <button
+                    {/* <button
                         onClick={openInExternalBrowser}
                         className={`w-full px-4 py-3 border rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isDark
                             ? 'border-gray-600 text-gray-300 hover:bg-gray-700'
@@ -122,7 +123,7 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
                             }`}
                     >
                         🌐 Try Opening in Browser
-                    </button>
+                    </button> */}
 
                     <button
                         onClick={onClose}
