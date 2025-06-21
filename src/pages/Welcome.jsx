@@ -18,7 +18,7 @@ export default function Welcome() {
     const isInAppBrowser = () => {
         const ua = navigator.userAgent || navigator.vendor || window.opera;
         // Enhanced detection for more in-app browsers
-        return /LinkedIn|FBAN|FBAV|Instagram|Twitter|Line|WeChat|Snapchat|TikTok/.test(ua) &&
+        return /LinkedIn|Twitter|Line|WeChat|Snapchat|TikTok/.test(ua) &&
             /iPhone|iPod|iPad|Android/i.test(ua);
     };
 
