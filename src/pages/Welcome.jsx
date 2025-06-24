@@ -19,7 +19,7 @@ export default function Welcome() {
         const ua = navigator.userAgent || navigator.vendor || window.opera;
         // Enhanced detection for more in-app browsers
         return /LinkedIn|Twitter|Line|WeChat|Snapchat|TikTok/.test(ua) &&
-            /iPhone|iPod|iPad|Android/i.test(ua);
+            /iPhone|iPod|Android/i.test(ua);
     };
 
     const handleGoogleLogIn = async () => {
