@@ -17,39 +17,9 @@ export default function Welcome() {
 
     const isInAppBrowser = () => {
         const ua = navigator.userAgent || navigator.vendor || window.opera;
-
-        // Check if it's an iOS device (iPhone or iPad)
-        const isIOS = /iPhone|iPad|iPod/i.test(ua);
-
-        // Check if it's Android
-        const isAndroid = /Android/i.test(ua);
-
-        // Enhanced LinkedIn detection patterns
-        const isLinkedIn = /LinkedIn/i.test(ua) ||
-            /LinkedInApp/i.test(ua) ||
-            ua.includes('com.linkedin.') ||
-            // LinkedIn iOS app often shows up with these patterns
-            (isIOS && ua.includes('Mobile/') && ua.includes('Version/') && !ua.includes('Safari/'));
-
-        // Check for other in-app browsers
-        const isOtherInApp = /Twitter|Line|WeChat|Snapchat|TikTok|/i.test(ua);
-
-        // Return true if it's LinkedIn on iOS/Android OR other in-app browsers on mobile
-        return (isLinkedIn && (isIOS || isAndroid)) ||
-            (isOtherInApp && (isIOS || isAndroid));
-    };
-
-    // More specific check for LinkedIn on iOS
-    const isLinkedInIOS = () => {
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        const isIOS = /iPhone|iPad|iPod/i.test(ua);
-        const isLinkedIn = /LinkedIn/i.test(ua) ||
-            /LinkedInApp/i.test(ua) ||
-            ua.includes('com.linkedin.') ||
-            // Additional pattern for LinkedIn iOS in-app browser
-            (isIOS && ua.includes('Mobile/') && ua.includes('Version/') && !ua.includes('Safari/') && !ua.includes('CriOS') && !ua.includes('FxiOS'));
-
-        return isIOS && isLinkedIn;
+        //* Enhanced detection for more in-app browsers
+        return /LinkedIn|Twitter|Line|WeChat|Snapchat|TikTok/.test(ua) &&
+            /iPhone|iPad|iPod|Android/i.test(ua);
     };
 
     const handleGoogleLogIn = async () => {
@@ -61,7 +31,7 @@ export default function Welcome() {
         try {
             let user = await signInWithGoogle()
 
-            // Redirect to home page after login
+            //* Redirect to home page after login
             if (user) {
                 navigate('/')
             }
@@ -75,7 +45,7 @@ export default function Welcome() {
         navigator.clipboard.writeText(window.location.href).then(() => {
             toast.success('URL copied to clipboard!')
         }).catch(() => {
-            // Fallback for older browsers
+            //* Fallback for older browsers
             const textArea = document.createElement('textarea')
             textArea.value = window.location.href
             document.body.appendChild(textArea)
@@ -98,10 +68,7 @@ export default function Welcome() {
             {isInAppBrowser() && (
                 <div className="p-3 mx-4 mb-4 bg-yellow-100 border border-yellow-400 rounded-lg">
                     <p className="text-sm text-yellow-800">
-                        <strong>Note:</strong> {isLinkedInIOS()
-                            ? 'LinkedIn mobile app detected. Please copy the URL and open in Safari or Chrome for full functionality.'
-                            : 'In-app browser detected. Please copy the URL and open in your default browser (Chrome or Safari) for full functionality.'
-                        }
+                        <strong>Note:</strong> If you are accessing from LinkedIn mobile app, please copy the URL and open in external browsers(Chrome or Safari) for full functionality.
                     </p>
                     <button
                         onClick={copyCurrentUrl}

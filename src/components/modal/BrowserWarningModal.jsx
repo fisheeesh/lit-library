@@ -6,7 +6,7 @@ import toast from 'react-hot-toast'
 export default function BrowserWarningModal({ isOpen, onClose }) {
     const { isDark } = useTheme()
 
-    // Close modal on Escape key press
+    //* Close modal on Escape key press
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape') {
@@ -16,7 +16,7 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
 
         if (isOpen) {
             document.addEventListener('keydown', handleEscape)
-            // Prevent body scroll when modal is open
+            //* Prevent body scroll when modal is open
             document.body.style.overflow = 'hidden'
         }
 
@@ -32,7 +32,7 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
         navigator.clipboard.writeText(window.location.href).then(() => {
             toast.success('URL copied to clipboard!')
         }).catch(() => {
-            // Fallback for older browsers
+            //* Fallback for older browsers
             const textArea = document.createElement('textarea')
             textArea.value = window.location.href
             document.body.appendChild(textArea)
@@ -42,12 +42,6 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
             toast.success('URL copied to clipboard!')
         })
     }
-
-    // const openInExternalBrowser = () => {
-    //     const currentUrl = window.location.href
-    //     window.open(currentUrl, '_blank')
-    // }
-
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
@@ -114,16 +108,6 @@ export default function BrowserWarningModal({ isOpen, onClose }) {
                     >
                         📋 Copy URL
                     </button>
-
-                    {/* <button
-                        onClick={openInExternalBrowser}
-                        className={`w-full px-4 py-3 border rounded-lg font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${isDark
-                            ? 'border-gray-600 text-gray-300 hover:bg-gray-700'
-                            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                            }`}
-                    >
-                        🌐 Try Opening in Browser
-                    </button> */}
 
                     <button
                         onClick={onClose}
